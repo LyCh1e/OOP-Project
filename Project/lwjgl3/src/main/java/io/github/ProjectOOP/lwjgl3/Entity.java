@@ -1,8 +1,6 @@
 package io.github.ProjectOOP.lwjgl3;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Entity {
 	private float x_axis, y_axis, speed;
@@ -11,7 +9,7 @@ public class Entity {
 		
 	}
 	
-	Entity (Color c, float x, float y, float s){
+	Entity (float x, float y, float s){
 		
 	}
 	
@@ -42,10 +40,6 @@ public class Entity {
 	
 	void draw (SpriteBatch batch) {
 		
-	}
-	
-	void draw(ShapeRenderer shape) {
-
 	}
 	
 	public void movement() {

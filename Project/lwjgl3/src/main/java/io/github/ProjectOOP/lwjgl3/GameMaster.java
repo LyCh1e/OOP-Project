@@ -9,6 +9,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class GameMaster extends ApplicationAdapter{
+	private Entity entity;
+	private Scene scene;
+	
 	public void create() {
 		
 	}
