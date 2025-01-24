@@ -13,6 +13,10 @@ private List<Entity> entityList = new ArrayList<>();
 	}
 	
 	void draw (SpriteBatch batch) {
-		
+		batch.begin();
+			for (int i = 0; i < entityList.size(); i++) {
+				entityList.get(i).draw(batch);
+			}
+		batch.end();
 	}
 }
