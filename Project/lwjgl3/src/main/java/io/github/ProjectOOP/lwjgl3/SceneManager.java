@@ -9,6 +9,4 @@ public class SceneManager {
 	void addScenes(Scene s) {
 		sceneList.add(s);
 	}
-	
-	
 }
