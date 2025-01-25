@@ -31,11 +31,14 @@ public class GameMaster extends ApplicationAdapter{
 		entity = new Entity();
 		scene = new Scene();
 		
+		entityManager.addEntities(entity);
+		
+		
 		/*Type code bellow this comment*/
 	}
 	
 	public void render () {
-		
+		entityManager.draw(batch);
 	}
 	
 	public void dispose() {
