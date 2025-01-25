@@ -29,12 +29,11 @@ public class GameMaster extends ApplicationAdapter{
 		ioManager = new IOManager();
 		
 		entity = new Entity();
-		scene = new Scene();
-		
-		entityManager.addEntities(entity);
-		
+		scene = new Scene();		
 		
 		/*Type code bellow this comment*/
+		entityManager.addEntities(entity);
+		sceneManager.addScenes(scene);
 	}
 	
 	public void render () {
