@@ -49,6 +49,8 @@ public class GameMaster extends ApplicationAdapter{
 		
 		entity.movement();
 		drop.AIMovment();
+		
+		entityManager.checkCollisions();
 	}
 	
 	public void dispose() {

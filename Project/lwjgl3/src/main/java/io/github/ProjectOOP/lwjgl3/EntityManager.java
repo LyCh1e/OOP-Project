@@ -23,4 +23,25 @@ private List<Entity> entityList = new ArrayList<>();
 	public void movement() {
 		
 	}
+	
+    public void checkCollisions() {
+        // Assuming the first entity is the bucket and the second is the drop
+        if (entityList.size() >= 2) {
+            Entity bucket = entityList.get(0); // Bucket
+            Entity drop = entityList.get(1);   // Drop
+
+            // Check for collision between bucket and drop
+            if (isColliding(bucket, drop)) {
+                // Handle collision for now just console msg, in future can edit to more stuff
+                System.out.println("Collision detected!");
+            }
+        }
+    }
+
+    private boolean isColliding(Entity entity1, Entity entity2) {
+        return entity1.getX() < entity2.getX() + entity2.getTexture().getWidth() &&
+               entity1.getX() + entity1.getTexture().getWidth() > entity2.getX() &&
+               entity1.getY() < entity2.getY() + entity2.getTexture().getHeight() &&
+               entity1.getY() + entity1.getTexture().getHeight() > entity2.getY();
+    }
 }
