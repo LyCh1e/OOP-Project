@@ -16,9 +16,14 @@ public class GameMaster extends ApplicationAdapter{
 	private IOManager ioManager;
 	
 	private Entity entity;
+	private Entity drop;
 	private Scene scene;
 	
 	public void create() {
+		Random random = new Random();
+		float randomY = random.nextFloat(0, 50);
+		float randomX = random.nextFloat(1200, 1280);
+		
 		batch = new SpriteBatch();
 		
 		entityManager = new EntityManager();
@@ -27,17 +32,23 @@ public class GameMaster extends ApplicationAdapter{
 		movementManager = new MovementManager();
 		ioManager = new IOManager();
 		
-		entity = new Entity();
-		scene = new Scene();		
+		entity = new Entity("bucket.png", 20, 0, 0);
+		drop = new Entity("droplet.png", randomX, randomY, 2);
+		scene = new Scene("background.png", 0, 0);
 		
-		/*Type code bellow this comment*/
+		/*Type code bellow this comment*/	
+		entityManager.addEntities(drop);
 		entityManager.addEntities(entity);
 		sceneManager.addScenes(scene);
 	}
 	
 	public void render () {
 		ScreenUtils.clear(0, 0, 0.2f, 1);
+		sceneManager.loadScene(batch);
 		entityManager.draw(batch);
+		
+		entity.movement();
+		drop.AIMovment();
 	}
 	
 	public void dispose() {

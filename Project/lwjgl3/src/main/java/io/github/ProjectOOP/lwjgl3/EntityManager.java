@@ -19,4 +19,8 @@ private List<Entity> entityList = new ArrayList<>();
 			}
 		batch.end();
 	}
+	
+	public void movement() {
+		
+	}
 }
