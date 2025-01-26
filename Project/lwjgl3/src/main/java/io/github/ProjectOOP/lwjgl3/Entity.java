@@ -59,8 +59,6 @@ public class Entity {
 		batch.draw(getTexture(), getX(), getY(), getTexture().getWidth(), getTexture().getHeight());
 	}
 	
-	
-	
 	public void movement() {
 		if (Gdx.input.isKeyPressed(Keys.LEFT)) setX(getX() - 200 * Gdx.graphics.getDeltaTime());
 		if (Gdx.input.isKeyPressed(Keys.RIGHT)) setX(getX() + 200 * Gdx.graphics.getDeltaTime());
