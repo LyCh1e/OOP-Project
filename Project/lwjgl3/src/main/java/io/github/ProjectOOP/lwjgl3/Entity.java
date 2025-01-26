@@ -10,6 +10,9 @@ public class Entity {
 	private float x_rightLimit = 1210;
 	private float y_bottomLimit = 0;
 	
+	private float gravity = -900f; // gravity of the simulation
+	private float verticalVelocity = 0; // Velocity var
+	
 	private float x_axis, y_axis, speed;
 	private Texture texture;
 	
@@ -61,21 +64,32 @@ public class Entity {
 	}
 	
 	public void movement() { //movement of entity using arrow keys
-		if (Gdx.input.isKeyPressed(Keys.LEFT)) setX(getX() - 300 * Gdx.graphics.getDeltaTime());
-		if (Gdx.input.isKeyPressed(Keys.RIGHT)) setX(getX() + 300 * Gdx.graphics.getDeltaTime());
-		if (Gdx.input.isKeyPressed(Keys.DOWN)) setY(getY() - 300 * Gdx.graphics.getDeltaTime());
-		if (Gdx.input.isKeyPressed(Keys.UP)) setY(getY() + 300 * Gdx.graphics.getDeltaTime());
 		
-		if (getX() < x_leftLimit) {
-			setX(x_leftLimit);
-		}
-		else if (getX() > x_rightLimit) {
-			setX(x_rightLimit);
-		}
-		
-		if (getY() < y_bottomLimit) {
-			setY(y_bottomLimit);
-		}
+	    if (Gdx.input.isKeyPressed(Keys.LEFT)) setX(getX() - 300 * Gdx.graphics.getDeltaTime());
+	    if (Gdx.input.isKeyPressed(Keys.RIGHT)) setX(getX() + 300 * Gdx.graphics.getDeltaTime());
+
+	    // Apply gravity to vertical velocity
+	    verticalVelocity += gravity * Gdx.graphics.getDeltaTime();
+
+	    // Jump when the up arrow key is pressed and if the entity is on the ground
+	    if (Gdx.input.isKeyPressed(Keys.UP) && getY() <= y_bottomLimit) {
+	        verticalVelocity = 500; // jump heightt value
+	    }
+
+	    // Update vertical position based on velocity
+	    setY(getY() + verticalVelocity * Gdx.graphics.getDeltaTime());
+
+	    if (getX() < x_leftLimit) {
+	        setX(x_leftLimit);
+	    }
+	    else if (getX() > x_rightLimit) {
+	        setX(x_rightLimit);
+	    }
+
+	    if (getY() < y_bottomLimit) {
+	        setY(y_bottomLimit);
+	        verticalVelocity = 0; // Reset velocity when hitting the ground
+	    }
 	}
 	
 	public void AIMovment() { //movement of entity from right to left
