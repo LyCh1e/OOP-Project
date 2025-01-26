@@ -52,7 +52,6 @@ public class Entity {
 		speed = s;
 	}
 	
-	
 	void draw (SpriteBatch batch) {
 		batch.draw(getTexture(), getX(), getY(), getTexture().getWidth(), getTexture().getHeight());
 	}
