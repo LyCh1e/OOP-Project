@@ -32,7 +32,7 @@ public class GameMaster extends ApplicationAdapter{
 		movementManager = new MovementManager();
 		ioManager = new IOManager();
 		
-		entity = new Entity("bucket.png", 20, 0, 0);
+		entity = new Entity("bucket.png", 10, 0, 0);
 		drop = new Entity("droplet.png", randomX, randomY, 2);
 		scene = new Scene("background.png", 0, 0);
 		

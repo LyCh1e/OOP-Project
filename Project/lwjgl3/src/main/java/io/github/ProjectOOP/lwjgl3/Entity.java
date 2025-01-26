@@ -9,6 +9,7 @@ public class Entity {
 	private float x_leftLimit = 0;
 	private float x_rightLimit = 1210;
 	private float y_bottomLimit = 0;
+	
 	private float x_axis, y_axis, speed;
 	private Texture texture;
 	
@@ -59,11 +60,11 @@ public class Entity {
 		batch.draw(getTexture(), getX(), getY(), getTexture().getWidth(), getTexture().getHeight());
 	}
 	
-	public void movement() {
-		if (Gdx.input.isKeyPressed(Keys.LEFT)) setX(getX() - 200 * Gdx.graphics.getDeltaTime());
-		if (Gdx.input.isKeyPressed(Keys.RIGHT)) setX(getX() + 200 * Gdx.graphics.getDeltaTime());
-		if (Gdx.input.isKeyPressed(Keys.DOWN)) setY(getY() - 200 * Gdx.graphics.getDeltaTime());
-		if (Gdx.input.isKeyPressed(Keys.UP)) setY(getY() + 200 * Gdx.graphics.getDeltaTime());
+	public void movement() { //movement of entity using arrow keys
+		if (Gdx.input.isKeyPressed(Keys.LEFT)) setX(getX() - 300 * Gdx.graphics.getDeltaTime());
+		if (Gdx.input.isKeyPressed(Keys.RIGHT)) setX(getX() + 300 * Gdx.graphics.getDeltaTime());
+		if (Gdx.input.isKeyPressed(Keys.DOWN)) setY(getY() - 300 * Gdx.graphics.getDeltaTime());
+		if (Gdx.input.isKeyPressed(Keys.UP)) setY(getY() + 300 * Gdx.graphics.getDeltaTime());
 		
 		if (getX() < x_leftLimit) {
 			setX(x_leftLimit);
@@ -77,7 +78,7 @@ public class Entity {
 		}
 	}
 	
-	public void AIMovment() {
+	public void AIMovment() { //movement of entity from right to left
 		float x = getX();
 		float speed = getSpeed();
 		setX(x -= speed);
