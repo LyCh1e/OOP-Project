@@ -3,32 +3,36 @@ package io.github.ProjectOOP.lwjgl3;
 import com.badlogic.gdx.math.Rectangle;
 
 public class CollisionManager {
+	
+	private Rectangle makeRectangle(Entity e) {
+		Rectangle rect = new Rectangle(e.getX(), 
+				e.getY(), 
+				e.getTexture().getWidth(), 
+				e.getTexture().getHeight());
+		
+		return rect;
+	}
+	
+	private boolean isColliding(Entity entity1, Entity entity2) {
+		// Using LibGDX's Rectangle for more accurate collision detection
+		Rectangle rect1, rect2;
+		rect1 = makeRectangle(entity1);
+		rect2 = makeRectangle(entity2);
+		
+		return rect1.overlaps(rect2);
+	}
+	
     public void checkCollisions(Entity e1, Entity e2) {
         if (isColliding(e1, e2)) {
             System.out.println("Collision detected!");
         }
     }
 
-    private boolean isColliding(Entity entity1, Entity entity2) {
-        // Using LibGDX's Rectangle for more accurate collision detection
-        Rectangle rect1 = new Rectangle(
-            entity1.getX(), 
-            entity1.getY(), 
-            entity1.getTexture().getWidth(), 
-            entity1.getTexture().getHeight()
-        );
-        
-        Rectangle rect2 = new Rectangle(
-            entity2.getX(), 
-            entity2.getY(), 
-            entity2.getTexture().getWidth(), 
-            entity2.getTexture().getHeight()
-        );
-        
-        return rect1.overlaps(rect2);
-    }
-
     public void doCollision(Entity e1, Entity e2, boolean shouldBounce) {
+    	Rectangle rect1, rect2;
+    	rect1 = makeRectangle(e1);
+    	rect2 = makeRectangle(e2);
+    	
         if (isColliding(e1, e2)) {
             if (shouldBounce) {
                 // bouncing collision, the 2 entity will bounce off each other
@@ -50,38 +54,21 @@ public class CollisionManager {
                     // Assuming entities have velocity properties
                     float bounceForce = 5f; // Adjust this value as needed
                     
-                    // Apply opposite forces to both entities
+                    // Apply opposite forces to entity e1 from e2
                     e1.setVelocityX(-dx * bounceForce);
                     e1.setVelocityY(-dy * bounceForce);
+                    // Apply opposite force to entity e2 from e1
                     e2.setVelocityX(dx * bounceForce);
                     e2.setVelocityY(dy * bounceForce);
                 }
-            } else {
+            } 
+            else {
                 // Stop entities from moving through each other
                 // Calculate overlap and push entities apart
-                Rectangle rect1 = new Rectangle(
-                    e1.getX(), 
-                    e1.getY(), 
-                    e1.getTexture().getWidth(), 
-                    e1.getTexture().getHeight()
-                );
-                
-                Rectangle rect2 = new Rectangle(
-                    e2.getX(), 
-                    e2.getY(), 
-                    e2.getTexture().getWidth(), 
-                    e2.getTexture().getHeight()
-                );
 
                 // Calculate overlap
-                float overlapX = Math.min(
-                    rect1.x + rect1.width - rect2.x,
-                    rect2.x + rect2.width - rect1.x
-                );
-                float overlapY = Math.min(
-                    rect1.y + rect1.height - rect2.y,
-                    rect2.y + rect2.height - rect1.y
-                );
+                float overlapX = Math.min(rect1.x + rect1.width - rect2.x, rect2.x + rect2.width - rect1.x);
+                float overlapY = Math.min(rect1.y + rect1.height - rect2.y, rect2.y + rect2.height - rect1.y);
 
                 // Push entities apart based on the smallest overlap
                 if (overlapX < overlapY) {
@@ -102,10 +89,6 @@ public class CollisionManager {
                     }
                 }
                 
-                if (e1.getX() < 0) {
-                	
-                }
-
                 // Reset velocities to prevent further movement
                 e1.setVelocityX(0);
                 e1.setVelocityY(0);
