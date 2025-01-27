@@ -1,5 +1,7 @@
 package io.github.ProjectOOP.lwjgl3;
 
+import java.util.Random;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
@@ -93,11 +95,14 @@ public class Entity {
 	}
 	
 	public void AIMovment() { //movement of entity from right to left
+		Random random = new Random();
+		float randomY = random.nextFloat(0, 60);
 		float x = getX();
 		float speed = getSpeed();
 		setX(x -= speed);
 		if (getX() < 0) {
 			setX(1280);
+			setY(randomY);
 			setSpeed(speed += speed);
 			if (getSpeed() > 8) {
 				setSpeed(8);

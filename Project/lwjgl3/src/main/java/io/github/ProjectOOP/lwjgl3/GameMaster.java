@@ -23,7 +23,7 @@ public class GameMaster extends ApplicationAdapter{
 	public void create() {
 		Random random = new Random();
 		float randomY = random.nextFloat(0, 50);
-		float randomX = random.nextFloat(1200, 1280);
+		float randomX = random.nextFloat(1260, 1280);
 		
 		batch = new SpriteBatch();
 		
