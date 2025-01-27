@@ -5,12 +5,10 @@ import com.badlogic.gdx.math.Rectangle;
 public class CollisionManager {
 	
 	private Rectangle makeRectangle(Entity e) {
-		Rectangle rect = new Rectangle(
-				e.getX(), 
-	            e.getY(), 
-	            e.getTexture().getWidth(), 
-	            e.getTexture().getHeight()
-	    );
+		Rectangle rect = new Rectangle(e.getX(), 
+				e.getY(), 
+				e.getTexture().getWidth(), 
+				e.getTexture().getHeight());
 		
 		return rect;
 	}
@@ -56,25 +54,21 @@ public class CollisionManager {
                     // Assuming entities have velocity properties
                     float bounceForce = 5f; // Adjust this value as needed
                     
-                    // Apply opposite forces to both entities
+                    // Apply opposite forces to entity e1 from e2
                     e1.setVelocityX(-dx * bounceForce);
                     e1.setVelocityY(-dy * bounceForce);
+                    // Apply opposite force to entity e2 from e1
                     e2.setVelocityX(dx * bounceForce);
                     e2.setVelocityY(dy * bounceForce);
                 }
-            } else {
+            } 
+            else {
                 // Stop entities from moving through each other
                 // Calculate overlap and push entities apart
 
                 // Calculate overlap
-                float overlapX = Math.min(
-                    rect1.x + rect1.width - rect2.x,
-                    rect2.x + rect2.width - rect1.x
-                );
-                float overlapY = Math.min(
-                    rect1.y + rect1.height - rect2.y,
-                    rect2.y + rect2.height - rect1.y
-                );
+                float overlapX = Math.min(rect1.x + rect1.width - rect2.x, rect2.x + rect2.width - rect1.x);
+                float overlapY = Math.min(rect1.y + rect1.height - rect2.y, rect2.y + rect2.height - rect1.y);
 
                 // Push entities apart based on the smallest overlap
                 if (overlapX < overlapY) {
