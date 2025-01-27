@@ -8,6 +8,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class SceneManager {
 	private List<Scene> sceneList = new ArrayList<>();
 	
+	enum Scenes{
+		Start, End, Pause, Background
+	}
+	
 	void addScenes(Scene s) {
 		sceneList.add(s);
 	}

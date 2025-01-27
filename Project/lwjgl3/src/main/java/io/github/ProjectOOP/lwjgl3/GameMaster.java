@@ -17,6 +17,7 @@ public class GameMaster extends ApplicationAdapter{
 	
 	private Entity entity;
 	private Entity drop;
+	private Entity heart1, heart2, heart3;
 	private Scene scene;
 	
 	public void create() {
@@ -33,12 +34,19 @@ public class GameMaster extends ApplicationAdapter{
 		ioManager = new IOManager();
 		
 		entity = new Entity("bucket.png", 10, 0, 0);
+		heart1 = new Entity("heart.png", 10, 650, 0);
+		heart2 = new Entity("heart.png", 50, 650, 0);
+		heart3 = new Entity("heart.png", 90, 650, 0);
 		drop = new Entity("droplet.png", randomX, randomY, 2);
 		scene = new Scene("background.png", 0, 0);
 		
 		/*Type code bellow this comment*/	
 		entityManager.addEntities(drop);
 		entityManager.addEntities(entity);
+		entityManager.addEntities(heart1);
+		entityManager.addEntities(heart2);
+		entityManager.addEntities(heart3);
+		
 		sceneManager.addScenes(scene);
 	}
 	
