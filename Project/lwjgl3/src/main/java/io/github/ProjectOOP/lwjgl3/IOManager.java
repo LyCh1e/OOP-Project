@@ -1,5 +1,10 @@
 package io.github.ProjectOOP.lwjgl3;
 
-public class IOManager {
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 
+public class IOManager {
+    public boolean isPauseKeyPressed() {
+        return Gdx.input.isKeyJustPressed(Keys.ESCAPE);
+    }
 }
