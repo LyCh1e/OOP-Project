@@ -6,7 +6,7 @@ public class CollisionManager {
 	
 	private Rectangle makeRectangle(Entity e) {
 		Rectangle rect = new Rectangle(
-	            e.getX(), 
+				e.getX(), 
 	            e.getY(), 
 	            e.getTexture().getWidth(), 
 	            e.getTexture().getHeight()
@@ -15,19 +15,19 @@ public class CollisionManager {
 		return rect;
 	}
 	
+	private boolean isColliding(Entity entity1, Entity entity2) {
+		// Using LibGDX's Rectangle for more accurate collision detection
+		Rectangle rect1, rect2;
+		rect1 = makeRectangle(entity1);
+		rect2 = makeRectangle(entity2);
+		
+		return rect1.overlaps(rect2);
+	}
+	
     public void checkCollisions(Entity e1, Entity e2) {
         if (isColliding(e1, e2)) {
             System.out.println("Collision detected!");
         }
-    }
-
-    private boolean isColliding(Entity entity1, Entity entity2) {
-        // Using LibGDX's Rectangle for more accurate collision detection
-    	Rectangle rect1, rect2;
-        rect1 = makeRectangle(entity1);
-        rect2 = makeRectangle(entity2);
-        
-        return rect1.overlaps(rect2);
     }
 
     public void doCollision(Entity e1, Entity e2, boolean shouldBounce) {
@@ -95,10 +95,6 @@ public class CollisionManager {
                     }
                 }
                 
-                if (e1.getX() < 0) {
-                	
-                }
-
                 // Reset velocities to prevent further movement
                 e1.setVelocityX(0);
                 e1.setVelocityY(0);
