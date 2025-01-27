@@ -10,8 +10,8 @@ public class Entity {
 	private float x_rightLimit = 1210;
 	private float y_bottomLimit = 0;
 	
-	private float gravity = -900f; // gravity of the simulation
-	private float verticalVelocity = 0; // Velocity var
+	private float gravity = -980f; // gravity of the simulation
+	private float verticalVelocity = 2; // Velocity variable
 	
 	private float x_axis, y_axis, speed;
 	private Texture texture;
@@ -73,7 +73,7 @@ public class Entity {
 
 	    // Jump when the up arrow key is pressed and if the entity is on the ground
 	    if (Gdx.input.isKeyPressed(Keys.UP) && getY() <= y_bottomLimit) {
-	        verticalVelocity = 500; // jump heightt value
+	        verticalVelocity = 500; // jump height value
 	    }
 
 	    // Update vertical position based on velocity
