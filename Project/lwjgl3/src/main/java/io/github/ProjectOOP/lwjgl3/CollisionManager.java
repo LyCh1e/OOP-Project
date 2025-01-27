@@ -3,6 +3,18 @@ package io.github.ProjectOOP.lwjgl3;
 import com.badlogic.gdx.math.Rectangle;
 
 public class CollisionManager {
+	
+	private Rectangle makeRectangle(Entity e) {
+		Rectangle rect = new Rectangle(
+	            e.getX(), 
+	            e.getY(), 
+	            e.getTexture().getWidth(), 
+	            e.getTexture().getHeight()
+	    );
+		
+		return rect;
+	}
+	
     public void checkCollisions(Entity e1, Entity e2) {
         if (isColliding(e1, e2)) {
             System.out.println("Collision detected!");
@@ -11,24 +23,18 @@ public class CollisionManager {
 
     private boolean isColliding(Entity entity1, Entity entity2) {
         // Using LibGDX's Rectangle for more accurate collision detection
-        Rectangle rect1 = new Rectangle(
-            entity1.getX(), 
-            entity1.getY(), 
-            entity1.getTexture().getWidth(), 
-            entity1.getTexture().getHeight()
-        );
-        
-        Rectangle rect2 = new Rectangle(
-            entity2.getX(), 
-            entity2.getY(), 
-            entity2.getTexture().getWidth(), 
-            entity2.getTexture().getHeight()
-        );
+    	Rectangle rect1, rect2;
+        rect1 = makeRectangle(entity1);
+        rect2 = makeRectangle(entity2);
         
         return rect1.overlaps(rect2);
     }
 
     public void doCollision(Entity e1, Entity e2, boolean shouldBounce) {
+    	Rectangle rect1, rect2;
+    	rect1 = makeRectangle(e1);
+    	rect2 = makeRectangle(e2);
+    	
         if (isColliding(e1, e2)) {
             if (shouldBounce) {
                 // bouncing collision, the 2 entity will bounce off each other
@@ -59,19 +65,6 @@ public class CollisionManager {
             } else {
                 // Stop entities from moving through each other
                 // Calculate overlap and push entities apart
-                Rectangle rect1 = new Rectangle(
-                    e1.getX(), 
-                    e1.getY(), 
-                    e1.getTexture().getWidth(), 
-                    e1.getTexture().getHeight()
-                );
-                
-                Rectangle rect2 = new Rectangle(
-                    e2.getX(), 
-                    e2.getY(), 
-                    e2.getTexture().getWidth(), 
-                    e2.getTexture().getHeight()
-                );
 
                 // Calculate overlap
                 float overlapX = Math.min(
