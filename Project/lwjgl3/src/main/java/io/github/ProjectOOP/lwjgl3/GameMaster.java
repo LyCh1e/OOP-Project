@@ -40,7 +40,7 @@ public class GameMaster extends ApplicationAdapter{
 		drop = new Entity("droplet.png", randomX, randomY, 2);
 		scene = new Scene("background.png", 0, 0);
 		
-		/*Type code bellow this comment*/	
+		/*Type code bellow this comment*/
 		entityManager.addEntities(drop);
 		entityManager.addEntities(entity);
 		entityManager.addEntities(heart1);
@@ -52,6 +52,8 @@ public class GameMaster extends ApplicationAdapter{
 	
 	public void render () {
 		ScreenUtils.clear(0, 0, 0.2f, 1);
+		
+		// sequence of drawing matters to which appears in front
 		sceneManager.drawScene(batch);
 		entityManager.draw(batch);
 		
