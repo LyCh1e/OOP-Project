@@ -57,8 +57,8 @@ public class GameMaster extends ApplicationAdapter{
 		sceneManager.drawScene(batch);
 		entityManager.draw(batch);
 		
-		entity.movement();
-		drop.AIMovment();
+		movementManager.userMovement(entity);
+		movementManager.AIMovment(drop);
 		
 		collisionManager.doCollision(entity, drop, false);
 	}
