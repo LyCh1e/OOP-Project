@@ -15,7 +15,8 @@ public class Entity {
 	private float gravity = -980f; // gravity of the simulation
 	private float verticalVelocity = 2; // Velocity variable
 	
-	private float x_axis, y_axis, speed;
+	private float x_axis, y_axis, speed; 
+	private float velocityX, velocityY;
 	private Texture texture;
 	
 	Entity (){
@@ -45,6 +46,14 @@ public class Entity {
 		return speed;
 	}
 	
+	public float getVelocityX() {
+		return velocityX;
+	}
+	
+	public float getVelocityY() {
+		return velocityY;
+	}
+	
 	void setTexture(Texture t) {
 		texture = t;
 	}
@@ -63,6 +72,14 @@ public class Entity {
 	
 	void draw (SpriteBatch batch) {
 		batch.draw(getTexture(), getX(), getY(), getTexture().getWidth(), getTexture().getHeight());
+	}
+	
+	void setVelocityX(float f) {
+		velocityX = f;	
+	}
+	
+	void setVelocityY(float f) {
+		velocityY = f;
 	}
 	
 	public void movement() { //movement of entity using arrow keys
@@ -93,6 +110,7 @@ public class Entity {
 	        verticalVelocity = 0; // Reset velocity when hitting the ground
 	    }
 	}
+	
 	
 	public void AIMovment() { //movement of entity from right to left
 		Random random = new Random();

@@ -37,7 +37,7 @@ public class GameMaster extends ApplicationAdapter{
 		heart1 = new Entity("heart.png", 10, 650, 0);
 		heart2 = new Entity("heart.png", 50, 650, 0);
 		heart3 = new Entity("heart.png", 90, 650, 0);
-		drop = new Entity("droplet.png", randomX, randomY, 2);
+		drop = new Entity("droplet.png", 400, randomY, 2);
 		scene = new Scene("background.png", 0, 0);
 		
 		/*Type code bellow this comment*/	
@@ -52,13 +52,14 @@ public class GameMaster extends ApplicationAdapter{
 	
 	public void render () {
 		ScreenUtils.clear(0, 0, 0.2f, 1);
-		sceneManager.loadScene(batch);
+		sceneManager.drawScene(batch);
 		entityManager.draw(batch);
 		
 		entity.movement();
 		drop.AIMovment();
 		
 		collisionManager.checkCollisions(entity, drop); //check collision between 2 entities
+		collisionManager.doCollision(entity, drop, false);
 	}
 	
 	public void dispose() {

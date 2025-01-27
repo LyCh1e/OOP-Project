@@ -3,7 +3,7 @@ package io.github.ProjectOOP.lwjgl3;
 public class Collision {
 	private boolean collide;
 	
-	private boolean getisCollided() {
+	public boolean getisCollided() {
 		return collide;
 	}
 	
