@@ -58,7 +58,6 @@ public class GameMaster extends ApplicationAdapter{
 		entity.movement();
 		drop.AIMovment();
 		
-		collisionManager.checkCollisions(entity, drop); //check collision between 2 entities
 		collisionManager.doCollision(entity, drop, false);
 	}
 	
