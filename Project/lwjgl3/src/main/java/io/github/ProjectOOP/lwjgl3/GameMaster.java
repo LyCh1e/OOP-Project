@@ -6,6 +6,8 @@ import java.util.Random;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.audio.Music; // import Music class
+import com.badlogic.gdx.Gdx; // import Gdx for file handling
 
 public class GameMaster extends ApplicationAdapter{
     private SpriteBatch batch;
@@ -22,6 +24,10 @@ public class GameMaster extends ApplicationAdapter{
     private Entity heart1, heart2, heart3;
     private Scene scene;
     private PauseMenuScene pauseMenuScene;
+    private SettingsScene settingsScene;
+    
+    private Music backgroundMusic; // music variable for background music
+
 
     public void create() {
         Random random = new Random();
@@ -43,10 +49,12 @@ public class GameMaster extends ApplicationAdapter{
         drop = new Entity("droplet.png", randomX, randomY, 2);
         scene = new Scene("background.png", 0, 0);
         pauseMenuScene = new PauseMenuScene();
+        settingsScene = new SettingsScene();
 
         // Configure SceneManager to associate scenes with states
         sceneManager.addSceneToState(SceneManager.STATE.Start, scene); // baackground.png in Start state
         sceneManager.addSceneToState(SceneManager.STATE.Pause, pauseMenuScene); // Pause Menu only in Pause state
+        sceneManager.addSceneToState(SceneManager.STATE.Settings, settingsScene); // SettingsScene only in Settings state
         sceneManager.setState(SceneManager.STATE.Start); // First state, (game playing state)
 
         entityManager.addEntities(drop);
@@ -54,6 +62,12 @@ public class GameMaster extends ApplicationAdapter{
         entityManager.addEntities(heart1);
         entityManager.addEntities(heart2);
         entityManager.addEntities(heart3);
+        
+        // Load and play background music
+        backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("backgroundMusic.mp3")); // Load music file
+        backgroundMusic.setLooping(true); // Set looping to true
+        backgroundMusic.play(); // Start playing the music
+        backgroundMusic.setVolume(0.2f); // Lower down the default background music bc its too loud
 
     }
 
@@ -68,6 +82,15 @@ public class GameMaster extends ApplicationAdapter{
                 sceneManager.setState(SceneManager.STATE.Pause);
             } else if (sceneManager.getState() == SceneManager.STATE.Pause) {
                 sceneManager.setState(SceneManager.STATE.Start);
+            }
+        }
+        
+        if (ioManager.isSettingsKeyPressed()) {
+            // Toggle settings state, settings can only be opened from pause menu, click 1 to open settings
+            if (sceneManager.getState() == SceneManager.STATE.Pause ) {
+                sceneManager.setState(SceneManager.STATE.Settings);
+            } else if (sceneManager.getState() == SceneManager.STATE.Settings) {
+                sceneManager.setState(SceneManager.STATE.Pause);
             }
         }
 
@@ -89,6 +112,9 @@ public class GameMaster extends ApplicationAdapter{
 
     public void dispose() {
         batch.dispose();
+        if (backgroundMusic != null) {
+            backgroundMusic.dispose();
+        }
     }
 
 }

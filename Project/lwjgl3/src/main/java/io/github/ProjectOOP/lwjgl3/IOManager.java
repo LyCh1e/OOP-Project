@@ -7,4 +7,7 @@ public class IOManager {
     public boolean isPauseKeyPressed() {
         return Gdx.input.isKeyJustPressed(Keys.ESCAPE);
     }
+    public boolean isSettingsKeyPressed() {
+        return Gdx.input.isKeyJustPressed(Keys.NUM_1);
+    }
 }
