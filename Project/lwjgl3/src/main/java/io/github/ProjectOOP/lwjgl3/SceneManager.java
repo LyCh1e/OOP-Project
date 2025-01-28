@@ -1,19 +1,30 @@
+// SceneManager.java
 package io.github.ProjectOOP.lwjgl3;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
 
 public class SceneManager implements Disposable {
-    private List<Scene> sceneList = new ArrayList<>();
+    // Use a Map to associate states with lists of scenes
+    private Map<STATE, List<Scene>> stateSceneMap = new HashMap<>();
 
     public enum STATE {
         Start, End, Pause, Background
     }
 
     private STATE currentState = STATE.Start; // Start state is the first state, the game playing
+
+    public SceneManager() {
+        // Initialize lists for each state in the constructor
+        for (STATE state : STATE.values()) {
+            stateSceneMap.put(state, new ArrayList<>());
+        }
+    }
 
     public void setState(STATE newState) {
         this.currentState = newState;
@@ -25,32 +36,29 @@ public class SceneManager implements Disposable {
 
     void drawScene(SpriteBatch batch) {
         batch.begin();
-        for (Scene scene : sceneList) {
-            if (currentState == STATE.Start) {
-                // In game/Start state, draw scenes that are NOT PauseMenuScene, and draw everything else
-                if (!(scene instanceof PauseMenuScene)) {
-                    scene.draw(batch);
-                }
-            } else if (currentState == STATE.Pause) {
-            	if ((scene instanceof PauseMenuScene)) {
-                    scene.draw(batch);
-                }
+        // Get the list of scenes associated with the current state
+        List<Scene> currentScenes = stateSceneMap.get(currentState);
+        if (currentScenes != null) {
+            for (Scene scene : currentScenes) {
+                scene.draw(batch);
             }
-            // Can Add more 'else if'  for other states like example leaderboard, end state or smth in the future if need
-            //just follow the template
         }
         batch.end();
     }
 
-    void addScenes(Scene s) { 
-        sceneList.add(s);
+    // Method to add a scene to a specific state, use in gamemaster
+    void addSceneToState(STATE state, Scene scene) {
+        stateSceneMap.get(state).add(scene);
     }
+
 
     @Override
     public void dispose() {
-        for (Scene scene : sceneList) {
-            scene.dispose();
+        for (List<Scene> sceneList : stateSceneMap.values()) {
+            for (Scene scene : sceneList) {
+                scene.dispose();
+            }
         }
-        sceneList.clear();;
+        stateSceneMap.clear();
     }
 }
