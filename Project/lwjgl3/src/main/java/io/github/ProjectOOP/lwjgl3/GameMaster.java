@@ -20,7 +20,7 @@ public class GameMaster extends ApplicationAdapter{
 
 
     private Entity entity;
-    private Entity drop;
+    private Entity drop; 
     private Entity heart1, heart2, heart3;
     private Scene scene;
     private PauseMenuScene pauseMenuScene;
@@ -100,10 +100,10 @@ public class GameMaster extends ApplicationAdapter{
         // Game logic (movement, collisions) ONLY in Start(game) state
         if (sceneManager.getState() == SceneManager.STATE.Start) {
             entityManager.draw(batch);
-
+            
             movementManager.userMovement(entity);
-            movementManager.AIMovment(drop);
-
+            movementManager.AIMovmentBottom(drop);
+            
             collisionManager.doCollision(entity, drop, false);
         }
     }

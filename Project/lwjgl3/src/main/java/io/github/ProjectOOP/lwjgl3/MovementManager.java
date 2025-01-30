@@ -45,9 +45,41 @@ public class MovementManager {
 	    }
 	}
 	
-	public void AIMovment(Entity e) { //movement of entity from right to left
+	public void AIMovmentBottom(Entity e) { //movement of entity from right to left
 		Random random = new Random();
-		float randomY = random.nextFloat(0, 60);
+		float randomY = random.nextFloat(0, 100);
+		float x = e.getX();
+		float speed = e.getSpeed();
+		e.setX(x -= speed);
+		if (e.getX() < 0) {
+			e.setX(1280);
+			e.setY(randomY);
+			e.setSpeed(speed += speed);
+			if (e.getSpeed() > 8) {
+				e.setSpeed(8);
+			}
+		}
+	}
+	
+	public void AIMovmentMiddle(Entity e) { //movement of entity from right to left
+		Random random = new Random();
+		float randomY = random.nextFloat(200, 300);
+		float x = e.getX();
+		float speed = e.getSpeed();
+		e.setX(x -= speed);
+		if (e.getX() < 0) {
+			e.setX(1280);
+			e.setY(randomY);
+			e.setSpeed(speed += speed);
+			if (e.getSpeed() > 8) {
+				e.setSpeed(8);
+			}
+		}
+	}
+	
+	public void AIMovmentTop(Entity e) { //movement of entity from right to left
+		Random random = new Random();
+		float randomY = random.nextFloat(400, 500);
 		float x = e.getX();
 		float speed = e.getSpeed();
 		e.setX(x -= speed);

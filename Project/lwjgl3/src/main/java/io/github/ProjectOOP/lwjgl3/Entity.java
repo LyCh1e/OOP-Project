@@ -60,15 +60,21 @@ public class Entity {
 		speed = s;
 	}
 	
-	void draw (SpriteBatch batch) {
-		batch.draw(getTexture(), getX(), getY(), getTexture().getWidth(), getTexture().getHeight());
-	}
-	
 	void setVelocityX(float f) {
 		velocityX = f;	
 	}
 	
 	void setVelocityY(float f) {
 		velocityY = f;
+	}
+	
+	void draw (SpriteBatch batch) {
+		batch.draw(getTexture(), getX(), getY(), getTexture().getWidth(), getTexture().getHeight());
+	}
+	
+	void createMultipleEntity (Entity e[], String str, float x, float y, float speed) {
+		for (int i = 0; i < e.length; i++) {
+			e[i] = new Entity(str, x, y, speed);
+		}
 	}
 }
