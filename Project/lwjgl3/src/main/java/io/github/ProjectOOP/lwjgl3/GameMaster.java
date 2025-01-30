@@ -18,7 +18,6 @@ public class GameMaster extends ApplicationAdapter{
     private MovementManager movementManager;
     private IOManager ioManager;
 
-
     private Entity entity;
     private Entity drop; 
     private Entity heart1, heart2, heart3;
@@ -27,7 +26,6 @@ public class GameMaster extends ApplicationAdapter{
     private SettingsScene settingsScene;
     
     private Music backgroundMusic; // music variable for background music
-
 
     public void create() {
         Random random = new Random();
@@ -68,10 +66,7 @@ public class GameMaster extends ApplicationAdapter{
         backgroundMusic.setLooping(true); // Set looping to true
         backgroundMusic.play(); // Start playing the music
         backgroundMusic.setVolume(0.2f); // Lower down the default background music bc its too loud
-
     }
-
-
 
     public void render() {
         ScreenUtils.clear(0, 0, 0.2f, 1);
@@ -107,8 +102,6 @@ public class GameMaster extends ApplicationAdapter{
             collisionManager.doCollision(entity, drop, false);
         }
     }
-
-
 
     public void dispose() {
         batch.dispose();
