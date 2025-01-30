@@ -45,7 +45,7 @@ public class MovementManager {
 	    }
 	}
 	
-	public void AIMovmentBottom(Entity e) { //movement of entity from right to left
+	public void AIMovementBottom(Entity e) { //movement of entity from right to left
 		Random random = new Random();
 		float randomY = random.nextFloat(0, 100);
 		float x = e.getX();
@@ -61,7 +61,7 @@ public class MovementManager {
 		}
 	}
 	
-	public void AIMovmentMiddle(Entity e) { //movement of entity from right to left
+	public void AIMovementMiddle(Entity e) { //movement of entity from right to left
 		Random random = new Random();
 		float randomY = random.nextFloat(200, 300);
 		float x = e.getX();
@@ -77,7 +77,7 @@ public class MovementManager {
 		}
 	}
 	
-	public void AIMovmentTop(Entity e) { //movement of entity from right to left
+	public void AIMovementTop(Entity e) { //movement of entity from right to left
 		Random random = new Random();
 		float randomY = random.nextFloat(400, 500);
 		float x = e.getX();
