@@ -26,6 +26,14 @@ public class GameMaster extends ApplicationAdapter{
     private SettingsScene settingsScene;
     
     private Music backgroundMusic; // music variable for background music
+    
+    GameMaster (){
+    	entityManager = new EntityManager();
+        sceneManager = new SceneManager();
+        collisionManager = new CollisionManager();
+        movementManager = new MovementManager();
+        ioManager = new IOManager();
+    }
 
     public void create() {
         Random random = new Random();
@@ -33,12 +41,6 @@ public class GameMaster extends ApplicationAdapter{
         float randomX = random.nextFloat(1260, 1280);
 
         batch = new SpriteBatch();
-
-        entityManager = new EntityManager();
-        sceneManager = new SceneManager();
-        collisionManager = new CollisionManager();
-        movementManager = new MovementManager();
-        ioManager = new IOManager();
 
         entity = new Entity("bucket.png", 10, 0, 0);
         heart1 = new Entity("heart.png", 10, 650, 0);
@@ -99,7 +101,7 @@ public class GameMaster extends ApplicationAdapter{
             movementManager.userMovement(entity);
             movementManager.AIMovementBottom(drop);
             
-            collisionManager.doCollision(entity, drop, false);
+            Collidable.doCollision(entity, drop, true);
         }
     }
 
