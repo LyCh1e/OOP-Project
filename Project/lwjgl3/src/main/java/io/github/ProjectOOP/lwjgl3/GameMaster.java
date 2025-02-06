@@ -31,8 +31,17 @@ public class GameMaster extends ApplicationAdapter{
     	entityManager = new EntityManager();
         sceneManager = new SceneManager();
         collisionManager = new CollisionManager();
-        movementManager = new MovementManager();
-        ioManager = new IOManager();
+
+        Player player = new Player(); 
+
+	    // Create Input with Player
+	    Input input = new Input(player);
+	    
+	    // Create IOManager with Input
+	    ioManager = new IOManager(input);
+	
+	    // Create MovementManager with IOManager
+	    movementManager = new MovementManager(ioManager);
     }
 
     public void create() {
