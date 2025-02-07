@@ -26,7 +26,6 @@ public class CollisionManager {
 	
     public boolean checkCollisions(Entity e1, Entity e2) {
         if (isColliding(e1, e2)) {
-            System.out.println("Collision detected!");
             return true;
         }
         else {

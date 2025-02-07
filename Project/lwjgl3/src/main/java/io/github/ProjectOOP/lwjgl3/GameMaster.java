@@ -112,7 +112,7 @@ public class GameMaster extends ApplicationAdapter{
             movementManager.updateAIMovement(drop,MovementManager.Y_Column.BOTTOM);
             
             if (collisionManager.checkCollisions(entity, drop) == true) {
-            	Collidable.doCollision(entity, drop, true);
+            	Collidable.doCollision(entity, drop);
             }
         }
     }
