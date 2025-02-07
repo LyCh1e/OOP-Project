@@ -13,8 +13,8 @@ public class MovementManager {
     }
     
     public MovementManager(IOManager ioManager) {
-        this.userMovement = new UserMovement(ioManager);
-        this.aiMovement = new AIMovement();
+        userMovement = new UserMovement(ioManager);
+        aiMovement = new AIMovement();
     }
     
     public void updateUserMovement(Entity entity) {
