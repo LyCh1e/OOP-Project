@@ -6,11 +6,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class Input {
     private ClickListener click;
-    private KeyBindings keyBindings;
+//    private KeyBindings keyBindings;
 
-    
     public Input() {
-      this.keyBindings = new KeyBindings();
+//      this.keyBindings = new KeyBindings();
   }
     
     // New methods from IOManager moved here

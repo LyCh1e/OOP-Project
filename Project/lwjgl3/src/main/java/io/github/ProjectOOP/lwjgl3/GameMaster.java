@@ -5,6 +5,9 @@ import java.util.Random;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.utils.ScreenUtils;
+
+import io.github.ProjectOOP.lwjgl3.MovementManager.AILayer;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.audio.Music; // import Music class
 import com.badlogic.gdx.Gdx; // import Gdx for file handling
@@ -106,8 +109,8 @@ public class GameMaster extends ApplicationAdapter{
         if (sceneManager.getState() == SceneManager.STATE.Start) {
             entityManager.draw(batch);
             
-            movementManager.userMovement(entity);
-            movementManager.AIMovementBottom(drop);
+            movementManager.updateUserMovement(entity);
+            movementManager.updateAIMovement(drop,MovementManager.AILayer.TOP);
             
             Collidable.doCollision(entity, drop, true);
         }

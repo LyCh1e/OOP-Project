@@ -18,7 +18,7 @@ public class IOManager {
         return Gdx.input.isKeyJustPressed(Keys.NUM_1);
     }
     
-    // Delegate input methods to Input class
+
     public boolean isMovingLeft() {
         return input.isMovingLeft();
     }
