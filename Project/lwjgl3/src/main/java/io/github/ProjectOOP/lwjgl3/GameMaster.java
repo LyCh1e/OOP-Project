@@ -24,24 +24,22 @@ public class GameMaster extends ApplicationAdapter{
     private Scene scene;
     private PauseMenuScene pauseMenuScene;
     private SettingsScene settingsScene;
-    
+    private KeyBindings keyBindings;
+    private Input input;
     private Music backgroundMusic; // music variable for background music
     
     GameMaster (){
     	entityManager = new EntityManager();
         sceneManager = new SceneManager();
         collisionManager = new CollisionManager();
-
-        Player player = new Player(); 
-
-	    // Create Input with Player
-	    Input input = new Input(player);
+	    input = new Input();
 	    
 	    // Create IOManager with Input
 	    ioManager = new IOManager(input);
 	
 	    // Create MovementManager with IOManager
 	    movementManager = new MovementManager(ioManager);
+//	    keyBindings = new KeyBindings();
     }
 
     public void create() {
@@ -50,6 +48,7 @@ public class GameMaster extends ApplicationAdapter{
         float randomX = random.nextFloat(1260, 1280);
 
         batch = new SpriteBatch();
+//        keyBindings.initialize();  // Initialize after LibGDX is ready
 
         entity = new Entity("bucket.png", 10, 0, 0);
         heart1 = new Entity("heart.png", 10, 650, 0);
