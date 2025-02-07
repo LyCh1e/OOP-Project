@@ -6,13 +6,13 @@ public class AIMovement {
     private static final float MAX_SPEED = 8f;
     private static final float SCREEN_WIDTH = 1280f;
 
-    private float topMinY = 400, topMaxY = 550;
-    private float middleMinY = 200, middleMaxY = 350;
-    private float bottomMinY = 0, bottomMaxY = 150;
+    public static float topMinY = 400, topMaxY = 550;
+    public static float middleMinY = 200, middleMaxY = 350;
+    public static float bottomMinY = 0, bottomMaxY = 150;
 
-    private float leftMinX = 0, leftMaxX = 400;
-    private float middleMinX = 450, middleMaxX = 850;
-    private float rightMinX = 900, rightMaxX = 1280;
+    public static float leftMinX = 0, leftMaxX = 400;
+    public static float middleMinX = 450, middleMaxX = 850;
+    public static float rightMinX = 900, rightMaxX = 1280;
 
     private Random random = new Random();
 

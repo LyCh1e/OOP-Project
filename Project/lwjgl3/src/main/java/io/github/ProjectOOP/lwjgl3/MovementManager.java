@@ -4,11 +4,11 @@ public class MovementManager {
     private final UserMovement userMovement;
     private final AIMovement aiMovement;
     
-    private enum Y_Column {
+    public enum Y_Column {
         BOTTOM, MIDDLE, TOP
     }
     
-    private enum X_Row {
+    public enum X_Row {
         LEFT, MIDDLE, RIGHT
     }
     
