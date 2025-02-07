@@ -3,20 +3,29 @@ package io.github.ProjectOOP.lwjgl3;
 import java.util.Random;
 
 public class AIMovement {
-    private Random random = new Random();
     private static final float MAX_SPEED = 8f;
     private static final float SCREEN_WIDTH = 1280f;
     
+    public static float topMinY = 400, topMaxY = 550;
+    public static float middleMinY= 200, middleMaxY = 350;
+    public static float bottomMinY = 0, bottomMaxY = 150; 
+    
+    public static float leftMinX= 0, leftMaxX = 400;
+    public static float middlieMinX= 450, middleMaxX = 850;
+    public static float rightMinX= 900, rightMaxX = 1280;
+    
+    private Random random = new Random();
+    
     public void moveBottom(Entity e) {
-        moveInLayer(e, 0, 100);
+        moveInLayer(e, bottomMinY, bottomMaxY);
     }
     
     public void moveMiddle(Entity e) {
-        moveInLayer(e, 200, 300);
+        moveInLayer(e, middleMinY, middleMaxY);
     }
     
     public void moveTop(Entity e) {
-        moveInLayer(e, 400, 500);
+        moveInLayer(e, topMinY, topMaxY);
     }
     
     private void moveInLayer(Entity e, float minY, float maxY) {

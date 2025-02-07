@@ -6,8 +6,6 @@ import java.util.Random;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-import io.github.ProjectOOP.lwjgl3.MovementManager.AILayer;
-
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.audio.Music; // import Music class
 import com.badlogic.gdx.Gdx; // import Gdx for file handling
@@ -22,8 +20,8 @@ public class GameMaster extends ApplicationAdapter{
     private IOManager ioManager;
 
     private MovableEntity entity;
-    private Entity drop; 
-    private Entity heart1, heart2, heart3;
+    private MovableEntity drop; 
+    private ImmovableEntity heart1, heart2, heart3;
     private Scene scene;
     private PauseMenuScene pauseMenuScene;
     private SettingsScene settingsScene;
@@ -47,17 +45,18 @@ public class GameMaster extends ApplicationAdapter{
 
     public void create() {
         Random random = new Random();
-        float randomY = random.nextFloat(0, 50);
-        float randomX = random.nextFloat(1260, 1280);
+        float randomYBottom = random.nextFloat(AIMovement.bottomMinY, AIMovement.bottomMaxY);
+        float randomYMiddle = random.nextFloat(AIMovement.middleMinY, AIMovement.middleMaxY);
+        float randomYTop = random.nextFloat(AIMovement.topMinY, AIMovement.topMaxY);
 
         batch = new SpriteBatch();
 //        keyBindings.initialize();  // Initialize after LibGDX is ready
 
         entity = new MovableEntity("bucket.png", 10, 0, 0);
+        drop = new MovableEntity("droplet.png", 1280, randomYBottom, 2);
         heart1 = new ImmovableEntity("heart.png", 10, 650, 0);
         heart2 = new ImmovableEntity("heart.png", 50, 650, 0);
         heart3 = new ImmovableEntity("heart.png", 90, 650, 0);
-        drop = new ImmovableEntity("droplet.png", randomX, randomY, 2);
         scene = new Scene("background.png", 0, 0);
         pauseMenuScene = new PauseMenuScene();
         settingsScene = new SettingsScene();
@@ -110,9 +109,11 @@ public class GameMaster extends ApplicationAdapter{
             entityManager.draw(batch);
             
             movementManager.updateUserMovement(entity);
-            movementManager.updateAIMovement(drop,MovementManager.AILayer.TOP);
+            movementManager.updateAIMovement(drop,MovementManager.Y_Column.BOTTOM);
             
-            Collidable.doCollision(entity, drop, true);
+            if (collisionManager.checkCollisions(entity, drop) == true) {
+            	Collidable.doCollision(entity, drop, true);
+            }
         }
     }
 

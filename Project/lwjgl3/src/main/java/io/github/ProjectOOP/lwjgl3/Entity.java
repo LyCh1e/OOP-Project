@@ -72,7 +72,5 @@ public abstract class Entity implements iMovable {
 		batch.draw(getTexture(), getX(), getY(), getTexture().getWidth(), getTexture().getHeight());
 	}
 	
-	// TODO: Create a method to instantiate multiple entities
-	
 	abstract void updatePosition();
 }
