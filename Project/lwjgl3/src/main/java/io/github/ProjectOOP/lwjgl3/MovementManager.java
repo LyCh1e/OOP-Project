@@ -4,11 +4,11 @@ public class MovementManager {
     private final UserMovement userMovement;
     private final AIMovement aiMovement;
     
-    public enum Y_Column {
+    private enum Y_Column {
         BOTTOM, MIDDLE, TOP
     }
     
-    public enum X_Row {
+    private enum X_Row {
         LEFT, MIDDLE, RIGHT
     }
     
@@ -24,13 +24,13 @@ public class MovementManager {
     public void updateAIMovementYAxis(Entity entity, Y_Column layer) {
         switch (layer) {
             case BOTTOM:
-                aiMovement.moveBottom(entity);
+                aiMovement.moveBottomYAxis(entity);
                 break;
             case MIDDLE:
-                aiMovement.moveMiddle(entity);
+                aiMovement.moveMiddleYAxis(entity);
                 break;
             case TOP:
-                aiMovement.moveTop(entity);
+                aiMovement.moveTopYAxis(entity);
                 break;
         }
     }

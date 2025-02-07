@@ -6,30 +6,28 @@ public class AIMovement {
     private static final float MAX_SPEED = 8f;
     private static final float SCREEN_WIDTH = 1280f;
 
-    public static float topMinY = 400, topMaxY = 550;
-    public static float middleMinY = 200, middleMaxY = 350;
-    public static float bottomMinY = 0, bottomMaxY = 150;
+    private float topMinY = 400, topMaxY = 550;
+    private float middleMinY = 200, middleMaxY = 350;
+    private float bottomMinY = 0, bottomMaxY = 150;
 
-    public static float leftMinX = 0, leftMaxX = 400;
-    public static float middleMinX = 450, middleMaxX = 850;
-    public static float rightMinX = 900, rightMaxX = 1280;
+    private float leftMinX = 0, leftMaxX = 400;
+    private float middleMinX = 450, middleMaxX = 850;
+    private float rightMinX = 900, rightMaxX = 1280;
 
     private Random random = new Random();
 
-    // Existing Y-axis movement methods
-    public void moveBottom(Entity e) {
-        moveInLayer(e, bottomMinY, bottomMaxY);
+    public void moveBottomYAxis(Entity e) {
+        moveInLayerYAxis(e, bottomMinY, bottomMaxY);
     }
 
-    public void moveMiddle(Entity e) {
-        moveInLayer(e, middleMinY, middleMaxY);
+    public void moveMiddleYAxis(Entity e) {
+    	moveInLayerYAxis(e, middleMinY, middleMaxY);
     }
 
-    public void moveTop(Entity e) {
-        moveInLayer(e, topMinY, topMaxY);
+    public void moveTopYAxis(Entity e) {
+    	moveInLayerYAxis(e, topMinY, topMaxY);
     }
 
-    // New X-axis movement methods
     public void moveBottomXAxis(Entity e) {
         moveInLayerXAxis(e, leftMinX, leftMaxX);
     }
@@ -42,18 +40,16 @@ public class AIMovement {
         moveInLayerXAxis(e, rightMinX, rightMaxX);
     }
 
-    // Existing Y-axis movement method
-    private void moveInLayer(Entity e, float minY, float maxY) {
+    private void moveInLayerYAxis(Entity e, float minY, float maxY) {
         float x = e.getX();
         float speed = e.getSpeed();
         e.setX(x - speed);
 
         if (e.getX() < 0) {
-            resetPosition(e, minY, maxY);
+        	resetPositionYAxis(e, minY, maxY);
         }
     }
 
-    // New X-axis movement method
     private void moveInLayerXAxis(Entity e, float minX, float maxX) {
         float y = e.getY();
         float speed = e.getSpeed();
@@ -64,8 +60,7 @@ public class AIMovement {
         }
     }
 
-    // Existing Y-axis reset method
-    private void resetPosition(Entity e, float minY, float maxY) {
+    private void resetPositionYAxis(Entity e, float minY, float maxY) {
         float randomY = random.nextFloat(minY, maxY);
         e.setX(SCREEN_WIDTH);
         e.setY(randomY);
@@ -74,7 +69,6 @@ public class AIMovement {
         e.setSpeed(newSpeed);
     }
 
-    // New X-axis reset method
     private void resetPositionXAxis(Entity e, float minX, float maxX) {
         float randomX = random.nextFloat(minX, maxX);
         e.setY(SCREEN_WIDTH);
