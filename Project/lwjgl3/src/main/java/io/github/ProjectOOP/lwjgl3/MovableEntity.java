@@ -1,10 +1,23 @@
 package io.github.ProjectOOP.lwjgl3;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+
 public class MovableEntity extends Entity{
     private float speed = 200f; // Example speed
-    private float velocityX = 0f;
     private boolean isJumping = false;
 
+	MovableEntity (){
+		
+	}
+	
+	MovableEntity (String str, float x, float y, float s){
+		setX(x);
+		setY(y);
+		setSpeed(s);
+		texture = new Texture(Gdx.files.internal(str));
+	}
+    
     public void moveLeft() {
         velocityX = -speed;
         System.out.println("Moving Left");

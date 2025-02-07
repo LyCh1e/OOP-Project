@@ -5,9 +5,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Entity {    	
-	private float x_axis, y_axis, speed; 
-	private float velocityX, velocityY;
-	private Texture texture;
+	protected float x_axis, y_axis, speed; 
+	protected float velocityX, velocityY;
+	protected Texture texture;
 	
 	Entity (){
 		

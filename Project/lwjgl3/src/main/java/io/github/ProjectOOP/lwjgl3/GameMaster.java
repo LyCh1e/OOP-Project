@@ -18,7 +18,7 @@ public class GameMaster extends ApplicationAdapter{
     private MovementManager movementManager;
     private IOManager ioManager;
 
-    private Entity entity;
+    private MovableEntity entity;
     private Entity drop; 
     private Entity heart1, heart2, heart3;
     private Scene scene;
@@ -50,7 +50,7 @@ public class GameMaster extends ApplicationAdapter{
         batch = new SpriteBatch();
 //        keyBindings.initialize();  // Initialize after LibGDX is ready
 
-        entity = new Entity("bucket.png", 10, 0, 0);
+        entity = new MovableEntity("bucket.png", 10, 0, 0);
         heart1 = new Entity("heart.png", 10, 650, 0);
         heart2 = new Entity("heart.png", 50, 650, 0);
         heart3 = new Entity("heart.png", 90, 650, 0);
