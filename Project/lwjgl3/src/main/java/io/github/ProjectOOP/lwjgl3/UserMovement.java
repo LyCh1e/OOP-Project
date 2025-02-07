@@ -14,8 +14,8 @@ public class UserMovement{
     private float verticalVelocity = 4;
     private final IOManager ioManager;
     
-    public UserMovement(IOManager ioManager) {
-        this.ioManager = ioManager;
+    UserMovement(IOManager ioM) {
+    	ioManager = ioM;
     }
     
     public void move(Entity e) {

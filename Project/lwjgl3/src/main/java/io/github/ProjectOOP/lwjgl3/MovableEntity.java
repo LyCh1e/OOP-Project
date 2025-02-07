@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 public class MovableEntity extends Entity{
-    private float speed = 200f; // Example speed
     private boolean isJumping = false;
 
 	MovableEntity (){
@@ -41,21 +40,13 @@ public class MovableEntity extends Entity{
         }
     }
     
-    // TODO: Create a method to instantiate multiple entities
-
     public void land() {
         isJumping = false;
     }
 
 	@Override
-	void updatePosition() {
-		// TODO print out updated location
-		
-	}
-
-	@Override
-	public void movement() {
-		// TODO Auto-generated method stub
-		
+	public void updatePosition() {
+		System.out.println("X position of movable entity = " + getX() + "\n");
+		System.out.println("Y position of movable entity = " + getY() + "\n");
 	}
 }

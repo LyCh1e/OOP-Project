@@ -4,9 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 public class ImmovableEntity extends Entity{
-	private float speed = 200f; // Example speed
-    private boolean isJumping = false;
-
 	ImmovableEntity (){
 		
 	}
@@ -19,12 +16,12 @@ public class ImmovableEntity extends Entity{
 	}
     
     public void moveLeft() {
-        velocityX = -speed;
+        velocityX = 0;
         System.out.println("Moving Left");
     }
 
     public void moveRight() {
-        velocityX = speed;
+        velocityX = 0;
         System.out.println("Moving Right");
     }
 
@@ -32,32 +29,10 @@ public class ImmovableEntity extends Entity{
         velocityX = 0;
         System.out.println("Stopped Moving");
     }
-
-    public void jump() {
-        if (!isJumping) { // Prevent double jumping
-            isJumping = true;
-            System.out.println("Jumping");
-            // Add jumping physics here
-        }
-    }
-
-    public void land() {
-        isJumping = false;
-    }
-    
-    void update() {
-    	
-    }
-
-    @Override
-    void updatePosition() {
-    	// TODO print out location
-    	
-    }
-    
+	
 	@Override
-	public void movement() {
-		// TODO Auto-generated method stub
-		
+	public void updatePosition() {
+		System.out.println("X position of immovable entity = " + getX() + "\n");
+		System.out.println("Y position of immovable entity = " + getY() + "\n");
 	}
 }

@@ -71,6 +71,6 @@ public abstract class Entity implements iMovable {
 	void draw (SpriteBatch batch) {
 		batch.draw(getTexture(), getX(), getY(), getTexture().getWidth(), getTexture().getHeight());
 	}
-	
+
 	abstract void updatePosition();
 }
