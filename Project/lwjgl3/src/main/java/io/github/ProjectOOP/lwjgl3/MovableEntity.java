@@ -40,6 +40,8 @@ public class MovableEntity extends Entity{
             // Add jumping physics here
         }
     }
+    
+    // TODO: Create a method to intantiate multiple entities
 
     public void land() {
         isJumping = false;
