@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class Entity {    	
+public abstract class Entity implements iMovable {    	
 	protected float x_axis, y_axis, speed; 
 	protected float velocityX, velocityY;
 	protected Texture texture;
@@ -72,9 +72,7 @@ public class Entity {
 		batch.draw(getTexture(), getX(), getY(), getTexture().getWidth(), getTexture().getHeight());
 	}
 	
-	void createMultipleEntity (Entity e[], String str, float x, float y, float speed) {
-		for (int i = 0; i < e.length; i++) {
-			e[i] = new Entity(str, x, y, speed);
-		}
-	}
+	// TODO: Create a method to instantiate multiple entities
+	
+	abstract void updatePosition();
 }

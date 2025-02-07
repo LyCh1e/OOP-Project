@@ -19,4 +19,6 @@ private List<Entity> entityList = new ArrayList<>();
 			}
 		batch.end();
 	}
+	
+	//TODO: Populate this list with multiple entities
 }

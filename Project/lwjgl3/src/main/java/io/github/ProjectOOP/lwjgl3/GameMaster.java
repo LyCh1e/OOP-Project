@@ -51,10 +51,10 @@ public class GameMaster extends ApplicationAdapter{
 //        keyBindings.initialize();  // Initialize after LibGDX is ready
 
         entity = new MovableEntity("bucket.png", 10, 0, 0);
-        heart1 = new Entity("heart.png", 10, 650, 0);
-        heart2 = new Entity("heart.png", 50, 650, 0);
-        heart3 = new Entity("heart.png", 90, 650, 0);
-        drop = new Entity("droplet.png", randomX, randomY, 2);
+        heart1 = new ImmovableEntity("heart.png", 10, 650, 0);
+        heart2 = new ImmovableEntity("heart.png", 50, 650, 0);
+        heart3 = new ImmovableEntity("heart.png", 90, 650, 0);
+        drop = new ImmovableEntity("droplet.png", randomX, randomY, 2);
         scene = new Scene("background.png", 0, 0);
         pauseMenuScene = new PauseMenuScene();
         settingsScene = new SettingsScene();

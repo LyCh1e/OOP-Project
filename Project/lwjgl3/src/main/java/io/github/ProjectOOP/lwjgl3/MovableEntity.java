@@ -41,9 +41,21 @@ public class MovableEntity extends Entity{
         }
     }
     
-    // TODO: Create a method to intantiate multiple entities
+    // TODO: Create a method to instantiate multiple entities
 
     public void land() {
         isJumping = false;
     }
+
+	@Override
+	void updatePosition() {
+		// TODO print out updated location
+		
+	}
+
+	@Override
+	public void movement() {
+		// TODO Auto-generated method stub
+		
+	}
 }

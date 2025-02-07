@@ -44,4 +44,20 @@ public class ImmovableEntity extends Entity{
     public void land() {
         isJumping = false;
     }
+    
+    void update() {
+    	
+    }
+
+    @Override
+    void updatePosition() {
+    	// TODO print out location
+    	
+    }
+    
+	@Override
+	public void movement() {
+		// TODO Auto-generated method stub
+		
+	}
 }
