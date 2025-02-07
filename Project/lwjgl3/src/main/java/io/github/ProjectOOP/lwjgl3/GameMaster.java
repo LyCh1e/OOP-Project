@@ -20,7 +20,7 @@ public class GameMaster extends ApplicationAdapter{
     private IOManager ioManager;
 
     private MovableEntity entity;
-    private MovableEntity drop; 
+    private MovableEntity drop,drop1; 
     private ImmovableEntity heart1, heart2, heart3;
     private Scene scene;
     private PauseMenuScene pauseMenuScene;
@@ -54,6 +54,7 @@ public class GameMaster extends ApplicationAdapter{
 
         entity = new MovableEntity("bucket.png", 10, 0, 0);
         drop = new MovableEntity("droplet.png", 1280, randomYBottom, 2);
+        drop1 = new MovableEntity("droplet.png", 1280, randomYBottom, 2);
         heart1 = new ImmovableEntity("heart.png", 10, 650, 0);
         heart2 = new ImmovableEntity("heart.png", 50, 650, 0);
         heart3 = new ImmovableEntity("heart.png", 90, 650, 0);
@@ -109,7 +110,8 @@ public class GameMaster extends ApplicationAdapter{
             entityManager.draw(batch);
             
             movementManager.updateUserMovement(entity);
-            movementManager.updateAIMovement(drop,MovementManager.Y_Column.BOTTOM);
+            movementManager.updateAIMovementXAxis(drop, MovementManager.X_Row.LEFT);
+            movementManager.updateAIMovementYAxis(entity, MovementManager.Y_Column.BOTTOM);
             
             if (collisionManager.checkCollisions(entity, drop) == true) {
             	Collidable.doCollision(entity, drop);

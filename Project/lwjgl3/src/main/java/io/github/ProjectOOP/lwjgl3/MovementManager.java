@@ -21,7 +21,7 @@ public class MovementManager {
         userMovement.move(entity);
     }
     
-    public void updateAIMovement(Entity entity, Y_Column layer) {
+    public void updateAIMovementYAxis(Entity entity, Y_Column layer) {
         switch (layer) {
             case BOTTOM:
                 aiMovement.moveBottom(entity);
@@ -31,6 +31,19 @@ public class MovementManager {
                 break;
             case TOP:
                 aiMovement.moveTop(entity);
+                break;
+        }
+    }
+    public void updateAIMovementXAxis(Entity entity, X_Row layer) {
+        switch (layer) {
+            case LEFT:
+                aiMovement.moveBottomXAxis(entity);
+                break;
+            case MIDDLE:
+                aiMovement.moveMiddleXAxis(entity);
+                break;
+            case RIGHT:
+                aiMovement.moveTopXAxis(entity);
                 break;
         }
     }
