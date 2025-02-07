@@ -9,9 +9,12 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.audio.Music; // import Music class
 import com.badlogic.gdx.Gdx; // import Gdx for file handling
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.Color;
 
-public class GameMaster extends ApplicationAdapter{
+public class GameMaster extends ApplicationAdapter {
     private SpriteBatch batch;
+    private BitmapFont font; // Added font for text rendering
 
     private EntityManager entityManager;
     private SceneManager sceneManager;
@@ -20,7 +23,7 @@ public class GameMaster extends ApplicationAdapter{
     private IOManager ioManager;
 
     private MovableEntity entity;
-    private MovableEntity drop,drop1; 
+    private MovableEntity drop, drop1;
     private ImmovableEntity heart1, heart2, heart3;
     private Scene scene;
     private PauseMenuScene pauseMenuScene;
@@ -28,9 +31,12 @@ public class GameMaster extends ApplicationAdapter{
     private KeyBindings keyBindings;
     private Input input;
     private Music backgroundMusic; // music variable for background music
-    
-    GameMaster (){
-    	entityManager = new EntityManager();
+
+    private int score = 0; // Example score variable
+    private int lives = 3; // Example lives counter
+
+    GameMaster() {
+        entityManager = new EntityManager();
         sceneManager = new SceneManager();
         collisionManager = new CollisionManager();
 	    input = new Input();
@@ -51,6 +57,11 @@ public class GameMaster extends ApplicationAdapter{
 
         batch = new SpriteBatch();
 //        keyBindings.initialize();  // Initialize after LibGDX is ready
+
+        // Initialize font for text rendering
+        font = new BitmapFont(); // Default LibGDX font
+        font.setColor(Color.WHITE); // Set font color to white
+        font.getData().setScale(2); // Scale the font size up
 
         entity = new MovableEntity("bucket.png", 10, 0, 0);
         drop = new MovableEntity("droplet.png", 1280, randomYBottom, 2);
@@ -73,7 +84,7 @@ public class GameMaster extends ApplicationAdapter{
         entityManager.addEntities(heart1);
         entityManager.addEntities(heart2);
         entityManager.addEntities(heart3);
-        
+
         // Load and play background music
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("backgroundMusic.mp3")); // Load music file
         backgroundMusic.setLooping(true); // Set looping to true
@@ -92,10 +103,10 @@ public class GameMaster extends ApplicationAdapter{
                 sceneManager.setState(SceneManager.STATE.Start);
             }
         }
-        
+
         if (ioManager.isSettingsKeyPressed()) {
             // Toggle settings state, settings can only be opened from pause menu, click 1 to open settings
-            if (sceneManager.getState() == SceneManager.STATE.Pause ) {
+            if (sceneManager.getState() == SceneManager.STATE.Pause) {
                 sceneManager.setState(SceneManager.STATE.Settings);
             } else if (sceneManager.getState() == SceneManager.STATE.Settings) {
                 sceneManager.setState(SceneManager.STATE.Pause);
@@ -103,27 +114,43 @@ public class GameMaster extends ApplicationAdapter{
         }
 
         // Draw scenes, SceneManager handles drawing based on currentState!!!
+        // Draw the background
         sceneManager.drawScene(batch);
 
         // Game logic (movement, collisions) ONLY in Start(game) state
+        batch.begin();
+
+        // Draw entities
         if (sceneManager.getState() == SceneManager.STATE.Start) {
             entityManager.draw(batch);
-            
+
             movementManager.updateUserMovement(entity);
             movementManager.updateAIMovementXAxis(drop, MovementManager.X_Row.LEFT);
             movementManager.updateAIMovementYAxis(entity, MovementManager.Y_Column.BOTTOM);
-            
-            if (collisionManager.checkCollisions(entity, drop) == true) {
-            	Collidable.doCollision(entity, drop);
+
+            if (collisionManager.checkCollisions(entity, drop)) {
+                Collidable.doCollision(entity, drop);
+                score += 10;
             }
+
+            // ✅ Draw Score on the right side
+            drawText("Score: " + score, Gdx.graphics.getWidth() - 200, 680);
         }
+
+        batch.end();
+    }
+
+
+    // Method to render text on the screen
+    private void drawText(String text, float x, float y) {
+        font.draw(batch, text, x, y);
     }
 
     public void dispose() {
         batch.dispose();
+        font.dispose(); // Dispose font to avoid memory leaks
         if (backgroundMusic != null) {
             backgroundMusic.dispose();
         }
     }
-
 }

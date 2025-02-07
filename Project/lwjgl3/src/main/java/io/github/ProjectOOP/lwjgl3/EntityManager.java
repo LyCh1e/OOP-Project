@@ -12,12 +12,10 @@ private List<Entity> entityList = new ArrayList<>();
 		entityList.add(e);
 	}
 	
-	void draw (SpriteBatch batch) {
-		batch.begin();
+	void draw (SpriteBatch batch) {;
 			for (int i = 0; i < entityList.size(); i++) {
 				entityList.get(i).draw(batch);
 			}
-		batch.end();
 	}
 	
 	// TODO: Populate this list with multiple entities
