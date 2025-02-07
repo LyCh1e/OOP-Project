@@ -13,8 +13,8 @@ public class MovementManager {
     float gravity = -980f;
     float verticalVelocity = 4;
     
-    public MovementManager(IOManager ioManager) {
-        this.ioManager = ioManager;
+    public MovementManager(IOManager ioM) {
+        ioManager = ioM;
     }
     
     public void userMovement(Entity e) {
