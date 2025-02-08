@@ -1,8 +1,6 @@
 // GameMaster.java
 package io.github.ProjectOOP.lwjgl3;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import com.badlogic.gdx.ApplicationAdapter;
@@ -64,18 +62,17 @@ public class GameMaster extends ApplicationAdapter {
         //keyBindings.initialize();  // Initialize after LibGDX is ready
 	    output = new Output("Score: ", Color.WHITE, Gdx.graphics.getWidth() - 300, 700, 2);
 
-	    Entity temp = new MovableEntity("bucket.png", 10, 0, 0);
-	    entities[0] = (MovableEntity) temp;
-	    entityManager.addEntities(temp);
+	    for (int i = 0; i < entities.length; i++) {	
+	    	entities[i] = new MovableEntity("bucket.png", 10, 0, 0);
+	    	entityManager.addEntities(entities[i]);
+	    }
 	    for (int i = 0; i < droplets.length; i++) {
-	    	temp = new MovableEntity("droplet.png", 1280, randomYBottom, 2);
-	    	droplets[i] = (MovableEntity) temp;
-		    entityManager.addEntities(temp);
+	    	droplets[i] = new MovableEntity("droplet.png", 1280, randomYBottom, 2);
+		    entityManager.addEntities(droplets[i]);
 	    }
 	    for (int i = 0; i < hearts.length; i++) {
-	    	temp = new ImmovableEntity("heart.png", 10 + (i * 40), 650, 0);
-	    	hearts[i] = (ImmovableEntity) temp;
-		    entityManager.addEntities(temp);
+	    	hearts[i] = new ImmovableEntity("heart.png", 10 + (i * 40), 650, 0);
+		    entityManager.addEntities(hearts[i]);
 	    }
 	    
         // Load and play background music
