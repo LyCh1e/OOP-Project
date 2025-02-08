@@ -1,6 +1,8 @@
 // GameMaster.java
 package io.github.ProjectOOP.lwjgl3;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 import com.badlogic.gdx.ApplicationAdapter;
@@ -53,12 +55,25 @@ public class GameMaster extends ApplicationAdapter {
         batch = new SpriteBatch();
         //keyBindings.initialize();  // Initialize after LibGDX is ready
 	    output = new Output("Score: ", Color.WHITE, Gdx.graphics.getWidth() - 300, 700, 2);
-        entity = new MovableEntity("bucket.png", 10, 0, 0);
-        drop = new MovableEntity("droplet.png", 1280, randomYBottom, 2);
-        drop1 = new MovableEntity("droplet.png", 1280, randomYBottom, 2);
-        heart1 = new ImmovableEntity("heart.png", 10, 650, 0);
-        heart2 = new ImmovableEntity("heart.png", 50, 650, 0);
-        heart3 = new ImmovableEntity("heart.png", 90, 650, 0);
+
+	    List<EntityConfig> configs = Arrays.asList(
+            new EntityConfig("bucket.png", 10, 0, 0, true),
+            new EntityConfig("droplet.png", 1280, randomYBottom, 2, true),
+            new EntityConfig("droplet.png", 1280, randomYBottom, 2, true),
+            new EntityConfig("heart.png", 10, 650, 0, false),
+            new EntityConfig("heart.png", 50, 650, 0, false),
+            new EntityConfig("heart.png", 90, 650, 0, false)
+        );
+	    // Instantiate entities
+	    List<Entity> entities = entityManager.instantializeEntities(configs);
+
+	    // Assign them to variables
+	    entity = (MovableEntity) entities.get(0);
+	    drop = (MovableEntity) entities.get(1);
+	    drop1 = (MovableEntity) entities.get(2);
+	    heart1 = (ImmovableEntity) entities.get(3);
+	    heart2 = (ImmovableEntity) entities.get(4);
+	    heart3 = (ImmovableEntity) entities.get(5);
         scene = new Scene("background.png", 0, 0);
         pauseMenuScene = new PauseMenuScene();
         settingsScene = new SettingsScene();
@@ -68,13 +83,6 @@ public class GameMaster extends ApplicationAdapter {
         sceneManager.addSceneToState(SceneManager.STATE.Pause, pauseMenuScene); // Pause Menu only in Pause state
         sceneManager.addSceneToState(SceneManager.STATE.Settings, settingsScene); // SettingsScene only in Settings state
         sceneManager.setState(SceneManager.STATE.Start); // First state, (game playing state)
-
-        entityManager.addEntities(drop);
-        entityManager.addEntities(drop1);
-        entityManager.addEntities(entity);
-        entityManager.addEntities(heart1);
-        entityManager.addEntities(heart2);
-        entityManager.addEntities(heart3);
         
         ioManager.addOutput(output);
         
