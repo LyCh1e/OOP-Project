@@ -14,6 +14,10 @@ public class ImmovableEntity extends Entity{
 		setSpeed(s);
 		texture = new Texture(Gdx.files.internal(str));
 	}
+	
+	ImmovableEntity(String str, float x, float y, float s, boolean m) {
+		super(str, x, y, s, m);
+	}
     
     public void moveLeft() {
         velocityX = 0;

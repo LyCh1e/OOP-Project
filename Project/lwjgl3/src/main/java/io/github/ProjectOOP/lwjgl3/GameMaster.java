@@ -1,7 +1,7 @@
 // GameMaster.java
 package io.github.ProjectOOP.lwjgl3;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -56,14 +56,14 @@ public class GameMaster extends ApplicationAdapter {
         //keyBindings.initialize();  // Initialize after LibGDX is ready
 	    output = new Output("Score: ", Color.WHITE, Gdx.graphics.getWidth() - 300, 700, 2);
 
-	    List<EntityConfig> configs = Arrays.asList(
-            new EntityConfig("bucket.png", 10, 0, 0, true),
-            new EntityConfig("droplet.png", 1280, randomYBottom, 2, true),
-            new EntityConfig("droplet.png", 1280, randomYBottom, 2, true),
-            new EntityConfig("heart.png", 10, 650, 0, false),
-            new EntityConfig("heart.png", 50, 650, 0, false),
-            new EntityConfig("heart.png", 90, 650, 0, false)
-        );
+	    List<Entity> configs = new ArrayList<>();
+	    configs.add(new MovableEntity("bucket.png", 10, 0, 0, true));
+	    configs.add(new MovableEntity("droplet.png", 1280, randomYBottom, 2, true));
+	    configs.add(new MovableEntity("droplet.png", 1280, randomYBottom, 2, true));
+	    configs.add(new ImmovableEntity("heart.png", 10, 650, 0, false));
+	    configs.add(new ImmovableEntity("heart.png", 50, 650, 0, false));
+	    configs.add(new ImmovableEntity("heart.png", 90, 650, 0, false));
+	    
 	    // Instantiate entities
 	    List<Entity> entities = entityManager.instantializeEntities(configs);
 
@@ -74,6 +74,7 @@ public class GameMaster extends ApplicationAdapter {
 	    heart1 = (ImmovableEntity) entities.get(3);
 	    heart2 = (ImmovableEntity) entities.get(4);
 	    heart3 = (ImmovableEntity) entities.get(5);
+
         scene = new Scene("background.png", 0, 0);
         pauseMenuScene = new PauseMenuScene();
         settingsScene = new SettingsScene();

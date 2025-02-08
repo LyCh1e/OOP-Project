@@ -17,7 +17,11 @@ public class MovableEntity extends Entity{
 		texture = new Texture(Gdx.files.internal(str));
 	}
     
-    public void moveLeft() {
+    MovableEntity(String str, float x, float y, float s, boolean m) {
+		super(str, x, y, s, m);
+	}
+
+	public void moveLeft() {
         velocityX = -speed;
         System.out.println("Moving Left");
     }
