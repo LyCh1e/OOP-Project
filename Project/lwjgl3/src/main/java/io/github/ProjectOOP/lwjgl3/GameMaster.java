@@ -56,16 +56,16 @@ public class GameMaster extends ApplicationAdapter {
         //keyBindings.initialize();  // Initialize after LibGDX is ready
 	    output = new Output("Score: ", Color.WHITE, Gdx.graphics.getWidth() - 300, 700, 2);
 
-	    List<Entity> configs = new ArrayList<>();
-	    configs.add(new MovableEntity("bucket.png", 10, 0, 0, true));
-	    configs.add(new MovableEntity("droplet.png", 1280, randomYBottom, 2, true));
-	    configs.add(new MovableEntity("droplet.png", 1280, randomYBottom, 2, true));
-	    configs.add(new ImmovableEntity("heart.png", 10, 650, 0, false));
-	    configs.add(new ImmovableEntity("heart.png", 50, 650, 0, false));
-	    configs.add(new ImmovableEntity("heart.png", 90, 650, 0, false));
+	    List<Entity> entityConfigs = new ArrayList<>();
+	    entityConfigs.add(new MovableEntity("bucket.png", 10, 0, 0, true));
+	    entityConfigs.add(new MovableEntity("droplet.png", 1280, randomYBottom, 2, true));
+	    entityConfigs.add(new MovableEntity("droplet.png", 1280, randomYBottom, 2, true));
+	    entityConfigs.add(new ImmovableEntity("heart.png", 10, 650, 0, false));
+	    entityConfigs.add(new ImmovableEntity("heart.png", 50, 650, 0, false));
+	    entityConfigs.add(new ImmovableEntity("heart.png", 90, 650, 0, false));
 	    
 	    // Instantiate entities
-	    List<Entity> entities = entityManager.instantializeEntities(configs);
+	    List<Entity> entities = entityManager.instantializeEntities(entityConfigs);
 
 	    // Assign them to variables
 	    entity = (MovableEntity) entities.get(0);
