@@ -8,7 +8,6 @@ public abstract class Entity implements iMovable {
 	protected float x_axis, y_axis, speed; 
 	protected float velocityX, velocityY;
 	protected Texture texture;
-	protected boolean movable;
 	
 	Entity (){
 		
@@ -21,13 +20,6 @@ public abstract class Entity implements iMovable {
 		texture = new Texture(Gdx.files.internal(str));
 	}
 	
-	Entity (String str, float x, float y, float s, boolean m){
-		setX(x);
-		setY(y);
-		setSpeed(s);
-		texture = new Texture(Gdx.files.internal(str));
-		movable = m;
-	}
 	
 	public Texture getTexture() {
 		return texture;
@@ -51,10 +43,6 @@ public abstract class Entity implements iMovable {
 	
 	public float getVelocityY() {
 		return velocityY;
-	}
-	
-	public boolean getMovable() {
-		return movable;
 	}
 	
 	void setTexture(Texture t) {

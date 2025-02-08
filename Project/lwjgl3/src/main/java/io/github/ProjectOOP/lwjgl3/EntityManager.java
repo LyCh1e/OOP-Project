@@ -22,21 +22,4 @@ private List<Entity> entityList = new ArrayList<>();
 	
 	// TODO: Populate this list with multiple entities
 	// TODO: Create a method to instantiate multiple entities
-	public List<Entity> instantializeEntities(List<Entity> entityConfigs) {
-		List<Entity> entities = new ArrayList<>();
-	    
-	    for (Entity config : entityConfigs) {
-	        Entity e;
-	        if (config.movable) {
-	            e = new MovableEntity(config.texture.toString(), config.x_axis, config.y_axis, config.speed);
-	        } else {
-	            e = new ImmovableEntity(config.texture.toString(), config.x_axis, config.y_axis, config.speed);
-	        }
-	        
-	        entities.add(e);
-	        addEntities(e);
-	    }
-	    
-	    return entities;
-    }
 }

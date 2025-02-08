@@ -22,9 +22,15 @@ public class GameMaster extends ApplicationAdapter {
     private MovementManager movementManager;
     private IOManager ioManager;
 
-    private MovableEntity entity;
-    private MovableEntity drop, drop1;
-    private ImmovableEntity heart1, heart2, heart3;
+//    private MovableEntity entity;
+//    private MovableEntity drop, drop1;
+//    private ImmovableEntity heart1, heart2, heart3;
+
+    private MovableEntity[] entities = new MovableEntity[1];
+    private MovableEntity[] droplets = new MovableEntity[2];
+    private ImmovableEntity[] hearts = new ImmovableEntity[3];
+
+    
     private Scene scene;
     private PauseMenuScene pauseMenuScene;
     private SettingsScene settingsScene;
@@ -57,25 +63,21 @@ public class GameMaster extends ApplicationAdapter {
         //keyBindings.initialize();  // Initialize after LibGDX is ready
 	    output = new Output("Score: ", Color.WHITE, Gdx.graphics.getWidth() - 300, 700, 2);
 
-	    List<Entity> entityConfigs = new ArrayList<>();
-	    entityConfigs.add(new MovableEntity("bucket.png", 10, 0, 0, true));
-	    entityConfigs.add(new MovableEntity("droplet.png", 1280, randomYBottom, 2, true));
-	    entityConfigs.add(new MovableEntity("droplet.png", 1280, randomYBottom, 2, true));
-	    entityConfigs.add(new ImmovableEntity("heart.png", 10, 650, 0, false));
-	    entityConfigs.add(new ImmovableEntity("heart.png", 50, 650, 0, false));
-	    entityConfigs.add(new ImmovableEntity("heart.png", 90, 650, 0, false));
+	    Entity temp = new MovableEntity("bucket.png", 10, 0, 0);
+	    entities[0] = (MovableEntity) temp;
+	    entityManager.addEntities(temp);
+	    for (int i = 0; i < droplets.length; i++) {
+	    	temp = new MovableEntity("droplet.png", 1280, randomYBottom, 2);
+	    	droplets[i] = (MovableEntity) temp;
+		    entityManager.addEntities(temp);
+	    }
+	    for (int i = 0; i < hearts.length; i++) {
+	    	temp = new ImmovableEntity("heart.png", 10 + (i * 40), 650, 0);
+	    	hearts[i] = (ImmovableEntity) temp;
+		    entityManager.addEntities(temp);
+	    }
 	    
-	    // Instantiate entities
-	    List<Entity> entities = entityManager.instantializeEntities(entityConfigs);
-
-	    // Assign them to variables
-	    entity = (MovableEntity) entities.get(0);
-	    drop = (MovableEntity) entities.get(1);
-	    drop1 = (MovableEntity) entities.get(2);
-	    heart1 = (ImmovableEntity) entities.get(3);
-	    heart2 = (ImmovableEntity) entities.get(4);
-	    heart3 = (ImmovableEntity) entities.get(5);
-
+	    
         scene = new Scene("background.png", 0, 0);
         pauseMenuScene = new PauseMenuScene();
         settingsScene = new SettingsScene();
@@ -130,13 +132,20 @@ public class GameMaster extends ApplicationAdapter {
         if (currentState == SceneManager.STATE.Start) {
             entityManager.draw(batch);
             ioManager.draw(batch);
-            movementManager.updateUserMovement(entity);
-            movementManager.updateAIMovementXAxis(drop, MovementManager.X_Row.LEFT);
-            movementManager.updateAIMovementYAxis(drop1, MovementManager.Y_Column.BOTTOM);
+            movementManager.updateUserMovement(entities[0]);
+            for (int i = 0; i < droplets.length; i++) {
+            	if (i == 1) {
+            		movementManager.updateAIMovementYAxis(droplets[i], MovementManager.Y_Column.BOTTOM);
+            	} else {
+            		movementManager.updateAIMovementXAxis(droplets[i], MovementManager.X_Row.LEFT);
+            	}
+            }
+//            movementManager.updateAIMovementXAxis(droplets[0], MovementManager.X_Row.LEFT);
+//            movementManager.updateAIMovementYAxis(droplets[1], MovementManager.Y_Column.BOTTOM);
             
             float score = output.getNumber();
-            if (collisionManager.checkCollisions(entity, drop1)) {
-                Collidable.doCollision(entity, drop1);
+            if (collisionManager.checkCollisions(entities[0], droplets[1])) {
+                Collidable.doCollision(entities[0], droplets[1]);
                 output.setNumber(score -= 0.1);
                 output.setString("Score: " + String.valueOf(Math.round(output.getNumber())));
             }
