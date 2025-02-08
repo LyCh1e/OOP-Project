@@ -8,14 +8,16 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class EntityManager {
 private List<Entity> entityList = new ArrayList<>();
 	
-	void addEntities(Entity e) {
+	public void addEntities(Entity e) {
 		entityList.add(e);
 	}
 	
-	void draw (SpriteBatch batch) {;
+	public void draw(SpriteBatch batch) {;
+		batch.begin();
 			for (int i = 0; i < entityList.size(); i++) {
 				entityList.get(i).draw(batch);
 			}
+		batch.end();
 	}
 	
 	// TODO: Populate this list with multiple entities

@@ -2,6 +2,7 @@
 package io.github.ProjectOOP.lwjgl3;
 
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -14,7 +15,6 @@ import com.badlogic.gdx.graphics.Color;
 
 public class GameMaster extends ApplicationAdapter {
     private SpriteBatch batch;
-    private BitmapFont font; // Added font for text rendering
 
     private EntityManager entityManager;
     private SceneManager sceneManager;
@@ -30,17 +30,14 @@ public class GameMaster extends ApplicationAdapter {
     private SettingsScene settingsScene;
     private KeyBindings keyBindings;
     private Input input;
+    private Output output;
     private Music backgroundMusic; // music variable for background music
-
-    private int score = 0; // Example score variable
-    private int lives = 3; // Example lives counter
 
     GameMaster() {
         entityManager = new EntityManager();
         sceneManager = new SceneManager();
         collisionManager = new CollisionManager();
-	    input = new Input();
-	    
+        input = new Input();
 	    // Create IOManager with Input
 	    ioManager = new IOManager(input);
 	
@@ -56,13 +53,8 @@ public class GameMaster extends ApplicationAdapter {
         float randomYTop = random.nextFloat(AIMovement.topMinY, AIMovement.topMaxY);
 
         batch = new SpriteBatch();
-//        keyBindings.initialize();  // Initialize after LibGDX is ready
-
-        // Initialize font for text rendering
-        font = new BitmapFont(); // Default LibGDX font
-        font.setColor(Color.WHITE); // Set font color to white
-        font.getData().setScale(2); // Scale the font size up
-
+        //keyBindings.initialize();  // Initialize after LibGDX is ready
+	    output = new Output("Score: ", Color.WHITE, Gdx.graphics.getWidth() - 300, 700, 2);
         entity = new MovableEntity("bucket.png", 10, 0, 0);
         drop = new MovableEntity("droplet.png", 1280, randomYBottom, 2);
         drop1 = new MovableEntity("droplet.png", 1280, randomYBottom, 2);
@@ -80,11 +72,14 @@ public class GameMaster extends ApplicationAdapter {
         sceneManager.setState(SceneManager.STATE.Start); // First state, (game playing state)
 
         entityManager.addEntities(drop);
+        entityManager.addEntities(drop1);
         entityManager.addEntities(entity);
         entityManager.addEntities(heart1);
         entityManager.addEntities(heart2);
         entityManager.addEntities(heart3);
-
+        
+        ioManager.addOutput(output);
+        
         // Load and play background music
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("backgroundMusic.mp3")); // Load music file
         backgroundMusic.setLooping(true); // Set looping to true
@@ -118,37 +113,30 @@ public class GameMaster extends ApplicationAdapter {
         sceneManager.drawScene(batch);
 
         // Game logic (movement, collisions) ONLY in Start(game) state
-        batch.begin();
 
         // Draw entities
         if (sceneManager.getState() == SceneManager.STATE.Start) {
             entityManager.draw(batch);
-
+            ioManager.draw(batch);
             movementManager.updateUserMovement(entity);
             movementManager.updateAIMovementXAxis(drop, MovementManager.X_Row.LEFT);
-            movementManager.updateAIMovementYAxis(entity, MovementManager.Y_Column.BOTTOM);
-
-            if (collisionManager.checkCollisions(entity, drop)) {
-                Collidable.doCollision(entity, drop);
-                score += 10;
+            movementManager.updateAIMovementYAxis(drop1, MovementManager.Y_Column.BOTTOM);
+            
+            float score = output.getNumber();
+            if (collisionManager.checkCollisions(entity, drop1)) {
+                Collidable.doCollision(entity, drop1);
+                output.setNumber(score -= 0.1);
+                output.setString("Score: " + String.valueOf(Math.round(output.getNumber())));
             }
-
-            // ✅ Draw Score on the right side
-            drawText("Score: " + score, Gdx.graphics.getWidth() - 200, 680);
+            else {
+                output.setNumber(score += 0.01);
+                output.setString("Score: " + String.valueOf(Math.round(output.getNumber())));
+            }
         }
-
-        batch.end();
-    }
-
-
-    // Method to render text on the screen
-    private void drawText(String text, float x, float y) {
-        font.draw(batch, text, x, y);
     }
 
     public void dispose() {
         batch.dispose();
-        font.dispose(); // Dispose font to avoid memory leaks
         if (backgroundMusic != null) {
             backgroundMusic.dispose();
         }
