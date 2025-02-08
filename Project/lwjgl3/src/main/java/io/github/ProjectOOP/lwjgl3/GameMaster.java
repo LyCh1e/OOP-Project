@@ -78,26 +78,27 @@ public class GameMaster extends ApplicationAdapter {
 		    entityManager.addEntities(temp);
 	    }
 	    
-	    
-        scene = new Scene("background.png", 0, 0);
-        pauseMenuScene = new PauseMenuScene();
-        settingsScene = new SettingsScene();
-        mainMenuScene = new MainMenuScene();
-
-        // Configure SceneManager to associate scenes with states
-        sceneManager.addSceneToState(SceneManager.STATE.Start, scene); // baackground.png in Start state
-        sceneManager.addSceneToState(SceneManager.STATE.Pause, pauseMenuScene); // Pause Menu only in Pause state
-        sceneManager.addSceneToState(SceneManager.STATE.Settings, settingsScene); // SettingsScene only in Settings state
-        sceneManager.addSceneToState(SceneManager.STATE.MainMenu, mainMenuScene); // SettingsScene only in Settings state
-        sceneManager.setState(SceneManager.STATE.MainMenu); // First state, (game playing state)
-        
-        ioManager.addOutput(output);
-        
         // Load and play background music
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("backgroundMusic.mp3")); // Load music file
         backgroundMusic.setLooping(true); // Set looping to true
         backgroundMusic.play(); // Start playing the music
         backgroundMusic.setVolume(0.2f); // Lower down the default background music bc its too loud
+	    
+        scene = new Scene("background.png", 0, 0);
+        pauseMenuScene = new PauseMenuScene();
+        settingsScene = new SettingsScene(backgroundMusic, ioManager);
+        mainMenuScene = new MainMenuScene();
+
+        // Configure SceneManager to associate scenes with states
+        sceneManager.addSceneToState(SceneManager.STATE.Start, scene); // baackground.png in Start state
+        sceneManager.addSceneToState(SceneManager.STATE.Pause, pauseMenuScene); // Pause Menu only in Pause state
+        sceneManager.addSceneToState(SceneManager.STATE.Settings, settingsScene);
+        sceneManager.addSceneToState(SceneManager.STATE.MainMenu, mainMenuScene); // SettingsScene only in Settings state
+        sceneManager.setState(SceneManager.STATE.MainMenu); // First state, (game playing state)
+        
+        ioManager.addOutput(output);
+        
+
     }
 
     public void render() {
