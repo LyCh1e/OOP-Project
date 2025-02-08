@@ -28,6 +28,7 @@ public class GameMaster extends ApplicationAdapter {
     private Scene scene;
     private PauseMenuScene pauseMenuScene;
     private SettingsScene settingsScene;
+    private MainMenuScene mainMenuScene;
     private KeyBindings keyBindings;
     private Input input;
     private Output output;
@@ -78,11 +79,13 @@ public class GameMaster extends ApplicationAdapter {
         scene = new Scene("background.png", 0, 0);
         pauseMenuScene = new PauseMenuScene();
         settingsScene = new SettingsScene();
+        mainMenuScene = new MainMenuScene();
 
         // Configure SceneManager to associate scenes with states
         sceneManager.addSceneToState(SceneManager.STATE.Start, scene); // baackground.png in Start state
         sceneManager.addSceneToState(SceneManager.STATE.Pause, pauseMenuScene); // Pause Menu only in Pause state
         sceneManager.addSceneToState(SceneManager.STATE.Settings, settingsScene); // SettingsScene only in Settings state
+        sceneManager.addSceneToState(SceneManager.STATE.MainMenu, mainMenuScene); // SettingsScene only in Settings state
         sceneManager.setState(SceneManager.STATE.Start); // First state, (game playing state)
         
         ioManager.addOutput(output);
@@ -96,21 +99,23 @@ public class GameMaster extends ApplicationAdapter {
 
     public void render() {
         ScreenUtils.clear(0, 0, 0.2f, 1);
-
+        SceneManager.STATE currentState = sceneManager.getState();
+        
+       
         if (ioManager.isPauseKeyPressed()) {
             // Toggle pause state
-            if (sceneManager.getState() == SceneManager.STATE.Start) {
+            if (currentState == SceneManager.STATE.Start) {
                 sceneManager.setState(SceneManager.STATE.Pause);
-            } else if (sceneManager.getState() == SceneManager.STATE.Pause) {
+            } else if (currentState == SceneManager.STATE.Pause) {
                 sceneManager.setState(SceneManager.STATE.Start);
             }
         }
 
         if (ioManager.isSettingsKeyPressed()) {
             // Toggle settings state, settings can only be opened from pause menu, click 1 to open settings
-            if (sceneManager.getState() == SceneManager.STATE.Pause) {
+            if (currentState == SceneManager.STATE.Pause) {
                 sceneManager.setState(SceneManager.STATE.Settings);
-            } else if (sceneManager.getState() == SceneManager.STATE.Settings) {
+            } else if (currentState == SceneManager.STATE.Settings) {
                 sceneManager.setState(SceneManager.STATE.Pause);
             }
         }
@@ -122,7 +127,7 @@ public class GameMaster extends ApplicationAdapter {
         // Game logic (movement, collisions) ONLY in Start(game) state
 
         // Draw entities
-        if (sceneManager.getState() == SceneManager.STATE.Start) {
+        if (currentState == SceneManager.STATE.Start) {
             entityManager.draw(batch);
             ioManager.draw(batch);
             movementManager.updateUserMovement(entity);

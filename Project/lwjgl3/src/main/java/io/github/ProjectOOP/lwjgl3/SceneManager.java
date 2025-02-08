@@ -14,10 +14,10 @@ public class SceneManager implements Disposable {
     private Map<STATE, List<Scene>> stateSceneMap = new HashMap<>();
 
     public enum STATE {
-        Start, End, Pause, Background, Settings //added new settings STATE
+        Start, End, Pause, Background, Settings, MainMenu //added new settings STATE
     }
 
-    private STATE currentState = STATE.Start; // Start state is the first state, the game playing
+    private STATE currentState = STATE.Start; // MAINMENU state is the first state, the game playing
 
     public SceneManager() {
         // Initialize lists for each state in the constructor
