@@ -21,11 +21,11 @@ public class AIMovement {
     }
 
     public void moveMiddleYAxis(Entity e) {
-    	moveInLayerYAxis(e, middleMinY, middleMaxY);
+        moveInLayerYAxis(e, middleMinY, middleMaxY);
     }
 
     public void moveTopYAxis(Entity e) {
-    	moveInLayerYAxis(e, topMinY, topMaxY);
+        moveInLayerYAxis(e, topMinY, topMaxY);
     }
 
     public void moveBottomXAxis(Entity e) {
@@ -46,7 +46,7 @@ public class AIMovement {
         e.setX(x - speed);
 
         if (e.getX() < 0) {
-        	resetPositionYAxis(e, minY, maxY);
+            resetPositionYAxis(e, minY, maxY);
         }
     }
 
@@ -61,20 +61,16 @@ public class AIMovement {
     }
 
     private void resetPositionYAxis(Entity e, float minY, float maxY) {
-        float randomY = random.nextFloat(minY, maxY);
-        e.setX(SCREEN_WIDTH);
-        e.setY(randomY);
-
+        e.respawn(SCREEN_WIDTH, SCREEN_WIDTH, minY, maxY); // AI respawns at the right side
         float newSpeed = Math.min(e.getSpeed() * 2, MAX_SPEED);
         e.setSpeed(newSpeed);
     }
+
 
     private void resetPositionXAxis(Entity e, float minX, float maxX) {
-        float randomX = random.nextFloat(minX, maxX);
-        e.setY(SCREEN_WIDTH);
-        e.setX(randomX);
-
+        e.respawn(minX, maxX, SCREEN_WIDTH, SCREEN_WIDTH); // AI respawns at the top
         float newSpeed = Math.min(e.getSpeed() * 2, MAX_SPEED);
         e.setSpeed(newSpeed);
     }
+
 }

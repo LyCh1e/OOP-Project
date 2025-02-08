@@ -25,7 +25,7 @@ public class GameMaster extends ApplicationAdapter {
 //    private ImmovableEntity heart1, heart2, heart3;
 
     private MovableEntity[] entities = new MovableEntity[1];
-    private MovableEntity[] droplets = new MovableEntity[2];
+    private MovableEntity[] droplets = new MovableEntity[5];
     private ImmovableEntity[] hearts = new ImmovableEntity[3];
 
     
