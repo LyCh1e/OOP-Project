@@ -19,12 +19,12 @@ public class IOManager {
     	outputList.add(out);
     }
     
-    public boolean isPauseKeyPressed() {
-        return Gdx.input.isKeyJustPressed(Keys.ESCAPE);
+    public boolean isEscape() {
+    	return input.isEscape();
     }
     
-    public boolean isSettingsKeyPressed() {
-        return Gdx.input.isKeyJustPressed(Keys.NUM_1);
+    public boolean isNum1() {
+    	return input.isNum1();
     }
     
 
@@ -37,7 +37,11 @@ public class IOManager {
     }
     
     public boolean isJumping() {
-        return input.isJumping();
+        return input.isJumping(); // Now uses Input's isJumping which checks forceJumpFalse
+    }
+
+    public void setForceJumpFalse(boolean force) { //Force jump to be false for first few frames before switching to avoid overlap (implemented in gamemaster)
+        input.setForceJumpFalse(force);
     }
     
     // Method to render text on the screen

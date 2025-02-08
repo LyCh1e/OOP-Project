@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class Input {
     private ClickListener click;
+    private boolean forceJumpFalse = false; 
 //    private KeyBindings keyBindings;
 
     public Input() {
@@ -22,8 +23,24 @@ public class Input {
     }
     
     public boolean isJumping() {
+        if (forceJumpFalse) { // CHECK FORCE FLAG FIRST
+            return false;
+        }
         return (Gdx.input.isKeyPressed(Keys.UP) || Gdx.input.isKeyPressed(Keys.SPACE));
     }
+    
+    public void setForceJumpFalse(boolean force) { // Force the jump to stop
+        forceJumpFalse = force;
+    }
+    
+    public boolean isEscape() {
+        return Gdx.input.isKeyJustPressed(Keys.ESCAPE);
+    }
+    
+    public boolean isNum1() {
+        return Gdx.input.isKeyJustPressed(Keys.NUM_1);
+    }
+    
 
 //    // Existing methods remain unchanged
 //    public boolean keyDown(int keycode) {

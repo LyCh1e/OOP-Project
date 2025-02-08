@@ -17,7 +17,7 @@ public class SceneManager implements Disposable {
         Start, End, Pause, Background, Settings, MainMenu //added new settings STATE
     }
 
-    private STATE currentState = STATE.Start; // MAINMENU state is the first state, the game playing
+    private STATE currentState = STATE.MainMenu; // MAINMENU state is the first state, the game playing
 
     public SceneManager() {
         // Initialize lists for each state in the constructor

@@ -39,6 +39,7 @@ public class GameMaster extends ApplicationAdapter {
     private Input input;
     private Output output;
     private Music backgroundMusic; // music variable for background music
+    private int frameInStartState = 0; // Frame counter for Start state, to help with transtion from menu to start scene
 
     GameMaster() {
         entityManager = new EntityManager();
@@ -49,7 +50,7 @@ public class GameMaster extends ApplicationAdapter {
 	    ioManager = new IOManager(input);
 	
 	    // Create MovementManager with IOManager
-	    movementManager = new MovementManager(ioManager);
+	    movementManager = new MovementManager(ioManager, sceneManager);
 //	    keyBindings = new KeyBindings();
     }
 
@@ -88,7 +89,7 @@ public class GameMaster extends ApplicationAdapter {
         sceneManager.addSceneToState(SceneManager.STATE.Pause, pauseMenuScene); // Pause Menu only in Pause state
         sceneManager.addSceneToState(SceneManager.STATE.Settings, settingsScene); // SettingsScene only in Settings state
         sceneManager.addSceneToState(SceneManager.STATE.MainMenu, mainMenuScene); // SettingsScene only in Settings state
-        sceneManager.setState(SceneManager.STATE.Start); // First state, (game playing state)
+        sceneManager.setState(SceneManager.STATE.MainMenu); // First state, (game playing state)
         
         ioManager.addOutput(output);
         
@@ -103,8 +104,13 @@ public class GameMaster extends ApplicationAdapter {
         ScreenUtils.clear(0, 0, 0.2f, 1);
         SceneManager.STATE currentState = sceneManager.getState();
         
+        if (currentState == SceneManager.STATE.MainMenu) {
+            if (ioManager.isJumping()) {
+                sceneManager.setState(SceneManager.STATE.Start);
+            }
+        }
        
-        if (ioManager.isPauseKeyPressed()) {
+        if (ioManager.isEscape()) {
             // Toggle pause state
             if (currentState == SceneManager.STATE.Start) {
                 sceneManager.setState(SceneManager.STATE.Pause);
@@ -113,7 +119,7 @@ public class GameMaster extends ApplicationAdapter {
             }
         }
 
-        if (ioManager.isSettingsKeyPressed()) {
+        if (ioManager.isNum1()) {
             // Toggle settings state, settings can only be opened from pause menu, click 1 to open settings
             if (currentState == SceneManager.STATE.Pause) {
                 sceneManager.setState(SceneManager.STATE.Settings);
@@ -130,9 +136,18 @@ public class GameMaster extends ApplicationAdapter {
 
         // Draw entities
         if (currentState == SceneManager.STATE.Start) {
+        	frameInStartState++; // Increment frame counter for Start state
+        	
+            // Force isJumping() to false for the first 10 frames of Start state this is because when i change scene it overlaps
+            if (frameInStartState <= 10) {
+                ioManager.setForceJumpFalse(true); //if still within 10 frames cant jump, you wont notice bc 10 frames is v short
+            } else {
+                ioManager.setForceJumpFalse(false); // Disable force false after 10 frames
+            }
+        	
             entityManager.draw(batch);
             ioManager.draw(batch);
-            movementManager.updateUserMovement(entities[0]);
+            movementManager.updateUserMovement(entities[0], currentState);
             for (int i = 0; i < droplets.length; i++) {
             	if (i == 1) {
             		movementManager.updateAIMovementYAxis(droplets[i], MovementManager.Y_Column.BOTTOM);

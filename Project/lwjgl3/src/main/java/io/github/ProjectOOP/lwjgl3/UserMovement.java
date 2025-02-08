@@ -18,9 +18,9 @@ public class UserMovement{
     	ioManager = ioM;
     }
     
-    public void move(Entity e) {
+    public void move(Entity e, SceneManager.STATE currentState) {
         handleHorizontalMovement(e);
-        handleVerticalMovement(e);
+        handleVerticalMovement(e, currentState); // Pass currentState to vertical movement testing
         enforceBoundaries(e);
     }
     
@@ -36,11 +36,11 @@ public class UserMovement{
         }
     }
     
-    private void handleVerticalMovement(Entity e) {
+    private void handleVerticalMovement(Entity e, SceneManager.STATE currentState) {
         float deltaTime = Gdx.graphics.getDeltaTime();
         verticalVelocity += GRAVITY * deltaTime;
         
-        if (ioManager.isJumping() && e.getY() <= y_bottomLimit) {
+        if (currentState == SceneManager.STATE.Start && ioManager.isJumping() && e.getY() <= y_bottomLimit) {
             verticalVelocity = JUMP_VELOCITY;
         }
         
