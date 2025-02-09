@@ -45,7 +45,6 @@ public class Scene {
         batch.draw(getTexture(), getX(), getY());
     }
     
-
     public void dispose() {
         if (texture != null) { 
             texture.dispose();

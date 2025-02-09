@@ -1,7 +1,5 @@
 package io.github.ProjectOOP.lwjgl3;
 
-import java.util.Random;
-
 public class AIMovement {
     private static final float MAX_SPEED = 8f;
     private static final float SCREEN_WIDTH = 1280f;
@@ -13,8 +11,6 @@ public class AIMovement {
     public static float leftMinX = 0, leftMaxX = 400;
     public static float middleMinX = 450, middleMaxX = 850;
     public static float rightMinX = 900, rightMaxX = 1280;
-
-    private Random random = new Random();
 
     public void moveBottomYAxis(Entity e) {
         moveInLayerYAxis(e, bottomMinY, bottomMaxY);

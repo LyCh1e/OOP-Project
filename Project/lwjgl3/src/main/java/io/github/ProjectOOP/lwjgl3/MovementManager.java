@@ -3,7 +3,7 @@ package io.github.ProjectOOP.lwjgl3;
 public class MovementManager {
     private final UserMovement userMovement;
     private final AIMovement aiMovement;
-    private final SceneManager sceneManager; // Add SceneManager field
+    private final SceneManager sceneManager;
     
     public enum Y_Column {
         BOTTOM, MIDDLE, TOP
@@ -13,10 +13,10 @@ public class MovementManager {
         LEFT, MIDDLE, RIGHT
     }
     
-    public MovementManager(IOManager ioManager, SceneManager sceneManager) {
+    public MovementManager(IOManager ioManager, SceneManager sm) {
         userMovement = new UserMovement(ioManager);
         aiMovement = new AIMovement();
-        this.sceneManager = sceneManager; // Initialize SceneManager 
+        sceneManager = sm;
     }
     
     public void updateUserMovement(Entity entity, SceneManager.STATE currentState) {

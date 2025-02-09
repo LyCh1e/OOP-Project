@@ -5,21 +5,17 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class PauseMenuScene extends Scene {
-	
     private Texture resumeButtonTexture; 
-    //test please dont break
+
     public PauseMenuScene() {
         super("pause_background.png", 0, 0); 
         resumeButtonTexture = new Texture(Gdx.files.internal("resume_button.png"));
-
     }
 
     @Override
     public void draw(SpriteBatch batch) {
-
         super.draw(batch);
         batch.draw(resumeButtonTexture, 0, 0);
-
     }
     
     @Override

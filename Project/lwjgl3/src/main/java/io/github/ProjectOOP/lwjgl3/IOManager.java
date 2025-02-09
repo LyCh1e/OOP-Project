@@ -3,10 +3,7 @@ package io.github.ProjectOOP.lwjgl3;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -19,8 +16,8 @@ public class IOManager {
         input = in;
     }
     
-    public void addOutput(Output out) {
-    	outputList.add(out);
+    public void addOutput(Output output) {
+    	outputList.add(output);
     }
     
     public boolean isEscape() {

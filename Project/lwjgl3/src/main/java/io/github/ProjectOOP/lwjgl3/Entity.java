@@ -27,14 +27,33 @@ public abstract class Entity implements iMovable {
         prevY = y;
     }
 
-    public Texture getTexture() { return texture; }
-    public float getX() { return x_axis; }
-    public float getY() { return y_axis; }
-    public float getSpeed() { return speed; }
-    public float getVelocityX() { return velocityX; }
-    public float getVelocityY() { return velocityY; }
+    public Texture getTexture() {
+    	return texture; 
+    }
+    
+    public float getX() { 
+    	return x_axis;
+    }
+    
+    public float getY() { 
+    	return y_axis; 
+    }
+    
+    public float getSpeed() { 
+    	return speed; 
+    }
+    
+    public float getVelocityX() {
+    	return velocityX;
+    }
+    
+    public float getVelocityY() { 
+    	return velocityY; 
+    }
 
-    void setTexture(Texture t) { texture = t; }
+    void setTexture(Texture t) { 
+    	texture = t; 
+    }
 
     // Store previous position before updating
     void setX(float x) {
@@ -47,21 +66,31 @@ public abstract class Entity implements iMovable {
         this.y_axis = y;
     }
 
-    void setSpeed(float s) { speed = s; }
-    void setVelocityX(float f) { velocityX = f; }
-    void setVelocityY(float f) { velocityY = f; }
+    void setSpeed(float s) { 
+    	speed = s;
+    }
+    
+    void setVelocityX(float f) { 
+    	velocityX = f; 
+    }
+    
+    void setVelocityY(float f) { 
+    	velocityY = f;
+    }
 
-    public float getPrevX() { return prevX; }
-    public float getPrevY() { return prevY; }
+    public float getPrevX() { 
+    	return prevX; 
+    }
+    
+    public float getPrevY() { 
+    	return prevY;
+    }
 
     void draw(SpriteBatch batch) {
         batch.draw(getTexture(), getX(), getY(), getTexture().getWidth(), getTexture().getHeight());
     }
 
-    /**
-     * Ensures entity never respawns in the same position.
-     * Can be used for both MovableEntity and ImmovableEntity.
-     */
+    //Ensures entity never respawn in the same position.
     public void respawn(float minX, float maxX, float minY, float maxY) {
         float newX, newY;
 

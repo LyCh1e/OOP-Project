@@ -60,6 +60,7 @@ public class GameMaster extends ApplicationAdapter {
 
         batch = new SpriteBatch();
         //keyBindings.initialize();  // Initialize after LibGDX is ready
+        
 	    output = new Output("Score: ", Color.WHITE, Gdx.graphics.getWidth() - 300, 700, 2);
 
 	    for (int i = 0; i < entities.length; i++) {	
@@ -94,8 +95,6 @@ public class GameMaster extends ApplicationAdapter {
         sceneManager.setState(SceneManager.STATE.MainMenu); // First state, (game playing state)
         
         ioManager.addOutput(output);
-        
-
     }
 
     public void render() {
@@ -153,12 +152,13 @@ public class GameMaster extends ApplicationAdapter {
             		movementManager.updateAIMovementXAxis(droplets[i], MovementManager.X_Row.LEFT);
             	}
             }
-//            movementManager.updateAIMovementXAxis(droplets[0], MovementManager.X_Row.LEFT);
-//            movementManager.updateAIMovementYAxis(droplets[1], MovementManager.Y_Column.BOTTOM);
+            
+//          movementManager.updateAIMovementXAxis(droplets[0], MovementManager.X_Row.LEFT);
+//          movementManager.updateAIMovementYAxis(droplets[1], MovementManager.Y_Column.BOTTOM);
             
             float score = output.getNumber();
             if (collisionManager.checkCollisions(entities[0], droplets[1])) {
-                Collidable.doCollision(entities[0], droplets[1]);
+                Collidable.doCollision(entities[0], droplets[1], false);
                 output.setNumber(score -= 0.1);
                 output.setString("Score: " + String.valueOf(Math.round(output.getNumber())));
             }

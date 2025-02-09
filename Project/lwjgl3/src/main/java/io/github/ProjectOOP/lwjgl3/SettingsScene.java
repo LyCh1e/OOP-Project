@@ -99,9 +99,9 @@ public class SettingsScene extends Scene {
         super.draw(batch);
         updateVolume();
         batch.end();
-        Gdx.input.setInputProcessor(stage);
-        stage.act(Gdx.graphics.getDeltaTime());
-        stage.draw();
+        	Gdx.input.setInputProcessor(stage);
+        	stage.act(Gdx.graphics.getDeltaTime());
+        	stage.draw();
         batch.begin();
     }
 

@@ -18,7 +18,7 @@ public class Output {
 		setX(x);
 		setY(y);
 		font = new BitmapFont(); // Default LibGDX font
-        font.setColor(c); // Set font color to white
+        font.setColor(c);
         font.getData().setScale(scale); // Scale the font size up
 	}
 	

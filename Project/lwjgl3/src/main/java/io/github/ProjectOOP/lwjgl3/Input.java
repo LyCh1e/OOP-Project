@@ -2,7 +2,6 @@ package io.github.ProjectOOP.lwjgl3;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
@@ -13,10 +12,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 public class Input {
     private ClickListener click;
     private boolean forceJumpFalse = false; 
-//    private KeyBindings keyBindings;
+    //private KeyBindings keyBindings;
 
     public Input() {
-//      this.keyBindings = new KeyBindings();
+    	//this.keyBindings = new KeyBindings();
   }
     
     // New methods from IOManager moved here
@@ -47,7 +46,6 @@ public class Input {
         return Gdx.input.isKeyJustPressed(Keys.NUM_1);
     }
     
-
 //    // Existing methods remain unchanged
 //    public boolean keyDown(int keycode) {
 //        if (keycode == keyBindings.getKey("left")) {

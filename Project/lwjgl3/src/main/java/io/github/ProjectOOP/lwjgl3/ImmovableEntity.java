@@ -21,12 +21,12 @@ public class ImmovableEntity extends Entity {
 
     public void moveLeft() {
         velocityX = 0;
-        System.out.println("Moving Left");
+        System.out.println("No Moving Left");
     }
 
     public void moveRight() {
         velocityX = 0;
-        System.out.println("Moving Right");
+        System.out.println("No Moving Right");
     }
 
     public void stopMoving() {

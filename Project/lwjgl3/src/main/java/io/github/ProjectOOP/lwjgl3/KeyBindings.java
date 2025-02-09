@@ -22,9 +22,17 @@ public class KeyBindings {
     }
 
     private void loadDefaultKeys() {
-        if (!prefs.contains("left")) prefs.putInteger("left", leftKey);
-        if (!prefs.contains("right")) prefs.putInteger("right", rightKey);
-        if (!prefs.contains("jump")) prefs.putInteger("jump", jumpKey);
+        if (!prefs.contains("left")) {
+        	prefs.putInteger("left", leftKey);
+        }
+        
+        if (!prefs.contains("right")) {
+        	prefs.putInteger("right", rightKey);
+        }
+        
+        if (!prefs.contains("jump")) {
+        	prefs.putInteger("jump", jumpKey);
+        }
         prefs.flush();
     }
 
@@ -32,6 +40,7 @@ public class KeyBindings {
         if (!initialized) {
             return getDefaultKey(action);
         }
+        
         return prefs.getInteger(action, getDefaultKey(action));
     }
     

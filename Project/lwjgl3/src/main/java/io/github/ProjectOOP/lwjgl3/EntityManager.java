@@ -19,7 +19,4 @@ private List<Entity> entityList = new ArrayList<>();
 			}
 		batch.end();
 	}
-	
-	// TODO: Populate this list with multiple entities
-	// TODO: Create a method to instantiate multiple entities
 }

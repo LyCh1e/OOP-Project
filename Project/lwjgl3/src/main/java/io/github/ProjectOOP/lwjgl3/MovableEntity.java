@@ -59,6 +59,11 @@ public class MovableEntity extends Entity {
     }
 
     // Method to retrieve previous position if needed
-    public float getPrevX() { return prevX; }
-    public float getPrevY() { return prevY; }
+    public float getPrevX() { 
+    	return prevX; 
+    }
+    
+    public float getPrevY() {
+    	return prevY; 
+    }
 }

@@ -12,12 +12,11 @@ import com.badlogic.gdx.utils.Disposable;
 public class SceneManager implements Disposable {
     // Use a Map to associate states with lists of scenes
     private Map<STATE, List<Scene>> stateSceneMap = new HashMap<>();
+    private STATE currentState = STATE.MainMenu; // MAINMENU state is the first state main screen
 
     public enum STATE {
         Start, End, Pause, Background, Settings, MainMenu //added new settings STATE
     }
-
-    private STATE currentState = STATE.MainMenu; // MAINMENU state is the first state, the game playing
 
     public SceneManager() {
         // Initialize lists for each state in the constructor
@@ -50,7 +49,6 @@ public class SceneManager implements Disposable {
     void addSceneToState(STATE state, Scene scene) {
         stateSceneMap.get(state).add(scene);
     }
-
 
     @Override
     public void dispose() {
