@@ -16,7 +16,7 @@ public class Input {
 
     public Input() {
     	//this.keyBindings = new KeyBindings();
-  }
+    }
     
     // New methods from IOManager moved here
     public boolean isMovingLeft() {
