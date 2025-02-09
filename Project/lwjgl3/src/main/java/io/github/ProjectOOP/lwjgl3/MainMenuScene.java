@@ -37,7 +37,7 @@ public class MainMenuScene extends Scene {
         
         //get coordinates of where the user touch/click. If it is in the bounds of the rectangle, app will exit
         // Check for clicks using IOManager
-        if (ioManager.isExitButtonClicked(exitButtonBounds)) {
+        if (ioManager.isClicked(exitButtonBounds)) {
             Gdx.app.exit();
         }
     }

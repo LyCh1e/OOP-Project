@@ -45,8 +45,8 @@ public class IOManager {
         input.setForceJumpFalse(force);
     }
     
-    public boolean isExitButtonClicked(Rectangle exitButtonBounds) {
-        return input.isExitButtonClicked(exitButtonBounds);
+    public boolean isClicked(Rectangle bounds) {
+        return input.isClicked(bounds);
     }
     
     // Method to render text on the screen

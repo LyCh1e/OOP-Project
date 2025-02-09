@@ -70,12 +70,12 @@ public class Input {
         click = c;
     }
     
-  //get coordinates of where the user touch/click. If it is in the bounds of the rectangle
-    public boolean isExitButtonClicked(Rectangle exitButtonBounds) {
+  //get coordinates of where the user touch/click. If it is in the bounds of the rectangle, more general approach, reuseable
+    public boolean isClicked(Rectangle bounds) {
         if (Gdx.input.justTouched()) {
             int touchX = Gdx.input.getX();
             int touchY = Gdx.graphics.getHeight() - Gdx.input.getY();
-            return exitButtonBounds.contains(touchX, touchY);
+            return bounds.contains(touchX, touchY);
         }
         return false;
     }
