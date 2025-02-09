@@ -2,6 +2,7 @@ package io.github.ProjectOOP.lwjgl3;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class Input {
@@ -67,5 +68,15 @@ public class Input {
     
     void setClick(ClickListener c) {
         click = c;
+    }
+    
+  //get coordinates of where the user touch/click. If it is in the bounds of the rectangle
+    public boolean isExitButtonClicked(Rectangle exitButtonBounds) {
+        if (Gdx.input.justTouched()) {
+            int touchX = Gdx.input.getX();
+            int touchY = Gdx.graphics.getHeight() - Gdx.input.getY();
+            return exitButtonBounds.contains(touchX, touchY);
+        }
+        return false;
     }
 }

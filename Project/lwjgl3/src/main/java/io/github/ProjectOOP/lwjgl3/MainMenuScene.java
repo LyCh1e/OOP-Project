@@ -11,9 +11,11 @@ public class MainMenuScene extends Scene {
     private Texture exitButtonTexture;
     private Sprite exitButtonSprite;
     private Rectangle exitButtonBounds;
+    private IOManager ioManager;
 
-    public MainMenuScene() {
+    public MainMenuScene(IOManager ioManager) {
         super("MainMenuBackground.png", 0, 0);
+        this.ioManager = ioManager;
 
         exitButtonTexture = new Texture(Gdx.files.internal("resume_button.png"));
         exitButtonSprite = new Sprite(exitButtonTexture);
@@ -34,15 +36,13 @@ public class MainMenuScene extends Scene {
 
         
         //get coordinates of where the user touch/click. If it is in the bounds of the rectangle, app will exit
-        if (Gdx.input.justTouched()) {
-            int touchX = Gdx.input.getX();
-            int touchY = Gdx.graphics.getHeight() - Gdx.input.getY(); 
-
-            if (exitButtonBounds.contains(touchX, touchY)) {
-                Gdx.app.exit();
-            }
+        // Check for clicks using IOManager
+        if (ioManager.isExitButtonClicked(exitButtonBounds)) {
+            Gdx.app.exit();
         }
     }
+
+    
 
     @Override
     public void dispose() {

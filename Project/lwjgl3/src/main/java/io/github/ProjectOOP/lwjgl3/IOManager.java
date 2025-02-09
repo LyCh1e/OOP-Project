@@ -6,6 +6,7 @@ import java.util.List;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 
 public class IOManager {
     private Input input;
@@ -42,6 +43,10 @@ public class IOManager {
 
     public void setForceJumpFalse(boolean force) { //Force jump to be false for first few frames before switching to avoid overlap (implemented in gamemaster)
         input.setForceJumpFalse(force);
+    }
+    
+    public boolean isExitButtonClicked(Rectangle exitButtonBounds) {
+        return input.isExitButtonClicked(exitButtonBounds);
     }
     
     // Method to render text on the screen

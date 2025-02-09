@@ -84,7 +84,7 @@ public class GameMaster extends ApplicationAdapter {
         scene = new Scene("background.png", 0, 0);
         pauseMenuScene = new PauseMenuScene();
         settingsScene = new SettingsScene(backgroundMusic, ioManager);
-        mainMenuScene = new MainMenuScene();
+        mainMenuScene = new MainMenuScene(ioManager);
 
         // Configure SceneManager to associate scenes with states
         sceneManager.addSceneToState(SceneManager.STATE.Start, scene); // baackground.png in Start state
