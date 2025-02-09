@@ -3,7 +3,11 @@ package io.github.ProjectOOP.lwjgl3;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class Input {
@@ -89,5 +93,32 @@ public class Input {
                 action.run(); // Execute the action when clicked
             }
         };
+    }
+    
+    //method to interact with checkbox
+    public void checkBoxListen(CheckBox checkbox, Runnable onChecked, Runnable onUnchecked) {
+        checkbox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                boolean isChecked = checkbox.isChecked();
+                if (isChecked) {
+                    onChecked.run();
+                } else {
+                    onUnchecked.run();
+                }
+                System.out.println("checkbox changed to: " + isChecked);
+            }
+        });
+    }
+
+    //method to interact with sliders
+    public void sliderListen(Slider slider, Runnable onChange) {
+        slider.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                onChange.run();
+                System.out.println("slider value changed to: " + slider.getValue());
+            }
+        });
     }
 }

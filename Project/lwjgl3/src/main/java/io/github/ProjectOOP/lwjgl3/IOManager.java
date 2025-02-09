@@ -7,6 +7,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class IOManager {
@@ -53,6 +55,16 @@ public class IOManager {
     // click listener
     public ClickListener getClickListener(Runnable action) {
         return input.createClickListener(action);
+    }
+    
+     
+    public void checkBoxListen(CheckBox checkbox, Runnable onChecked, Runnable onUnchecked) {
+        input.checkBoxListen(checkbox, onChecked, onUnchecked);
+    }
+
+     
+    public void sliderListen(Slider slider, Runnable onChange) {
+        input.sliderListen(slider, onChange);
     }
     
     // Method to render text on the screen
