@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class IOManager {
     private Input input;
@@ -45,8 +46,13 @@ public class IOManager {
         input.setForceJumpFalse(force);
     }
     
-    public boolean isClicked(Rectangle bounds) {
-        return input.isClicked(bounds);
+    //public boolean isClicked(Rectangle bounds) {
+    //    return input.isClicked(bounds);
+   // }
+    
+    // click listener
+    public ClickListener getClickListener(Runnable action) {
+        return input.createClickListener(action);
     }
     
     // Method to render text on the screen

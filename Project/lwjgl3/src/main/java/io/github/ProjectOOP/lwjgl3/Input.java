@@ -3,6 +3,7 @@ package io.github.ProjectOOP.lwjgl3;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class Input {
@@ -71,12 +72,22 @@ public class Input {
     }
     
   //get coordinates of where the user touch/click. If it is in the bounds of the rectangle, more general approach, reuseable
-    public boolean isClicked(Rectangle bounds) {
-        if (Gdx.input.justTouched()) {
-            int touchX = Gdx.input.getX();
-            int touchY = Gdx.graphics.getHeight() - Gdx.input.getY();
-            return bounds.contains(touchX, touchY);
-        }
-        return false;
+   // public boolean isClicked(Rectangle bounds) {
+     //   if (Gdx.input.justTouched()) {
+       //     int touchX = Gdx.input.getX();
+         //   int touchY = Gdx.graphics.getHeight() - Gdx.input.getY();
+          //  return bounds.contains(touchX, touchY);
+        //}
+        //return false;
+   // }
+    
+    // Click handling through ClickListener only works for scene2d aka UI elements cant work directly with spritebatch aka game elements from what i understand
+    public ClickListener createClickListener(final Runnable action) {
+        return new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                action.run(); // Execute the action when clicked
+            }
+        };
     }
 }
