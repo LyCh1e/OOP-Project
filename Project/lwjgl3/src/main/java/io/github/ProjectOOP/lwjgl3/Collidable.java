@@ -71,7 +71,7 @@ public class Collidable {
         }
 	}
 	
-	public void doBounceCollision (Entity e1, Entity e2) {
+	public static void doBounceCollision (Entity e1, Entity e2) {
 		// bouncing collision, the 2 entity will bounce off each other
         float e1CenterX = e1.getX() + e1.getTexture().getWidth() / 2;
         float e1CenterY = e1.getY() + e1.getTexture().getHeight() / 2;
