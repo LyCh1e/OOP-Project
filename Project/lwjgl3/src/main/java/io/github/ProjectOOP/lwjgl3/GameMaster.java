@@ -151,7 +151,7 @@ public class GameMaster extends ApplicationAdapter {
             	} else {
             		movementManager.updateAIMovementXAxis(droplets[i], MovementManager.X_Row.LEFT);
             	}
-            }`
+            }
             
             float score = output.getNumber();
             if (collisionManager.checkCollisions(entities[0], droplets[1])) {
