@@ -1,5 +1,6 @@
 package io.github.ProjectOOP.lwjgl3;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -8,6 +9,9 @@ public class Output {
     private BitmapFont font; // Added font for text rendering
 	private String strOutput;
 	private float number, x_axis, y_axis;
+    private Music backgroundMusic;
+    private boolean isMuted = false;
+    private float musicVolume = 0.2f; // default volume
 	
 	Output(){
 		
@@ -53,6 +57,27 @@ public class Output {
 	void setY(float y) {
 		y_axis = y;
 	}
+	
+    public void setMusic(Music music) {
+        this.backgroundMusic = music;
+        if(backgroundMusic != null) {
+            backgroundMusic.setLooping(true);
+            backgroundMusic.setVolume(musicVolume);
+        }
+    }
+    
+    public void playMusic() {
+        if(backgroundMusic != null) {
+            backgroundMusic.play();
+        }
+    }
+
+    public void setMusicVolume(float vol) {
+        musicVolume = vol;
+        if(backgroundMusic != null && !isMuted) {
+            backgroundMusic.setVolume(musicVolume);
+        }
+    }
 	
 	public void draw(SpriteBatch batch) {
 		font.draw(batch, getString(), getX(), getY());

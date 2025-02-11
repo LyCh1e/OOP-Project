@@ -13,18 +13,15 @@ import com.badlogic.gdx.Gdx;
 public class SettingsScene extends Scene {
     private float volume = 0.2f;
     private boolean isMuted = false;
-    private Music backgroundMusic;
     private IOManager ioManager;
     private Stage stage;
     private Skin skin;
     private CheckBox muteCheckbox;
     private Slider volumeSlider;
  
-    public SettingsScene(Music backgroundMusic, IOManager ioManager) {
+    public SettingsScene(IOManager ioManager) {
         super("SettingsBackground2.png", 0, 0);
-        this.backgroundMusic = backgroundMusic;
         this.ioManager = ioManager;
-        this.backgroundMusic.setVolume(volume); // Match Volume
         
         stage = new Stage();  
         Gdx.input.setInputProcessor(stage); // UI receives input
@@ -41,10 +38,10 @@ public class SettingsScene extends Scene {
         // Call method from ioManager
         ioManager.checkBoxListen(muteCheckbox, () -> {
                 isMuted = true;
-                backgroundMusic.setVolume(0);
+                ioManager.setMusicVolume(0); //now using ioManager's set volume function
             }, () -> {
                 isMuted = false;
-                backgroundMusic.setVolume(volume);
+                ioManager.setMusicVolume(volume); //now using ioManager's set volume function
             }
         );
 
@@ -55,7 +52,7 @@ public class SettingsScene extends Scene {
         ioManager.sliderListen(volumeSlider, () -> {
             if (!isMuted) {
                 volume = volumeSlider.getValue();
-                backgroundMusic.setVolume(volume);
+                ioManager.setMusicVolume(volume); //now using ioManager's set volume function
             }
         });
 
@@ -80,13 +77,13 @@ public class SettingsScene extends Scene {
         // Use IOManager methods for left/ right and A/D
         if (ioManager.isMovingLeft() && !isMuted) { // Make sure that its not muted before changing
         	volume = Math.max(0, volume - 0.01f); //this is needed if not the thing will crash once its below 0
-            backgroundMusic.setVolume(volume);
+        	   ioManager.setMusicVolume(volume); //now using ioManager's set volume function
             volumeSlider.setValue(volume); // Change slider value based on left/right A/D presses
             System.out.println("Volume decreased to: " + volume); //see in console what the volume is now
         }
         if (ioManager.isMovingRight() && !isMuted) { // Make sure that its not muted before changing
         	volume = Math.min(1, volume + 0.01f); //this is needed if not the thing will crash once its above 1
-            backgroundMusic.setVolume(volume);
+        	   ioManager.setMusicVolume(volume); //now using ioManager's set volume function
             volumeSlider.setValue(volume); // Change slider value based on left/right A/D presses
             System.out.println("Volume increased to: " + volume); //see in console what the volume is now
         }

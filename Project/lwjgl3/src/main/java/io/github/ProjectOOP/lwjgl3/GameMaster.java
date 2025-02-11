@@ -36,7 +36,6 @@ public class GameMaster extends ApplicationAdapter {
     private KeyBindings keyBindings;
     private Input input;
     private Output output;
-    private Music backgroundMusic; // music variable for background music
     private int frameInStartState = 0; // Frame counter for Start state, to help with transtion from menu to start scene
 
     GameMaster() {
@@ -75,16 +74,15 @@ public class GameMaster extends ApplicationAdapter {
 	    	hearts[i] = new ImmovableEntity("heart.png", 10 + (i * 40), 650, 0);
 		    entityManager.addEntities(hearts[i]);
 	    }
-	    
-        // Load and play background music
-        backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("backgroundMusic.mp3")); // Load music file
-        backgroundMusic.setLooping(true); // Set looping to true
-        backgroundMusic.play(); // Start playing the music
-        backgroundMusic.setVolume(0.2f); // Lower down the default background music bc its too loud
+	            
+        ioManager.addOutput(output);
+        ioManager.setMusic("backgroundMusic.mp3"); 
+        ioManager.playMusic();
+        ioManager.setMusicVolume(0.2f);
 	    
         scene = new Scene("background.png", 0, 0);
         pauseMenuScene = new PauseMenuScene();
-        settingsScene = new SettingsScene(backgroundMusic, ioManager);
+        settingsScene = new SettingsScene(ioManager);
         mainMenuScene = new MainMenuScene(ioManager);
 
         // Configure SceneManager to associate scenes with states
@@ -94,7 +92,6 @@ public class GameMaster extends ApplicationAdapter {
         sceneManager.addSceneToState(SceneManager.STATE.MainMenu, mainMenuScene); // SettingsScene only in Settings state
         sceneManager.setState(SceneManager.STATE.MainMenu); // First state, (game playing state)
         
-        ioManager.addOutput(output);
     }
 
     public void render() {
@@ -168,8 +165,5 @@ public class GameMaster extends ApplicationAdapter {
 
     public void dispose() {
         batch.dispose();
-        if (backgroundMusic != null) {
-            backgroundMusic.dispose();
-        }
     }
 }
