@@ -68,7 +68,7 @@ public class IOManager {
     public void draw(SpriteBatch batch) {
     	batch.begin();
     		for (int i = 0; i < outputList.size(); i++) {
-    				outputList.get(i).draw(batch);
+    			outputList.get(i).draw(batch);
     		}
     	batch.end();
     }
