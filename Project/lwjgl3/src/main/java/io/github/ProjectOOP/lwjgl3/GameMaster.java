@@ -28,7 +28,6 @@ public class GameMaster extends ApplicationAdapter {
     private MovableEntity[] droplets = new MovableEntity[5];
     private ImmovableEntity[] hearts = new ImmovableEntity[3];
 
-    
     private Scene scene;
     private PauseMenuScene pauseMenuScene;
     private SettingsScene settingsScene;
