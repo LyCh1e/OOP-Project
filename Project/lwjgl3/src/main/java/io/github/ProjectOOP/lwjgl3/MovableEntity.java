@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class MovableEntity extends Entity {
     private boolean isJumping = false;
-    private float prevX, prevY; // Store previous spawn position
 
     MovableEntity() { }
 
@@ -14,10 +13,6 @@ public class MovableEntity extends Entity {
         setY(y);
         setSpeed(s);
         texture = new Texture(Gdx.files.internal(str));
-
-        // Initialize previous position when entity is first created
-        prevX = x;
-        prevY = y;
     }
 
     public void moveLeft() {
@@ -50,20 +45,12 @@ public class MovableEntity extends Entity {
     @Override
     public void updatePosition() {
         // Store previous position BEFORE modifying x and y
-        prevX = getX();
-        prevY = getY();
+        float prevX = getX();
+        float prevY = getY();
 
         System.out.println("Previous Spawn: X = " + prevX + ", Y = " + prevY);
         System.out.println("X position of movable entity = " + getX() + "\n");
         System.out.println("Y position of movable entity = " + getY() + "\n");
     }
 
-    // Method to retrieve previous position if needed
-    public float getPrevX() { 
-    	return prevX; 
-    }
-    
-    public float getPrevY() {
-    	return prevY; 
-    }
 }

@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 public class ImmovableEntity extends Entity {
-    private float prevX, prevY; // Store previous spawn position
 
     ImmovableEntity() { }
 
@@ -14,9 +13,6 @@ public class ImmovableEntity extends Entity {
         setSpeed(s);
         texture = new Texture(Gdx.files.internal(str));
 
-        // Initialize previous position when entity is first created
-        prevX = x;
-        prevY = y;
     }
 
     public void moveLeft() {
@@ -37,14 +33,11 @@ public class ImmovableEntity extends Entity {
     @Override
     public void updatePosition() {
         // Store previous position BEFORE modifying x and y
-        prevX = getX();
-        prevY = getY();
+        float prevX = getX();
+        float prevY = getY();
 
         System.out.println("Previous Spawn: X = " + prevX + ", Y = " + prevY);
         System.out.println("Current Position: X = " + getX() + ", Y = " + getY());
     }
 
-    // Method to retrieve previous position if needed
-    public float getPrevX() { return prevX; }
-    public float getPrevY() { return prevY; }
 }
