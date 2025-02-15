@@ -35,11 +35,12 @@ public class GameMaster extends ApplicationAdapter {
 
     GameMaster() {
         entityManager = new EntityManager();
-        sceneManager = new SceneManager();
+        
         collisionManager = new CollisionManager();
         input = new Input();
 	    // Create IOManager with Input
 	    ioManager = new IOManager(input);
+	    sceneManager = new SceneManager(ioManager);
 	
 	    // Create MovementManager with IOManager
 	    movementManager = new MovementManager(ioManager, sceneManager);
@@ -92,30 +93,9 @@ public class GameMaster extends ApplicationAdapter {
     public void render() {
         ScreenUtils.clear(0, 0, 0.2f, 1);
         SceneManager.STATE currentState = sceneManager.getState();
+        sceneManager.switchScene(ioManager);
         
-        if (currentState == SceneManager.STATE.MainMenu) {
-            if (ioManager.isJumping()) {
-                sceneManager.setState(SceneManager.STATE.Start);
-            }
-        }
-       
-        if (ioManager.isEscape()) {
-            // Toggle pause state
-            if (currentState == SceneManager.STATE.Start) {
-                sceneManager.setState(SceneManager.STATE.Pause);
-            } else if (currentState == SceneManager.STATE.Pause) {
-                sceneManager.setState(SceneManager.STATE.Start);
-            }
-        }
 
-        if (ioManager.isNum1()) {
-            // Toggle settings state, settings can only be opened from pause menu, click 1 to open settings
-            if (currentState == SceneManager.STATE.Pause) {
-                sceneManager.setState(SceneManager.STATE.Settings);
-            } else if (currentState == SceneManager.STATE.Settings) {
-                sceneManager.setState(SceneManager.STATE.Pause);
-            }
-        }
 
         // Draw scenes, SceneManager handles drawing based on currentState!!!
         // Draw the background
