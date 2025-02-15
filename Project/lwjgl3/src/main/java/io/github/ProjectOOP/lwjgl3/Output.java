@@ -12,7 +12,7 @@ public class Output {
 	private float number, x_axis, y_axis;
     private Music audio;
     private boolean isMuted = false;
-    private float volume = 0.2f; // default volume
+    private float volume;
 	
 	Output(){
 		

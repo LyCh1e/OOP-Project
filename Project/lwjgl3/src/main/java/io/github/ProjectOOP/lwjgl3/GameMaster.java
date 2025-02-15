@@ -7,7 +7,6 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.audio.Music; // import Music class
 import com.badlogic.gdx.Gdx; // import Gdx for file handling
 import com.badlogic.gdx.graphics.Color;
 
