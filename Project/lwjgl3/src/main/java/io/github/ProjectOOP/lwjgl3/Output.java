@@ -1,5 +1,6 @@
 package io.github.ProjectOOP.lwjgl3;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -26,10 +27,11 @@ public class Output {
         font.getData().setScale(scale); // Scale the font size up
 	}
 	
-	Output (String string, float v){
-		setString(string);
-		setVolume(v);
-	}
+     Output(String filePath, float v) {
+        audio = Gdx.audio.newMusic(Gdx.files.internal(filePath));
+        audio.setLooping(true);
+        audio.setVolume(v); 
+    }
 	
 	public float getNumber() {
 		return number;
@@ -93,6 +95,9 @@ public class Output {
     }
 	
 	public void draw(SpriteBatch batch) {
+	    if (font == null) {
+	        return;
+	    }
 		font.draw(batch, getString(), getX(), getY());
     }
 }

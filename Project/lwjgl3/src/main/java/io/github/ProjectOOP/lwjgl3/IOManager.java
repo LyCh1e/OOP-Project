@@ -66,14 +66,6 @@ public class IOManager {
         input.sliderListen(slider, onChange);
     }
 
-    public void setMusic(String filePath) {
-        Music music = Gdx.audio.newMusic(Gdx.files.internal(filePath));
-        music.setLooping(true);
-        for (Output o : outputList) {
-            o.setMusic(music);
-        }
-    }
-
     public void playMusic() {
         for (Output o : outputList) {
             o.playMusic();

@@ -31,6 +31,7 @@ public class GameMaster extends ApplicationAdapter {
     private KeyBindings keyBindings;
     private Input input;
     private Output output;
+    private Output audioOutput;  // For audio only
     private int frameInStartState = 0; // Frame counter for Start state, to help with transtion from menu to start scene
 
     GameMaster() {
@@ -71,10 +72,9 @@ public class GameMaster extends ApplicationAdapter {
 		    entityManager.addEntities(hearts[i]);
 	    }
 	            
-        ioManager.addOutput(output);
-        ioManager.setMusic("backgroundMusic.mp3"); 
+        audioOutput = new Output("backgroundMusic.mp3", 0.2f); // Use new constructor for volume only, set audio and volume level
+        ioManager.addOutput(audioOutput);
         ioManager.playMusic();
-        ioManager.setAudioVolume(0.2f);
 	    
         scene = new Scene("background.png", 0, 0);
         pauseMenuScene = new PauseMenuScene();
