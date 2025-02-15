@@ -73,7 +73,7 @@ public class GameMaster extends ApplicationAdapter {
         ioManager.addOutput(output);
         ioManager.setMusic("backgroundMusic.mp3"); 
         ioManager.playMusic();
-        ioManager.setMusicVolume(0.2f);
+        ioManager.setAudioVolume(0.2f);
 	    
         scene = new Scene("background.png", 0, 0);
         pauseMenuScene = new PauseMenuScene();

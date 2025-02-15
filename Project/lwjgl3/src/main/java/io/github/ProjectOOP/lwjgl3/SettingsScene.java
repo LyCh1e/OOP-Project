@@ -37,10 +37,10 @@ public class SettingsScene extends Scene {
         // Call method from ioManager
         ioManager.checkBoxListen(muteCheckbox, () -> {
                 isMuted = true;
-                ioManager.setMusicVolume(0); //now using ioManager's set volume function
+                ioManager.setAudioVolume(0); //now using ioManager's set volume function
             }, () -> {
                 isMuted = false;
-                ioManager.setMusicVolume(volume); //now using ioManager's set volume function
+                ioManager.setAudioVolume(volume); //now using ioManager's set volume function
             }
         );
 
@@ -51,7 +51,7 @@ public class SettingsScene extends Scene {
         ioManager.sliderListen(volumeSlider, () -> {
             if (!isMuted) {
                 volume = volumeSlider.getValue();
-                ioManager.setMusicVolume(volume); //now using ioManager's set volume function
+                ioManager.setAudioVolume(volume); //now using ioManager's set volume function
             }
         });
 
@@ -76,13 +76,13 @@ public class SettingsScene extends Scene {
         // Use IOManager methods for left/ right and A/D
         if (ioManager.isMovingLeft() && !isMuted) { // Make sure that its not muted before changing
         	volume = Math.max(0, volume - 0.01f); //this is needed if not the thing will crash once its below 0
-        	   ioManager.setMusicVolume(volume); //now using ioManager's set volume function
+        	   ioManager.setAudioVolume(volume); //now using ioManager's set volume function
             volumeSlider.setValue(volume); // Change slider value based on left/right A/D presses
             System.out.println("Volume decreased to: " + volume); //see in console what the volume is now
         }
         if (ioManager.isMovingRight() && !isMuted) { // Make sure that its not muted before changing
         	volume = Math.min(1, volume + 0.01f); //this is needed if not the thing will crash once its above 1
-        	   ioManager.setMusicVolume(volume); //now using ioManager's set volume function
+        	   ioManager.setAudioVolume(volume); //now using ioManager's set volume function
             volumeSlider.setValue(volume); // Change slider value based on left/right A/D presses
             System.out.println("Volume increased to: " + volume); //see in console what the volume is now
         }

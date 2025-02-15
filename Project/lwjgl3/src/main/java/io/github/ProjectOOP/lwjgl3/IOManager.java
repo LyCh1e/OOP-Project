@@ -80,9 +80,9 @@ public class IOManager {
         }
     }
     
-    public void setMusicVolume(float vol) {
+    public void setAudioVolume(float vol) {
         for (Output o : outputList) {
-            o.setMusicVolume(vol);
+            o.setAudioVolume(vol);
         }
     }
     

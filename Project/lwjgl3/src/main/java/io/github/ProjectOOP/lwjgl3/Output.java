@@ -9,9 +9,9 @@ public class Output {
     private BitmapFont font; // Added font for text rendering
 	private String strOutput;
 	private float number, x_axis, y_axis;
-    private Music backgroundMusic;
+    private Music audio;
     private boolean isMuted = false;
-    private float musicVolume = 0.2f; // default volume
+    private float volume = 0.2f; // default volume
 	
 	Output(){
 		
@@ -24,6 +24,11 @@ public class Output {
 		font = new BitmapFont(); // Default LibGDX font
         font.setColor(c);
         font.getData().setScale(scale); // Scale the font size up
+	}
+	
+	Output (String string, float v){
+		setString(string);
+		setVolume(v);
 	}
 	
 	public float getNumber() {
@@ -42,6 +47,10 @@ public class Output {
 		return y_axis;
 	}
 	
+	public float getVolume() {
+		return volume;
+	}
+	
 	void setNumber(float n) {
 		number = n;
 	}
@@ -58,24 +67,28 @@ public class Output {
 		y_axis = y;
 	}
 	
+	void setVolume(float v) {
+		volume = v;		
+	}
+	
     public void setMusic(Music music) {
-        this.backgroundMusic = music;
-        if(backgroundMusic != null) {
-            backgroundMusic.setLooping(true);
-            backgroundMusic.setVolume(musicVolume);
-        }
-    }
-    
-    public void playMusic() {
-        if(backgroundMusic != null) {
-            backgroundMusic.play();
+        this.audio = music;
+        if(audio != null) {
+            audio.setLooping(true);
+            audio.setVolume(getVolume());
         }
     }
 
-    public void setMusicVolume(float vol) {
-        musicVolume = vol;
-        if(backgroundMusic != null && !isMuted) {
-            backgroundMusic.setVolume(musicVolume);
+	public void playMusic() {
+        if(audio != null) {
+            audio.play();
+        }
+    }
+
+    public void setAudioVolume(float vol) {
+        setVolume(vol);
+        if(audio != null && !isMuted) {
+            audio.setVolume(getVolume());
         }
     }
 	
