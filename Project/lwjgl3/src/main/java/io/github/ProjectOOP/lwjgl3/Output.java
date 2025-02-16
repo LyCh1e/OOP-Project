@@ -27,10 +27,12 @@ public class Output {
         font.getData().setScale(scale); // Scale the font size up
 	}
 	
-     Output(String filePath, float v) {
-        audio = Gdx.audio.newMusic(Gdx.files.internal(filePath));
-        audio.setLooping(true);
-        audio.setVolume(v); 
+    Output(String filePath, float v) {
+    	setString(filePath);
+    	setVolume(v);
+    	audio = Gdx.audio.newMusic(Gdx.files.internal(getString()));
+    	audio.setLooping(true);
+    	audio.setVolume(getVolume()); 
     }
 	
 	public float getNumber() {

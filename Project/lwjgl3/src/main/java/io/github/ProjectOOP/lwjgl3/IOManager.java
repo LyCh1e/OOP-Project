@@ -54,7 +54,6 @@ public class IOManager {
         return input.createClickListener(action);
     }
     
-     
     public void checkBoxListen(CheckBox checkbox, Runnable onChecked, Runnable onUnchecked) {
         input.checkBoxListen(checkbox, onChecked, onUnchecked);
     }

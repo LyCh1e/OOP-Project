@@ -35,13 +35,13 @@ public class GameMaster extends ApplicationAdapter {
 
     GameMaster() {
         entityManager = new EntityManager();
-        
         collisionManager = new CollisionManager();
+        
+        // Create IOManager with Input
         input = new Input();
-	    // Create IOManager with Input
 	    ioManager = new IOManager(input);
 	    sceneManager = new SceneManager(ioManager);
-	
+	    
 	    // Create MovementManager with IOManager
 	    movementManager = new MovementManager(ioManager, sceneManager);
 //	    keyBindings = new KeyBindings();
@@ -57,6 +57,7 @@ public class GameMaster extends ApplicationAdapter {
         //keyBindings.initialize();  // Initialize after LibGDX is ready
         
 	    output = new Output("Score: ", Color.WHITE, Gdx.graphics.getWidth() - 300, 700, 2);
+	    audioOutput = new Output("backgroundMusic.mp3", 0.2f); // Use new constructor for volume only, set audio and volume level
 
 	    for (int i = 0; i < entities.length; i++) {	
 	    	entities[i] = new MovableEntity("bucket.png", 10, 0, 0);
@@ -71,9 +72,8 @@ public class GameMaster extends ApplicationAdapter {
 		    entityManager.addEntities(hearts[i]);
 	    }
 	            
-        audioOutput = new Output("backgroundMusic.mp3", 0.2f); // Use new constructor for volume only, set audio and volume level
         ioManager.addOutput(audioOutput);
-        ioManager.playMusic();
+        ioManager.addOutput(output);
 	    
         scene = new Scene("background.png", 0, 0);
         pauseMenuScene = new PauseMenuScene();
@@ -86,15 +86,12 @@ public class GameMaster extends ApplicationAdapter {
         sceneManager.addSceneToState(SceneManager.STATE.Settings, settingsScene);
         sceneManager.addSceneToState(SceneManager.STATE.MainMenu, mainMenuScene); // SettingsScene only in Settings state
         sceneManager.setState(SceneManager.STATE.MainMenu); // First state, (game playing state)
-        
     }
 
     public void render() {
         ScreenUtils.clear(0, 0, 0.2f, 1);
         SceneManager.STATE currentState = sceneManager.getState();
         sceneManager.switchScene(ioManager);
-        
-
 
         // Draw scenes, SceneManager handles drawing based on currentState!!!
         // Draw the background
@@ -115,6 +112,8 @@ public class GameMaster extends ApplicationAdapter {
         	
             entityManager.draw(batch);
             ioManager.draw(batch);
+            ioManager.playMusic();
+            
             movementManager.updateUserMovement(entities[0], currentState);
             for (int i = 0; i < droplets.length; i++) {
             	if (i == 1) {

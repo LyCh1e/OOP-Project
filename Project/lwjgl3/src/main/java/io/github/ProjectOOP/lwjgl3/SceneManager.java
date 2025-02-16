@@ -24,7 +24,6 @@ public class SceneManager implements Disposable {
         for (STATE state : STATE.values()) {
             stateSceneMap.put(state, new ArrayList<>());
         }
-        
     }
 
     public void setState(STATE newState) {
