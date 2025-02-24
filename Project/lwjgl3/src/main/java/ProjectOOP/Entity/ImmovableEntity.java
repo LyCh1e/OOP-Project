@@ -1,4 +1,4 @@
-package io.github.ProjectOOP.lwjgl3;
+package ProjectOOP.Entity;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -7,7 +7,7 @@ public class ImmovableEntity extends Entity {
 
     ImmovableEntity() { }
 
-    ImmovableEntity(String str, float x, float y, float s) {
+    public ImmovableEntity(String str, float x, float y, float s) {
         setX(x);
         setY(y);
         setSpeed(s);

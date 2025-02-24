@@ -1,6 +1,8 @@
-package io.github.ProjectOOP.lwjgl3;
+package ProjectOOP.Collision;
 
 import com.badlogic.gdx.math.Rectangle;
+
+import ProjectOOP.Entity.Entity;
 
 public class Uncollidable {
 	

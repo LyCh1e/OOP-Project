@@ -1,4 +1,4 @@
-package io.github.ProjectOOP.lwjgl3;
+package ProjectOOP.IO;
 
 import java.util.ArrayList;
 import java.util.List;

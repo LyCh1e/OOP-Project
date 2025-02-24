@@ -1,4 +1,4 @@
-package io.github.ProjectOOP.lwjgl3;
+package ProjectOOP.Scene;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -11,7 +11,7 @@ public class Scene {
     Scene () {
     }
 
-    Scene (String str, float x, float y) {
+    public Scene (String str, float x, float y) {
         setX(x);
         setY(y);
         texture = new Texture(Gdx.files.internal(str));

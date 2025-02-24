@@ -1,4 +1,6 @@
-package io.github.ProjectOOP.lwjgl3;
+package ProjectOOP.Movement;
+
+import ProjectOOP.Entity.Entity;
 
 public class AIMovement {
     private static final float MAX_SPEED = 8f;

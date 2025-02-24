@@ -1,4 +1,4 @@
-package io.github.ProjectOOP.lwjgl3;
+package ProjectOOP.IO;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
@@ -18,7 +18,7 @@ public class Output {
 		
 	}
 	
-	Output (String str, Color c, float x, float y, float scale){
+	public Output (String str, Color c, float x, float y, float scale){
 		setString(str);
 		setX(x);
 		setY(y);
@@ -27,7 +27,7 @@ public class Output {
         font.getData().setScale(scale); // Scale the font size up
 	}
 	
-    Output(String filePath, float v) {
+    public Output(String filePath, float v) {
     	setString(filePath);
     	setVolume(v);
     	audio = Gdx.audio.newMusic(Gdx.files.internal(getString()));
@@ -55,11 +55,11 @@ public class Output {
 		return volume;
 	}
 	
-	void setNumber(float n) {
+	public void setNumber(float n) {
 		number = n;
 	}
 	
-	void setString(String s) {
+	public void setString(String s) {
 		strOutput = s;
 	}
 	

@@ -1,4 +1,8 @@
-package io.github.ProjectOOP.lwjgl3;
+package ProjectOOP.Movement;
+
+import ProjectOOP.Entity.Entity;
+import ProjectOOP.IO.IOManager;
+import ProjectOOP.Scene.SceneManager;
 
 public class MovementManager {
     private final UserMovement userMovement;

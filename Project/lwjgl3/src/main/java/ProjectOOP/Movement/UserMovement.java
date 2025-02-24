@@ -1,6 +1,10 @@
-package io.github.ProjectOOP.lwjgl3;
+package ProjectOOP.Movement;
 
 import com.badlogic.gdx.Gdx;
+
+import ProjectOOP.Entity.Entity;
+import ProjectOOP.IO.IOManager;
+import ProjectOOP.Scene.SceneManager;
 
 public class UserMovement{
     private static final float MOVEMENT_SPEED = 300f;

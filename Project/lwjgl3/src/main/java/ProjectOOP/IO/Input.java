@@ -1,4 +1,4 @@
-package io.github.ProjectOOP.lwjgl3;
+package ProjectOOP.IO;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;

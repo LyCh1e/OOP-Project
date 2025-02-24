@@ -1,8 +1,11 @@
-package io.github.ProjectOOP.lwjgl3;
+package ProjectOOP.Entity;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+import io.github.ProjectOOP.lwjgl3.iMovable;
+
 import java.util.Random;
 
 public abstract class Entity implements iMovable {    	
@@ -56,25 +59,25 @@ public abstract class Entity implements iMovable {
     }
 
     // Store previous position before updating
-    void setX(float x) {
+    public void setX(float x) {
         this.prevX = this.x_axis;
         this.x_axis = x;
     }
 
-    void setY(float y) {
+    public void setY(float y) {
         this.prevY = this.y_axis;
         this.y_axis = y;
     }
 
-    void setSpeed(float s) { 
+    public void setSpeed(float s) { 
     	speed = s;
     }
     
-    void setVelocityX(float f) { 
+    public void setVelocityX(float f) { 
     	velocityX = f; 
     }
     
-    void setVelocityY(float f) { 
+    public void setVelocityY(float f) { 
     	velocityY = f;
     }
 
@@ -86,7 +89,7 @@ public abstract class Entity implements iMovable {
     	return prevY;
     }
 
-    void draw(SpriteBatch batch) {
+    public void draw(SpriteBatch batch) {
         batch.draw(getTexture(), getX(), getY(), getTexture().getWidth(), getTexture().getHeight());
     }
 

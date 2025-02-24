@@ -6,6 +6,23 @@ import java.util.Random;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import ProjectOOP.Collision.Collidable;
+import ProjectOOP.Collision.CollisionManager;
+import ProjectOOP.Entity.EntityManager;
+import ProjectOOP.Entity.ImmovableEntity;
+import ProjectOOP.Entity.MovableEntity;
+import ProjectOOP.IO.IOManager;
+import ProjectOOP.IO.Input;
+import ProjectOOP.IO.KeyBindings;
+import ProjectOOP.IO.Output;
+import ProjectOOP.Movement.AIMovement;
+import ProjectOOP.Movement.MovementManager;
+import ProjectOOP.Scene.MainMenuScene;
+import ProjectOOP.Scene.PauseMenuScene;
+import ProjectOOP.Scene.Scene;
+import ProjectOOP.Scene.SceneManager;
+import ProjectOOP.Scene.SettingsScene;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Gdx; // import Gdx for file handling
 import com.badlogic.gdx.graphics.Color;
