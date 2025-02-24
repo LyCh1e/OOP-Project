@@ -4,8 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import io.github.ProjectOOP.lwjgl3.iMovable;
-
 import java.util.Random;
 
 public abstract class Entity implements iMovable {    	

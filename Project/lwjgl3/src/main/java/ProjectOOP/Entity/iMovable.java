@@ -1,4 +1,4 @@
-package io.github.ProjectOOP.lwjgl3;
+package ProjectOOP.Entity;
 
 public interface iMovable {
 	public void moveLeft();
