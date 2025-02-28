@@ -58,13 +58,13 @@ public abstract class Entity implements iMovable {
 
     // Store previous position before updating
     public void setX(float x) {
-        this.prevX = this.x_axis;
-        this.x_axis = x;
+        prevX = x_axis;
+        x_axis = x;
     }
 
     public void setY(float y) {
-        this.prevY = this.y_axis;
-        this.y_axis = y;
+        prevY = y_axis;
+        y_axis = y;
     }
 
     public void setSpeed(float s) { 
