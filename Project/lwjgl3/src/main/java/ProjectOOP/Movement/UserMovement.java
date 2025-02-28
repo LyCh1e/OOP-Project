@@ -11,12 +11,12 @@ public class UserMovement{
     private static final float JUMP_VELOCITY = 500f;
     private static final float GRAVITY = -980f;
     
-    private final float x_leftLimit = 0;
-    private final float x_rightLimit = 1210;
-    private final float y_bottomLimit = 0;
+    private static final float x_leftLimit = 0;
+    private static final float x_rightLimit = 1210;
+    private static final float y_bottomLimit = 0;
     
     private float verticalVelocity = 4;
-    private final IOManager ioManager;
+    private IOManager ioManager;
     
     UserMovement(IOManager ioM) {
     	ioManager = ioM;

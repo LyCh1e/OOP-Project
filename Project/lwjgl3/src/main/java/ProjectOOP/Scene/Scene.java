@@ -9,6 +9,7 @@ public class Scene {
     private float x_axis, y_axis;
 
     Scene () {
+    	
     }
 
     public Scene (String str, float x, float y) {

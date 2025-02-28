@@ -6,6 +6,10 @@ import ProjectOOP.Entity.Entity;
 
 public class CollisionManager {
 	
+	public CollisionManager(){
+		
+	}
+	
 	protected static Rectangle makeRectangle(Entity e) {
 		Rectangle rect = new Rectangle(e.getX(), 
 				e.getY(), 

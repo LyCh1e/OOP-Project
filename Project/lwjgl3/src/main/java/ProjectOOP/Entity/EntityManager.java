@@ -8,6 +8,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class EntityManager {
 private List<Entity> entityList = new ArrayList<>();
 	
+	public EntityManager(){
+		
+	}
+
 	public void addEntities(Entity e) {
 		entityList.add(e);
 	}

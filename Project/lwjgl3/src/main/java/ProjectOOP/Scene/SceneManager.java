@@ -15,7 +15,6 @@ public class SceneManager implements Disposable {
     // Use a Map to associate states with lists of scenes
     private Map<STATE, List<Scene>> stateSceneMap = new HashMap<>();
     private STATE currentState = STATE.MainMenu; // MAINMENU state is the first state main screen
-    private IOManager ioManager;
 
     public enum STATE {
         Start, End, Pause, Background, Settings, MainMenu //added new settings STATE
