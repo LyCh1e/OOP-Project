@@ -18,6 +18,7 @@ import ProjectOOP.IO.KeyBindings;
 import ProjectOOP.IO.Output;
 import ProjectOOP.Movement.AIMovement;
 import ProjectOOP.Movement.MovementManager;
+import ProjectOOP.Scene.GameOverScene;
 import ProjectOOP.Scene.MainMenuScene;
 import ProjectOOP.Scene.PauseMenuScene;
 import ProjectOOP.Scene.Scene;
@@ -58,6 +59,7 @@ public class GameMaster extends ApplicationAdapter {
     private PauseMenuScene pauseMenuScene;
     private SettingsScene settingsScene;
     private MainMenuScene mainMenuScene;
+    private GameOverScene gameOverScene;
     private KeyBindings keyBindings;
     private Input input;
     private Output output;
@@ -115,12 +117,14 @@ public class GameMaster extends ApplicationAdapter {
         pauseMenuScene = new PauseMenuScene(ioManager, sceneManager);
         settingsScene = new SettingsScene(ioManager, sceneManager);
         mainMenuScene = new MainMenuScene(ioManager, sceneManager);
+        gameOverScene = new GameOverScene(ioManager, sceneManager);
 
         // Configure SceneManager to associate scenes with states
         sceneManager.addSceneToState(SceneManager.STATE.Start, scene); // baackground.png in Start state
         sceneManager.addSceneToState(SceneManager.STATE.Pause, pauseMenuScene); // Pause Menu only in Pause state
         sceneManager.addSceneToState(SceneManager.STATE.Settings, settingsScene);
         sceneManager.addSceneToState(SceneManager.STATE.MainMenu, mainMenuScene); // SettingsScene only in Settings state
+        sceneManager.addSceneToState(SceneManager.STATE.GameOver, gameOverScene);
         sceneManager.setState(SceneManager.STATE.MainMenu); // First state, (game playing state)
     }
 
@@ -164,8 +168,8 @@ public class GameMaster extends ApplicationAdapter {
             }
             
             float score = output.getNumber();
-
             
+        
             // For testing purposes, manually adjust stamina, will remove once implemented with collecting of water and coke
             float stamina = staminaOutput.getNumber();
             if (Gdx.input.isKeyJustPressed(Keys.L)) {

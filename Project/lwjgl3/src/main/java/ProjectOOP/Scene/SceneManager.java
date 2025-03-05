@@ -19,7 +19,7 @@ public class SceneManager implements Disposable {
 
 
     public enum STATE {
-        Start, End, Pause, Background, Settings, MainMenu //added new settings STATE
+        Start, End, Pause, Background, Settings, MainMenu, GameOver //added new settings STATE
     }
 
     public SceneManager(IOManager ioManager) {
