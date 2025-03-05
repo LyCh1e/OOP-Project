@@ -20,7 +20,7 @@ public class MainMenuScene extends Scene {
     private TextButton settingsButton;
 
     public MainMenuScene(IOManager ioManager, SceneManager sceneManager) {
-        super("MainMenuBackground.png", 0, 0);
+        super("aquazoom.png", 0, 0);
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
@@ -68,6 +68,7 @@ public class MainMenuScene extends Scene {
     public void draw(SpriteBatch batch) {
         super.draw(batch);
         batch.end(); // stop drawing "game" elements like sprite batch (there isnt one now)
+    	Gdx.input.setInputProcessor(stage);
         stage.act(Gdx.graphics.getDeltaTime()); //Updates UI elements like buttons, label, etc etc
         stage.draw(); //Draws all UI elements (Related to Scene2D)
         batch.begin(); //Resumes normal game rendering

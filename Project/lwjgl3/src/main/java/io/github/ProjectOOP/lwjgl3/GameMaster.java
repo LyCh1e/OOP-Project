@@ -112,8 +112,8 @@ public class GameMaster extends ApplicationAdapter {
         ioManager.addOutput(staminaOutput);
 	    
         scene = new Scene("background.png", 0, 0);
-        pauseMenuScene = new PauseMenuScene();
-        settingsScene = new SettingsScene(ioManager);
+        pauseMenuScene = new PauseMenuScene(ioManager, sceneManager);
+        settingsScene = new SettingsScene(ioManager, sceneManager);
         mainMenuScene = new MainMenuScene(ioManager, sceneManager);
 
         // Configure SceneManager to associate scenes with states

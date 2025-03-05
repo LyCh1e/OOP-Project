@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import ProjectOOP.IO.IOManager;
 
@@ -20,9 +21,10 @@ public class SettingsScene extends Scene {
     private Skin skin;
     private CheckBox muteCheckbox;
     private Slider volumeSlider;
+    private TextButton backButton;
  
-    public SettingsScene(IOManager ioManager) {
-        super("SettingsBackground2.png", 0, 0);
+    public SettingsScene(IOManager ioManager, SceneManager sceneManager) {
+        super("settingsBg.png", 0, 0);
         this.ioManager = ioManager;
         
         stage = new Stage();  
@@ -30,6 +32,8 @@ public class SettingsScene extends Scene {
         
         // Load PRIVATE Skin for this scene
         skin = new Skin(Gdx.files.internal("uiskin.json"));
+        
+        backButton = new TextButton("Back", skin);
         
         Label volumeLabel = new Label("Volume", skin);
         volumeLabel.setFontScale(1.5f);
@@ -69,7 +73,10 @@ public class SettingsScene extends Scene {
 
         table.add(muteCheckbox).center().padBottom(20).row();
         table.add(volumeLabel).center().padBottom(10).row();
-        table.add(volumeSlider).width(300).height(50).center(); // No ".row()" as it is the last element
+        table.add(volumeSlider).width(300).height(50).center().padBottom(20).row(); 
+        table.add(backButton).center().padTop(10); 
+        
+        backButton.addListener(ioManager.getClickListener(() -> sceneManager.setState(sceneManager.getPrevState())));
 
         stage.addActor(table);
     }
@@ -106,5 +113,7 @@ public class SettingsScene extends Scene {
     @Override
     public void dispose() {
         super.dispose();
+        stage.dispose();
+        skin.dispose();
     }
 }
