@@ -2,6 +2,7 @@ package ProjectOOP.Entity;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class MovableEntity extends Entity {
     private boolean isJumping = false;
@@ -52,5 +53,10 @@ public class MovableEntity extends Entity {
         System.out.println("X position of movable entity = " + getX() + "\n");
         System.out.println("Y position of movable entity = " + getY() + "\n");
     }
+
+	@Override
+	void draw(ShapeRenderer shape) {
+		
+	}
 
 }

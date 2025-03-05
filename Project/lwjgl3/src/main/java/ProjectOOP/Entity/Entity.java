@@ -88,14 +88,6 @@ public abstract class Entity implements iMovable {
     	return prevY;
     }
 
-    public void draw(SpriteBatch batch) {
-        batch.draw(getTexture(), getX(), getY(), getTexture().getWidth(), getTexture().getHeight());
-    }
-    
-    public void draw(ShapeRenderer shape) {
-    	
-    }
-
     //Ensures entity never respawn in the same position.
     public void respawn(float minX, float maxX, float minY, float maxY) {
         float newX, newY;
@@ -110,6 +102,12 @@ public abstract class Entity implements iMovable {
 
         System.out.println("Entity respawned at: X = " + getX() + ", Y = " + getY());
     }
+    
+    public void draw(SpriteBatch batch) {
+    	batch.draw(getTexture(), getX(), getY(), getTexture().getWidth(), getTexture().getHeight());
+    }
+    
+    abstract void draw(ShapeRenderer shape);
 
     abstract void updatePosition();
 }

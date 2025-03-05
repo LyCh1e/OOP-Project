@@ -2,6 +2,7 @@ package ProjectOOP.Entity;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class ImmovableEntity extends Entity {
 
@@ -39,5 +40,10 @@ public class ImmovableEntity extends Entity {
         System.out.println("Previous Spawn: X = " + prevX + ", Y = " + prevY);
         System.out.println("Current Position: X = " + getX() + ", Y = " + getY());
     }
+
+	@Override
+	void draw(ShapeRenderer shape) {
+		
+	}
 
 }
