@@ -60,12 +60,6 @@ public class SceneManager implements Disposable {
     }
     
     public void switchScene(IOManager ioManager) {
-        if (currentState == SceneManager.STATE.MainMenu) {
-            if (ioManager.isJumping()) {
-                setState(SceneManager.STATE.Start);
-            }
-        }
-       
         if (ioManager.isEscape()) {
             // Toggle pause state
             if (currentState == SceneManager.STATE.Start) {
@@ -74,18 +68,8 @@ public class SceneManager implements Disposable {
                 setState(SceneManager.STATE.Start);
             }
         }
-
-        if (ioManager.isNum1()) {
-            // Toggle settings state, settings can only be opened from pause menu, click 1 to open settings
-            if (currentState == SceneManager.STATE.Pause) {
-                setState(SceneManager.STATE.Settings);
-            } else if (currentState == SceneManager.STATE.Settings) {
-               setState(SceneManager.STATE.Pause);
-            }
-        }
     }
-    
-
+    	
     @Override
     public void dispose() {
         for (List<Scene> sceneList : stateSceneMap.values()) {

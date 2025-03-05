@@ -42,10 +42,6 @@ public class Input {
         return Gdx.input.isKeyJustPressed(Keys.ESCAPE);
     }
     
-    public boolean isNum1() {
-        return Gdx.input.isKeyJustPressed(Keys.NUM_1);
-    }
-    
 //    // Existing methods remain unchanged
 //    public boolean keyDown(int keycode) {
 //        if (keycode == keyBindings.getKey("left")) {

@@ -23,11 +23,6 @@ public class IOManager {
     public boolean isEscape() {
     	return input.isEscape();
     }
-    
-    public boolean isNum1() {
-    	return input.isNum1();
-    }
-    
 
     public boolean isMovingLeft() {
         return input.isMovingLeft();
