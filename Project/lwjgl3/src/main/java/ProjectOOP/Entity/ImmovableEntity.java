@@ -42,7 +42,7 @@ public class ImmovableEntity extends Entity {
     }
 
 	@Override
-	void draw(ShapeRenderer shape) {
+	public void draw(ShapeRenderer shape) {
 		
 	}
 
