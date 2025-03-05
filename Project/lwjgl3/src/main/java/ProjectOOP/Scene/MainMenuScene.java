@@ -16,9 +16,10 @@ public class MainMenuScene extends Scene {
     private Stage stage;
     private Skin skin;
     private TextButton exitButton;
-    private ImageButton testImageButton;
+    private TextButton startButton;
+    private TextButton settingsButton;
 
-    public MainMenuScene(IOManager ioManager) {
+    public MainMenuScene(IOManager ioManager, SceneManager sceneManager) {
         super("MainMenuBackground.png", 0, 0);
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
@@ -26,26 +27,41 @@ public class MainMenuScene extends Scene {
         //load the skinjson for ui elements, got from libgdx github
         skin = new Skin(Gdx.files.internal("uiskin.json"));
 
-        // Create text button, using libgdx official skin
+        // Create buttons
+        startButton = new TextButton("Start Game", skin);
+        settingsButton = new TextButton("Settings", skin);
         exitButton = new TextButton("Exit", skin);
-        exitButton.setPosition(Gdx.graphics.getWidth() - 150, 50); // Set position
-        exitButton.setSize(100, 50); // Set size
-        
-       //testing image button
-        Texture buttonTexture = new Texture(Gdx.files.internal("resume_button.png"));
-        TextureRegionDrawable buttonDrawable = new TextureRegionDrawable(buttonTexture);
-        //testing image button
-        testImageButton = new ImageButton(buttonDrawable);
-        testImageButton.setPosition(Gdx.graphics.getWidth() - 1250, 50); // Set position  
-        testImageButton.setSize(150, 100);  // Set size
-       //testing image button
-        testImageButton.addListener(ioManager.getClickListener(() -> System.out.println("Image Button Clicked! TEST WORKING")));
-        
-        // Use IOManager to check click listener
-        exitButton.addListener(ioManager.getClickListener(() -> Gdx.app.exit())); //this is a "Runnable action" accepted by libgdx
-        
+
+        // Set button size
+        float buttonWidth = 200;
+        float buttonHeight = 60;
+        float screenWidth = Gdx.graphics.getWidth();
+        float screenHeight = Gdx.graphics.getHeight();
+        float spacing = 20; // Space between buttons
+
+        // Button Position
+        float centerX = (screenWidth - buttonWidth) / 2;
+        float startY = (screenHeight / 2) + buttonHeight; // Start Game button at the top
+
+        startButton.setSize(buttonWidth, buttonHeight);
+        startButton.setPosition(centerX, startY);
+
+        settingsButton.setSize(buttonWidth, buttonHeight);
+        settingsButton.setPosition(centerX, startY - (buttonHeight + spacing));
+
+        exitButton.setSize(buttonWidth, buttonHeight);
+        exitButton.setPosition(centerX, startY - 2 * (buttonHeight + spacing));
+
+        // Add listeners on button click
+        startButton.addListener(ioManager.getClickListener(() -> sceneManager.setState(SceneManager.STATE.Start))); // Will change ltr placeholder for now
+        settingsButton.addListener(ioManager.getClickListener(() -> sceneManager.setState(SceneManager.STATE.Settings))); // Will change ltr placeholder for now
+        exitButton.addListener(ioManager.getClickListener(() -> Gdx.app.exit()));
+
+        // Add buttons to the stage
+        stage.addActor(startButton);
+        stage.addActor(settingsButton);
         stage.addActor(exitButton);
-        stage.addActor(testImageButton);
+    
     }
 
     @Override
