@@ -146,7 +146,8 @@ public class GameMaster extends ApplicationAdapter {
                 ioManager.setForceJumpFalse(false); // Disable force false after 10 frames
             }
         	
-            entityManager.draw(batch, shape);
+            entityManager.draw(batch);
+            entityManager.draw(shape);
             ioManager.draw(batch);
             ioManager.playMusic();
             

@@ -17,18 +17,21 @@ private List<Entity> entityList = new ArrayList<>();
 		entityList.add(e);
 	}
 	
-	public void draw(SpriteBatch batch, ShapeRenderer shape) {
+	public void draw(SpriteBatch batch) {
+		// Same way as I did in Lab, can see if got any better ways
+		batch.begin();
+		for (int i = 0; i < entityList.size(); i++) {
+			if (!(entityList.get(i) instanceof SpeedBar)) entityList.get(i).draw(batch);
+		}
+		batch.end();
+	}
+	
+	public void draw(ShapeRenderer shape) {
 		// Same way as I did in Lab, can see if got any better ways
 		shape.begin(ShapeRenderer.ShapeType.Filled);
 		for (int i = 0; i < entityList.size(); i++) {
 			if (entityList.get(i) instanceof SpeedBar) entityList.get(i).draw(shape);
 		}
 		shape.end();
-		
-		batch.begin();
-		for (int i = 0; i < entityList.size(); i++) {
-			if (!(entityList.get(i) instanceof SpeedBar)) entityList.get(i).draw(batch);
-		}
-		batch.end();
 	}
 }
