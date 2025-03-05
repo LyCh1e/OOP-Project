@@ -3,6 +3,7 @@ package ProjectOOP.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import java.util.Random;
 
@@ -89,6 +90,10 @@ public abstract class Entity implements iMovable {
 
     public void draw(SpriteBatch batch) {
         batch.draw(getTexture(), getX(), getY(), getTexture().getWidth(), getTexture().getHeight());
+    }
+    
+    public void draw(ShapeRenderer shape) {
+    	
     }
 
     //Ensures entity never respawn in the same position.
