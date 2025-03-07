@@ -147,6 +147,7 @@ public class GameMaster extends ApplicationAdapter {
         ioManager.addOutput(audioOutput);
         ioManager.addOutput(output);
         ioManager.addOutput(staminaOutput);
+        staminaOutput.setNumber(30); // Set at half stamina initially
         
         scene = new Scene("background.png", 0, 0);
         pauseMenuScene = new PauseMenuScene(ioManager, sceneManager);
@@ -212,19 +213,18 @@ public class GameMaster extends ApplicationAdapter {
                         onAnyPlatform = true;
                     }
                 }
-            
+            float stamina = staminaOutput.getNumber();
             // Update droplets movement
             for (int i = 0; i < droplets.length; i++) {
                 
-                movementManager.updateAIMovementYAxis(droplets[i], MovementManager.Y_Column.BOTTOM);
-                movementManager.updateAIMovementYAxis(droplets[i], MovementManager.Y_Column.MIDDLE);
+                movementManager.updateAIMovementYAxis(droplets[i], MovementManager.Y_Column.BOTTOM, stamina);
+                movementManager.updateAIMovementYAxis(droplets[i], MovementManager.Y_Column.MIDDLE, stamina);
                 
             }
             
             float score = output.getNumber();
             
             // Stamina controls (for testing)
-            float stamina = staminaOutput.getNumber();
             if (Gdx.input.isKeyJustPressed(Keys.L)) {
                 if (staminaOutput.getNumber() <= 60 - 10) staminaOutput.setNumber(stamina+= 10);
             }
