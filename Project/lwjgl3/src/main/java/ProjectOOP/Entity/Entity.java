@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import java.util.Random;
 
-public abstract class Entity implements iMovable {    	
+public abstract class Entity {    	
     protected float x_axis, y_axis, speed; 
     protected float velocityX, velocityY;
     protected Texture texture;
@@ -100,7 +100,7 @@ public abstract class Entity implements iMovable {
         setX(newX);
         setY(newY);
 
-        System.out.println("Entity respawned at: X = " + getX() + ", Y = " + getY());
+        System.out.println("Entity respawned at: X = " + getX() + ", Y = " + getY() + ", Speed = " + getSpeed());
     }
     
     public void draw(SpriteBatch batch) {
