@@ -3,9 +3,12 @@ package ProjectOOP.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 
 public class MovableEntity extends Entity {
-    private boolean isJumping = false;
+    protected boolean isJumping = false;
+    protected float gravity = 9.8f;
+    protected boolean affectedByGravity = false;
 
     MovableEntity() { }
 
@@ -35,12 +38,20 @@ public class MovableEntity extends Entity {
         if (!isJumping) { // Prevent double jumping
             isJumping = true;
             System.out.println("Jumping");
-            // Add jumping physics here
+            // Add jumping physics here - now implemented in Player class
         }
     }
 
     public void land() {
         isJumping = false;
+    }
+    
+    public boolean isJumping() {
+        return isJumping;
+    }
+    
+    public void setAffectedByGravity(boolean affected) {
+        this.affectedByGravity = affected;
     }
 
     @Override
@@ -49,14 +60,22 @@ public class MovableEntity extends Entity {
         float prevX = getX();
         float prevY = getY();
 
+        // Apply gravity if needed
+        if (affectedByGravity && isJumping) {
+            velocityY -= gravity * Gdx.graphics.getDeltaTime();
+        }
+        
+        // Update position based on velocity
+        setX(getX() + velocityX * Gdx.graphics.getDeltaTime());
+        setY(getY() + velocityY * Gdx.graphics.getDeltaTime());
+
         System.out.println("Previous Spawn: X = " + prevX + ", Y = " + prevY);
         System.out.println("X position of movable entity = " + getX() + "\n");
         System.out.println("Y position of movable entity = " + getY() + "\n");
     }
 
-	@Override
-	public void draw(ShapeRenderer shape) {
-		
-	}
-
+    @Override
+    public void draw(ShapeRenderer shape) {
+        // Default implementation
+    }
 }

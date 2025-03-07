@@ -34,4 +34,7 @@ private List<Entity> entityList = new ArrayList<>();
 		}
 		shape.end();
 	}
+	public List<Entity> getEntityList() {
+	    return entityList;
+	}
 }

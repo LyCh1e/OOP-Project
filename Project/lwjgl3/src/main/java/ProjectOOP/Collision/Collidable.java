@@ -3,6 +3,8 @@ package ProjectOOP.Collision;
 import com.badlogic.gdx.math.Rectangle;
 
 import ProjectOOP.Entity.Entity;
+import ProjectOOP.Entity.Platform;
+import ProjectOOP.Entity.Player;
 
 public class Collidable {
 	
@@ -73,7 +75,7 @@ public class Collidable {
         }
 	}
 	
-	public static void doBounceCollision (Entity e1, Entity e2) {
+	public static void doBounceCollision(Entity e1, Entity e2) {
 		// bouncing collision, the 2 entity will bounce off each other
         float e1CenterX = e1.getX() + e1.getTexture().getWidth() / 2;
         float e1CenterY = e1.getY() + e1.getTexture().getHeight() / 2;
@@ -100,5 +102,64 @@ public class Collidable {
             e2.setVelocityX(dx * bounceForce);
             e2.setVelocityY(dy * bounceForce);
         }
+	}
+	
+	// New method to handle platform collision
+	public static boolean doPlatformCollision(Player player, Platform platform) {
+	    Rectangle playerRect = CollisionManager.makeRectangle(player);
+	    Rectangle platformRect = CollisionManager.makeRectangle(platform);
+	    
+	    // Check if player is above platform and within horizontal bounds
+	    if (playerRect.x + playerRect.width > platformRect.x && 
+	        playerRect.x < platformRect.x + platformRect.width) {
+	        
+	        float playerBottom = player.getY();
+	        float platformTop = platform.getY() + platform.getTexture().getHeight();
+	        
+	        // Check previous player position to see if the player was above the platform in the last frame
+	        float prevPlayerBottom = player.getPrevY();
+	        
+	        // Only snap player to platform if they were above and are now falling onto it
+	        if (prevPlayerBottom >= platformTop && 
+	            playerBottom <= platformTop && 
+	            player.getVelocityY() <= 0) {
+	            
+	            player.setY(platformTop);
+	            player.setVelocityY(0);
+	            player.land();
+	            return true;
+	        }
+	    }
+	    
+	    return false;
+	}
+	
+	// New method to handle segmented platform collision (for bottom platform with holes)
+	public static boolean doSegmentedPlatformCollision(Player player, Platform platform, Rectangle segment) {
+	    Rectangle playerRect = CollisionManager.makeRectangle(player);
+	    
+	    // Check if player is above segment and within horizontal bounds
+	    if (playerRect.x + playerRect.width > segment.x && 
+	        playerRect.x < segment.x + segment.width) {
+	        
+	        float playerBottom = player.getY();
+	        float segmentTop = segment.y + segment.height;
+	        
+	        // Check previous player position
+	        float prevPlayerBottom = player.getPrevY();
+	        
+	        // Only snap player to platform if they were above and are now falling onto it
+	        if (prevPlayerBottom >= segmentTop && 
+	            playerBottom <= segmentTop && 
+	            player.getVelocityY() <= 0) {
+	            
+	            player.setY(segmentTop);
+	            player.setVelocityY(0);
+	            player.land();
+	            return true;
+	        }
+	    }
+	    
+	    return false;
 	}
 }
