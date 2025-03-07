@@ -29,62 +29,62 @@ public abstract class Entity implements iMovable {
         prevY = y;
     }
 
-    protected Texture getTexture() {
+    public Texture getTexture() {
     	return texture; 
     }
     
-    protected float getX() { 
+    public float getX() { 
     	return x_axis;
     }
     
-    protected float getY() { 
+    public float getY() { 
     	return y_axis; 
     }
     
-    protected float getSpeed() { 
+    public float getSpeed() { 
     	return speed; 
     }
     
-    protected float getVelocityX() {
+    public float getVelocityX() {
     	return velocityX;
     }
     
-    protected float getVelocityY() { 
+    public float getVelocityY() { 
     	return velocityY; 
     }
 
-    protected void setTexture(Texture t) { 
+    void setTexture(Texture t) { 
     	texture = t; 
     }
 
     // Store previous position before updating
-    protected void setX(float x) {
+    public void setX(float x) {
         prevX = x_axis;
         x_axis = x;
     }
 
-    protected void setY(float y) {
+    public void setY(float y) {
         prevY = y_axis;
         y_axis = y;
     }
 
-    protected void setSpeed(float s) { 
+    public void setSpeed(float s) { 
     	speed = s;
     }
     
-    protected void setVelocityX(float f) { 
+    public void setVelocityX(float f) { 
     	velocityX = f; 
     }
     
-    protected void setVelocityY(float f) { 
+    public void setVelocityY(float f) { 
     	velocityY = f;
     }
 
-    protected float getPrevX() { 
+    public float getPrevX() { 
     	return prevX; 
     }
     
-    protected float getPrevY() { 
+    public float getPrevY() { 
     	return prevY;
     }
 
