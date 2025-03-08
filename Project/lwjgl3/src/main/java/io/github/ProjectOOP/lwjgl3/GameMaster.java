@@ -17,6 +17,7 @@ import ProjectOOP.Entity.Platform;
 import ProjectOOP.Entity.Player;
 import ProjectOOP.Entity.SoftDrink;
 import ProjectOOP.Entity.SpeedBar;
+import ProjectOOP.Entity.Water;
 import ProjectOOP.IO.IOManager;
 import ProjectOOP.IO.Input;
 import ProjectOOP.IO.KeyBindings;
@@ -303,15 +304,17 @@ public class GameMaster extends ApplicationAdapter {
                     if (currentHealth > 0) {
                         currentHealth--;
 
-                        // Move soft drink off-screen after collision
-                        softDrink.setX(-100);
+                        //Resets the position of the soft drink after collision
+                        float newX = Gdx.graphics.getWidth() + 50;
+                        float newY = (float) Math.random() * (Gdx.graphics.getHeight() - 200)+ 100;
+                        softDrink.setPosition(newX, newY);
                     }
                 }
             }
             
             // Check for game over condition
             if (currentHealth <= 0) {
-                sceneManager.setState(SceneManager.STATE.GameOver);
+                sceneManager.setState(SceneManager.STATE.GameOver); //Change to call the reset game function
             }
             
             // Gradually decrease stamina over time

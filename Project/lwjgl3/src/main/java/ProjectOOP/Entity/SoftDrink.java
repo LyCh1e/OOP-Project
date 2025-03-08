@@ -32,4 +32,12 @@ public class SoftDrink extends MovableEntity {
     public void draw(SpriteBatch batch) {
         batch.draw(texture, getX(), getY(), texture.getWidth() * scale, texture.getHeight() * scale);
     }
+
+	public void setPosition(float newX, float newY) {
+		setX(newX);
+		setY(newY);
+		
+	}
+
+
 }
