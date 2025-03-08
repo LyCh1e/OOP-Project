@@ -15,6 +15,7 @@ import ProjectOOP.Entity.ImmovableEntity;
 import ProjectOOP.Entity.MovableEntity;
 import ProjectOOP.Entity.Platform;
 import ProjectOOP.Entity.Player;
+import ProjectOOP.Entity.SoftDrink;
 import ProjectOOP.Entity.SpeedBar;
 import ProjectOOP.IO.IOManager;
 import ProjectOOP.IO.Input;
@@ -49,6 +50,7 @@ public class GameMaster extends ApplicationAdapter {
     private MovableEntity[] entities = new MovableEntity[1];
     private MovableEntity[] droplets = new MovableEntity[5];
     private ImmovableEntity[] hearts = new ImmovableEntity[3];
+    private SoftDrink[] softDrinks = new SoftDrink[1]; 
     private SpeedBar speedBar = new SpeedBar();
     private Color[] barColors = {
         Color.valueOf("#97f0f4"), Color.valueOf("#0bd7f2"), Color.valueOf("#35d1e1"), 
@@ -77,6 +79,9 @@ public class GameMaster extends ApplicationAdapter {
     private Output output;
     private Output audioOutput;
     private int frameInStartState = 0;
+    
+    private int maxHealth = 3;
+    private int currentHealth = maxHealth; //Track health
 
     GameMaster() {
         entityManager = new EntityManager();
@@ -140,6 +145,18 @@ public class GameMaster extends ApplicationAdapter {
             hearts[i] = new ImmovableEntity("heart.png", 10 + (i * 40), 650, 0);
             entityManager.addEntities(hearts[i]);
         }
+
+         // Spawn moving SoftDrinks
+        for (int i = 0; i < softDrinks.length; i++) {
+         float x = random.nextFloat() * Gdx.graphics.getWidth(); // Random X
+         float minY = 50;  // Minimum Y (closer to the ground)
+         float maxY = 250; // Maximum Y (lower on the screen)
+         float y = random.nextFloat() * (maxY - minY) + minY;
+
+         softDrinks[i] = new SoftDrink(x, y, 150, minY, maxY); // Move at speed 150
+         entityManager.addEntities(softDrinks[i]);
+         }
+
         
         speedBar = new SpeedBar(10, 150, barColors[0], 60, 0, 400);
         entityManager.addEntities(speedBar);
@@ -255,7 +272,26 @@ public class GameMaster extends ApplicationAdapter {
                     output.setString("Score: " + String.valueOf(Math.round(output.getNumber())));
                 }
             }
+            for (SoftDrink softDrink : softDrinks) {
+                softDrink.move(Gdx.graphics.getDeltaTime()); // Move soft drink
+            }
+            for (SoftDrink softDrink : softDrinks) {
+                if (collisionManager.checkCollisions(entities[0], softDrink)) {
+                    Collidable.doCollision(entities[0], softDrink, false);
 
+                    if (currentHealth > 0) {
+                        currentHealth--;
+
+                        // Move soft drink off-screen after collision
+                        softDrink.setX(-100);
+                    }
+                }
+            }
+            if (currentHealth <= 0) {
+                sceneManager.setState(SceneManager.STATE.GameOver);
+            }
+
+            
             // Gradually decrease stamina over time
             staminaOutput.setNumber(stamina -= 0.01f);
             staminaOutput.setString("Stamina: " + String.valueOf(Math.round(staminaOutput.getNumber())));
