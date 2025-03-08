@@ -62,10 +62,10 @@ public class GameMaster extends ApplicationAdapter {
     private Platform[] platforms = new Platform[5]; // Adjust number as needed
     private Platform bottomPlatform;
     private float platformWidth = 100;
-    private float platformHeight = 20;
+    private float platformHeight = 40;
     private float holeWidth = 50;
     private float scrollSpeed = -150;
-    private float bottomPlatformY = 100;
+    private float bottomPlatformY = 30;
     private float screenWidth;
     private float screenHeight;
 
@@ -120,14 +120,14 @@ public class GameMaster extends ApplicationAdapter {
         entityManager.addEntities(entities[0]);
 
         // Create moving platforms
-        for (int i = 0; i < platforms.length; i++) {
-            float x = 200 + i * 250; // Spacing platforms
-            float y = 150 + i * 70;  // Different heights
-            float minY = y - 50;     // Movement boundaries
-            float maxY = y + 50;
-            platforms[i] = new Platform("platform.png", x, y, platformWidth, platformHeight, minY, maxY, 50);
-            entityManager.addEntities(platforms[i]);
-        }
+//        for (int i = 0; i < platforms.length; i++) {
+//            float x = 200 + i * 250; // Spacing platforms
+//            float y = 150 + i * 70;  // Different heights
+//            float minY = y - 50;     // Movement boundaries
+//            float maxY = y + 50;
+//            platforms[i] = new Platform("platform.png", x, y, platformWidth, platformHeight, minY, maxY, 50);
+//            entityManager.addEntities(platforms[i]);
+//        }
 
         // Create bottom platform with looping and holes feature
         bottomPlatform = new Platform("platform.png", 0, bottomPlatformY, screenWidth, platformHeight, scrollSpeed);
@@ -207,10 +207,10 @@ public class GameMaster extends ApplicationAdapter {
             entityManager.draw(shape);
             ioManager.draw(batch);
 
-            // Update moving platforms
-            for (int i = 0; i < platforms.length; i++) {
-                platforms[i].updatePosition();
-            }
+//            // Update moving platforms
+//            for (int i = 0; i < platforms.length; i++) {
+//                platforms[i].updatePosition();
+//            }
             
             // Update bottom platform with looping and holes
             bottomPlatform.updatePosition();
@@ -226,24 +226,41 @@ public class GameMaster extends ApplicationAdapter {
                 boolean onAnyPlatform = false;
                 
                 for (Platform platform : platforms) {
-                    if (Collidable.doPlatformCollision(player, platform)) {
+                    if (platform != null && Collidable.doPlatformCollision(player, platform)) {
                         onAnyPlatform = true;
                     }
                 }
+                
+                // Check bottom platform segments
+                if (!onAnyPlatform && bottomPlatform != null) {
+                    List<Rectangle> segments = bottomPlatform.getSegments();
+                    for (Rectangle segment : segments) {
+                        if (Collidable.doSegmentedPlatformCollision(player, bottomPlatform, segment)) {
+                            onAnyPlatform = true;
+                            break;
+                        }
+                    }
+                }
+                
+                // If player isn't on any platform and isn't jumping, apply gravity
+                if (!onAnyPlatform && !player.isJumping()) {
+                    player.setVelocityY(player.getVelocityY() - 9.8f * Gdx.graphics.getDeltaTime());
+                }
+            }
+            
             float stamina = staminaOutput.getNumber();
             // Update droplets movement
             for (int i = 0; i < droplets.length; i++) {
-                
                 movementManager.updateAIMovementYAxis(droplets[i], MovementManager.Y_Column.BOTTOM);
                 movementManager.updateAIMovementYAxis(droplets[i], MovementManager.Y_Column.MIDDLE);
-                
             }
+            
             speedBar.setEntitySpeedsByStamina(stamina, droplets);
             float score = output.getNumber();
             
             // Stamina controls (for testing)
             if (Gdx.input.isKeyJustPressed(Keys.L)) {
-                if (staminaOutput.getNumber() <= 60 - 10) staminaOutput.setNumber(stamina+= 10);
+                if (staminaOutput.getNumber() <= 60 - 10) staminaOutput.setNumber(stamina += 10);
             }
             if (Gdx.input.isKeyJustPressed(Keys.EQUALS)) {
                 if (staminaOutput.getNumber() <= 60 - 1) staminaOutput.setNumber(stamina += 1);
@@ -272,9 +289,13 @@ public class GameMaster extends ApplicationAdapter {
                     output.setString("Score: " + String.valueOf(Math.round(output.getNumber())));
                 }
             }
+            
+            // Update soft drinks
             for (SoftDrink softDrink : softDrinks) {
                 softDrink.move(Gdx.graphics.getDeltaTime()); // Move soft drink
             }
+            
+            // Check for soft drink collisions
             for (SoftDrink softDrink : softDrinks) {
                 if (collisionManager.checkCollisions(entities[0], softDrink)) {
                     Collidable.doCollision(entities[0], softDrink, false);
@@ -287,10 +308,11 @@ public class GameMaster extends ApplicationAdapter {
                     }
                 }
             }
+            
+            // Check for game over condition
             if (currentHealth <= 0) {
                 sceneManager.setState(SceneManager.STATE.GameOver);
             }
-
             
             // Gradually decrease stamina over time
             staminaOutput.setNumber(stamina -= 0.01f);
@@ -299,25 +321,7 @@ public class GameMaster extends ApplicationAdapter {
             // Update score slowly over time
             output.setNumber(score += 0.01);
             output.setString("Score: " + String.valueOf(Math.round(output.getNumber())));
-            
-            
-            // Check bottom platform segments
-            if (!onAnyPlatform && bottomPlatform != null) {
-                List<Rectangle> segments = bottomPlatform.getSegments();
-                for (Rectangle segment : segments) {
-                    if (Collidable.doSegmentedPlatformCollision(player, bottomPlatform, segment)) {
-                        onAnyPlatform = true;
-                        break;
-                    }
-                }
-            }
-            
-            // If player isn't on any platform and isn't jumping, apply gravity
-            if (!onAnyPlatform && !player.isJumping()) {
-                player.setVelocityY(player.getVelocityY() - 9.8f * Gdx.graphics.getDeltaTime());
-            }
         }
-       }
     }
 
     public void dispose() {
