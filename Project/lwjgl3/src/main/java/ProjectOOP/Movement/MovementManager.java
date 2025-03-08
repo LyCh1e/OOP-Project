@@ -27,29 +27,29 @@ public class MovementManager {
     	 userMovement.move(entity, currentState);
     }
     
-    public void updateAIMovementYAxis(Entity entity, Y_Column layer, float stamina) {
+    public void updateAIMovementYAxis(Entity entity, Y_Column layer) {
         switch (layer) {
             case BOTTOM:
-                aiMovement.moveBottomYAxis(entity, stamina);
+                aiMovement.moveBottomYAxis(entity);
                 break;
             case MIDDLE:
-                aiMovement.moveMiddleYAxis(entity, stamina);
+                aiMovement.moveMiddleYAxis(entity);
                 break;
             case TOP:
-                aiMovement.moveTopYAxis(entity, stamina);
+                aiMovement.moveTopYAxis(entity);
                 break;
         }
     }
-    public void updateAIMovementXAxis(Entity entity, X_Row layer, float stamina) {
+    public void updateAIMovementXAxis(Entity entity, X_Row layer) {
         switch (layer) {
             case LEFT:
-                aiMovement.moveBottomXAxis(entity, stamina);
+                aiMovement.moveBottomXAxis(entity);
                 break;
             case MIDDLE:
-                aiMovement.moveMiddleXAxis(entity, stamina);
+                aiMovement.moveMiddleXAxis(entity);
                 break;
             case RIGHT:
-                aiMovement.moveTopXAxis(entity, stamina);
+                aiMovement.moveTopXAxis(entity);
                 break;
         }
     }

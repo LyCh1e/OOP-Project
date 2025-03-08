@@ -98,4 +98,21 @@ public class SpeedBar extends ImmovableEntity{
     	// If stamina is more than 0, setHeight to segment * index + 1, if not, setHeight to 0
     	setHeight((maxHeight/barColors.length) * (stamina > 0 ? index + 1 : 0));
     }
+
+    public void setEntitySpeedsByStamina(float stamina, Entity[] entityList) {
+    	float[] speeds = {22, 19, 16, 13, 10, 7, 4}; // Increment of 3, starting from 4 to 22
+        int index = (int) Math.floor(stamina / 10);
+
+    	// Ensure the index is within bounds
+    	if (index < 0) {
+    	    index = 0; // Handle negative stamina
+    	} else if (index >= speeds.length) {
+    	    index = speeds.length - 1; // Handle stamina greater than 60
+    	}
+    	
+        for (Entity e: entityList) {
+        	e.setSpeed(speeds[index]);
+        }
+    }
+    
 }

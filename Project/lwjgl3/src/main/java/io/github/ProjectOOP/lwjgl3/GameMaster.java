@@ -217,11 +217,11 @@ public class GameMaster extends ApplicationAdapter {
             // Update droplets movement
             for (int i = 0; i < droplets.length; i++) {
                 
-                movementManager.updateAIMovementYAxis(droplets[i], MovementManager.Y_Column.BOTTOM, stamina);
-                movementManager.updateAIMovementYAxis(droplets[i], MovementManager.Y_Column.MIDDLE, stamina);
+                movementManager.updateAIMovementYAxis(droplets[i], MovementManager.Y_Column.BOTTOM);
+                movementManager.updateAIMovementYAxis(droplets[i], MovementManager.Y_Column.MIDDLE);
                 
             }
-            
+            speedBar.setEntitySpeedsByStamina(stamina, droplets);
             float score = output.getNumber();
             
             // Stamina controls (for testing)
