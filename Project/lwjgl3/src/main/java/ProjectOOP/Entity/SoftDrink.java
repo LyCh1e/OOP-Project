@@ -6,7 +6,6 @@ import com.badlogic.gdx.Gdx;
 public class SoftDrink extends MovableEntity {
     private float minY, maxY;
     private boolean movingUp = true;
-    private float scale = 0.5f; 
 
     public SoftDrink(float x, float y, float speed, float minY, float maxY) {
         super("sodabottle.png", x, y, speed);
@@ -30,7 +29,7 @@ public class SoftDrink extends MovableEntity {
 
     @Override
     public void draw(SpriteBatch batch) {
-        batch.draw(texture, getX(), getY(), texture.getWidth() * scale, texture.getHeight() * scale);
+		batch.draw(texture, getX(), getY(),32, 96);
     }
 
 	public void setPosition(float newX, float newY) {
