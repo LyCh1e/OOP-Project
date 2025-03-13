@@ -1,7 +1,43 @@
 package ProjectOOP.Entity;
 
-public class Water extends MovableEntity{
-	public Water(float x, float y) {
-		super("waterbottle.png", x, y, 0);
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.Gdx;
+
+public class Water extends MovableEntity {
+    private float minY, maxY;
+    private boolean movingUp = true;
+    private static final float widthScale = 64;  
+    private static final float heightScale = 64; 
+
+    public Water(float x, float y, float speed, float minY, float maxY) {
+        super("waterbottle.png", x, y, speed);
+        this.minY = minY;
+        this.maxY = maxY;
+    }
+
+    public void move(float deltaTime) {
+        // Move left
+    	setX(getX() - getSpeed() * deltaTime); // Move left based on current speed
+
+        // Respawn if off-screen
+        if (getX() < -50) { 
+            float newX = Gdx.graphics.getWidth() + 50; // Respawn on the right
+            float newY = (float) Math.random() * (Gdx.graphics.getHeight() - 200) + 100; // Random Y position
+            setX(newX);
+            setY(newY);
+        }
+    }
+
+    @Override
+    public void draw(SpriteBatch batch) {
+		batch.draw(texture, getX(), getY(),widthScale, heightScale);
+    }
+
+	public void setPosition(float newX, float newY) {
+		setX(newX);
+		setY(newY);
+		
 	}
+
+
 }

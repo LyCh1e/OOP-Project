@@ -49,9 +49,10 @@ public class GameMaster extends ApplicationAdapter {
     private IOManager ioManager;
 
     private MovableEntity[] entities = new MovableEntity[1];
-    private MovableEntity[] droplets = new MovableEntity[5];
+//    private MovableEntity[] droplets = new MovableEntity[5];
     private ImmovableEntity[] hearts = new ImmovableEntity[3];
     private SoftDrink[] softDrinks = new SoftDrink[1]; 
+    private Water[] Water = new Water[1];
     private SpeedBar speedBar = new SpeedBar();
     private Color[] barColors = {
         Color.valueOf("#97f0f4"), Color.valueOf("#0bd7f2"), Color.valueOf("#35d1e1"), 
@@ -69,6 +70,7 @@ public class GameMaster extends ApplicationAdapter {
     private float bottomPlatformY = 30;
     private float screenWidth;
     private float screenHeight;
+    private float stamina;
 
     private Scene scene;
     private PauseMenuScene pauseMenuScene;
@@ -136,10 +138,10 @@ public class GameMaster extends ApplicationAdapter {
         entityManager.addEntities(bottomPlatform);
         
         // Add droplets (water collectibles)
-        for (int i = 0; i < droplets.length; i++) {
-            droplets[i] = new MovableEntity("droplet.png", 1280, randomYBottom, 2);
-            entityManager.addEntities(droplets[i]);
-        }
+//        for (int i = 0; i < droplets.length; i++) {
+//            droplets[i] = new MovableEntity("waterbottle.png", 1280, randomYBottom, 2);
+//            entityManager.addEntities(droplets[i]);
+//        }
         
         // Add hearts
         for (int i = 0; i < hearts.length; i++) {
@@ -149,7 +151,7 @@ public class GameMaster extends ApplicationAdapter {
 
          // Spawn moving SoftDrinks
         for (int i = 0; i < softDrinks.length; i++) {
-         float x = random.nextFloat() * Gdx.graphics.getWidth(); // Random X
+         float x = 1280;
          float minY = 50;  // Minimum Y (closer to the ground)
          float maxY = 250; // Maximum Y (lower on the screen)
          float y = random.nextFloat() * (maxY - minY) + minY;
@@ -157,6 +159,15 @@ public class GameMaster extends ApplicationAdapter {
          softDrinks[i] = new SoftDrink(x, y, 150, minY, maxY); // Move at speed 150
          entityManager.addEntities(softDrinks[i]);
          }
+        
+        // Spawn moving waterbottle
+        for (int i = 0; i < Water.length; i++) {
+            float x = random.nextFloat() * Gdx.graphics.getWidth(); // Random X position
+            float y = (float) Math.random() * (Gdx.graphics.getHeight() - 200) + 100; // Random Y position
+
+            Water[i] = new Water(x, y, 150, y, y); // Assign random Y position
+            entityManager.addEntities(Water[i]);
+        }
 
         
         speedBar = new SpeedBar(10, 150, barColors[0], 60, 0, 400);
@@ -165,7 +176,8 @@ public class GameMaster extends ApplicationAdapter {
         ioManager.addOutput(audioOutput);
         ioManager.addOutput(output);
         ioManager.addOutput(staminaOutput);
-        staminaOutput.setNumber(30); // Set at half stamina initially
+        stamina = 30;  // Start at half stamina
+        staminaOutput.setNumber(stamina); ; // Set at half stamina initially
         
         scene = new Scene("background.png", 0, 0);
         pauseMenuScene = new PauseMenuScene(ioManager, sceneManager);
@@ -249,45 +261,88 @@ public class GameMaster extends ApplicationAdapter {
                 }
             }
             
-            float stamina = staminaOutput.getNumber();
-            // Update droplets movement
-            for (int i = 0; i < droplets.length; i++) {
-                movementManager.updateAIMovementYAxis(droplets[i], MovementManager.Y_Column.BOTTOM);
-                movementManager.updateAIMovementYAxis(droplets[i], MovementManager.Y_Column.MIDDLE);
-            }
-            
-            speedBar.setEntitySpeedsByStamina(stamina, droplets);
+//            float stamina = staminaOutput.getNumber();
+//            // Update droplets movement
+//            for (int i = 0; i < droplets.length; i++) {
+//                movementManager.updateAIMovementYAxis(droplets[i], MovementManager.Y_Column.BOTTOM);
+//                movementManager.updateAIMovementYAxis(droplets[i], MovementManager.Y_Column.MIDDLE);
+//            }
+//            
+//            speedBar.setEntitySpeedsByStamina(stamina, droplets);
+
             float score = output.getNumber();
             
             // Stamina controls (for testing)
             if (Gdx.input.isKeyJustPressed(Keys.L)) {
-                if (staminaOutput.getNumber() <= 60 - 10) staminaOutput.setNumber(stamina += 10);
+                if (stamina <= 60 - 10) staminaOutput.setNumber(stamina += 10);
             }
             if (Gdx.input.isKeyJustPressed(Keys.EQUALS)) {
-                if (staminaOutput.getNumber() <= 60 - 1) staminaOutput.setNumber(stamina += 1);
+                if (stamina <= 60 - 1) staminaOutput.setNumber(stamina += 1);
             }
             if (Gdx.input.isKeyJustPressed(Keys.J)) {
-                if (staminaOutput.getNumber() >= 10) staminaOutput.setNumber(stamina -= 10);
+                if (stamina >= 10) staminaOutput.setNumber(stamina -= 10);
             }
             if (Gdx.input.isKeyJustPressed(Keys.MINUS)) {
-                if (staminaOutput.getNumber() >= 1) staminaOutput.setNumber(stamina -= 1);
+                if (stamina >= 1) staminaOutput.setNumber(stamina -= 1);
             }
-            staminaOutput.setString("Stamina: " + String.valueOf(Math.round(staminaOutput.getNumber())));
-            speedBar.setBar(barColors, staminaOutput.getNumber());
+            staminaOutput.setString("Stamina: " + String.valueOf(Math.round(stamina)));
+            speedBar.setBar(barColors, stamina);
             
             // Check for water collisions
-            for (int i = 0; i < droplets.length; i++) {
-                if (collisionManager.checkCollisions(entities[0], droplets[i])) {
-                    Collidable.doCollision(entities[0], droplets[i], false);
-                    
+//            for (int i = 0; i < droplets.length; i++) {
+//                if (collisionManager.checkCollisions(entities[0], droplets[i])) {
+//                    Collidable.doCollision(entities[0], droplets[i], false);
+//                    
+//                    // Increase stamina when collecting water
+//                    if (staminaOutput.getNumber() <= 60 - 5) {
+//                        staminaOutput.setNumber(staminaOutput.getNumber() + 5);
+//                    }
+//                    
+//                    // Update score
+//                    output.setNumber(score += 1);
+//                    output.setString("Score: " + String.valueOf(Math.round(output.getNumber())));
+//                }
+//            }
+            for (int i = 0; i < Water.length; i++) {
+                movementManager.updateAIMovementYAxis(Water[i], MovementManager.Y_Column.BOTTOM);
+                movementManager.updateAIMovementYAxis(Water[i], MovementManager.Y_Column.MIDDLE);
+            }
+            for (int i = 0; i < softDrinks.length; i++) {
+                movementManager.updateAIMovementYAxis(softDrinks[i], MovementManager.Y_Column.BOTTOM);
+                movementManager.updateAIMovementYAxis(softDrinks[i], MovementManager.Y_Column.MIDDLE);
+            }
+            speedBar.setEntitySpeedsByStamina(stamina, Water);      //  Water reacts to stamina
+            speedBar.setEntitySpeedsByStamina(stamina, softDrinks); //  SoftDrink reacts to stamina
+            
+            // Update soft drinks
+            for (int i = 0; i < Water.length; i++) {
+                Water[i].move(Gdx.graphics.getDeltaTime()); // Move water bottle correctly
+            }
+            
+            // Check for waterbottle collisions
+            for (int i = 0; i < Water.length; i++) {
+                Water[i].move(Gdx.graphics.getDeltaTime()); // Move water bottle
+
+                if (collisionManager.checkCollisions(entities[0], Water[i])) {
+                    Collidable.doCollision(entities[0], Water[i], false);
+
                     // Increase stamina when collecting water
-                    if (staminaOutput.getNumber() <= 60 - 5) {
-                        staminaOutput.setNumber(staminaOutput.getNumber() + 5);
+                    if (stamina <= 60 - 5) {
+                        stamina += 5;
+                        staminaOutput.setNumber(stamina);
                     }
-                    
+
+                    // Reset the position of the collected water bottle
+                    float newX = Gdx.graphics.getWidth() + 50;
+                    float newY = (float) Math.random() * (Gdx.graphics.getHeight() - 200) + 100;
+                    Water[i].setPosition(newX, newY);
+
+                    // Apply speed update ONLY to the collected water bottle
+                    speedBar.setEntitySpeedsByStamina(stamina, new Water[]{Water[i]}); 
+
                     // Update score
                     output.setNumber(score += 1);
-                    output.setString("Score: " + String.valueOf(Math.round(output.getNumber())));
+                    output.setString("Score: " + Math.round(output.getNumber()));
                 }
             }
             
@@ -303,11 +358,20 @@ public class GameMaster extends ApplicationAdapter {
 
                     if (currentHealth > 0) {
                         currentHealth--;
+                        
+                        if (stamina >= 5) {
+                            stamina -= 5;
+                        } else {
+                            stamina = 0;  // Prevent negative stamina
+                        }
+                        staminaOutput.setNumber(stamina);
 
                         //Resets the position of the soft drink after collision
                         float newX = Gdx.graphics.getWidth() + 50;
-                        float newY = (float) Math.random() * (Gdx.graphics.getHeight() - 200)+ 100;
+//                        float newY = (float) Math.random() * (Gdx.graphics.getHeight() - 200)+ 100;
+                        float newY = (float) Math.random() * (softDrink.maxY - softDrink.minY) + softDrink.minY; // Ensure Y stays in range
                         softDrink.setPosition(newX, newY);
+                        speedBar.setEntitySpeedsByStamina(stamina, new SoftDrink[]{softDrink}); 
                     }
                 }
             }
@@ -317,13 +381,13 @@ public class GameMaster extends ApplicationAdapter {
                 sceneManager.setState(SceneManager.STATE.GameOver); //Change to call the reset game function
             }
             
-            // Gradually decrease stamina over time
-            staminaOutput.setNumber(stamina -= 0.01f);
-            staminaOutput.setString("Stamina: " + String.valueOf(Math.round(staminaOutput.getNumber())));
-            
-            // Update score slowly over time
-            output.setNumber(score += 0.01);
-            output.setString("Score: " + String.valueOf(Math.round(output.getNumber())));
+//            // Gradually decrease stamina over time
+//            staminaOutput.setNumber(stamina -= 0.01f);
+//            staminaOutput.setString("Stamina: " + String.valueOf(Math.round(staminaOutput.getNumber())));
+//            
+//            // Update score slowly over time
+//            output.setNumber(score += 0.01);
+//            output.setString("Score: " + String.valueOf(Math.round(output.getNumber())));
         }
     }
 

@@ -4,10 +4,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Gdx;
 
 public class SoftDrink extends MovableEntity {
-    private float minY, maxY;
+    public float minY, maxY; // changed to public
     private boolean movingUp = true;
-    private static final float widthScale = 32;  
-    private static final float heightScale = 96; 
+    private static final float widthScale = 64;  
+    private static final float heightScale = 64; 
 
     public SoftDrink(float x, float y, float speed, float minY, float maxY) {
         super("sodabottle.png", x, y, speed);
@@ -16,7 +16,7 @@ public class SoftDrink extends MovableEntity {
     }
 
     public void move(float deltaTime) {
-        setX(getX() - speed * deltaTime);
+    	setX(getX() - getSpeed() * deltaTime); // Move left based on current speed
 
         if (movingUp) {
             setY(getY() + speed * 0.5f * deltaTime);
@@ -26,7 +26,11 @@ public class SoftDrink extends MovableEntity {
             if (getY() <= minY) movingUp = true;
         }
 
-        if (getX() < -50) setX(Gdx.graphics.getWidth());
+//        if (getX() < -50) setX(Gdx.graphics.getWidth());
+        if (getX() < -50) { 
+            setX(Gdx.graphics.getWidth()); // Respawn at right
+            // Y position remains unchanged (doesn't reset)
+        }
     }
 
     @Override
