@@ -6,10 +6,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Disposable;
 
+import ProjectOOP.Entity.EntityManager;
+import ProjectOOP.Entity.ImmovableEntity;
+import ProjectOOP.Entity.MovableEntity;
+import ProjectOOP.Entity.Platform;
+import ProjectOOP.Entity.SoftDrink;
+import ProjectOOP.Entity.Water;
 import ProjectOOP.IO.IOManager;
+import ProjectOOP.IO.Output;
 
 public class SceneManager implements Disposable {
     // Use a Map to associate states with lists of scenes
@@ -69,6 +78,55 @@ public class SceneManager implements Disposable {
             }
         }
     }
+
+    public void resetGame(MovableEntity player, Water[] waterBottles, SoftDrink[] softDrinks,
+            Platform bottomPlatform, float bottomPlatformY, Output staminaOutput, 
+            Output scoreOutput, ImmovableEntity[] hearts, EntityManager entityManager) {
+		// Reset player position and velocity
+		player.setX(10);
+		player.setY(300);
+		player.setVelocityY(0);
+		player.setVelocityX(0);
+		
+		// Reset stamina
+		float stamina = 30;
+		staminaOutput.setNumber(stamina);
+		staminaOutput.setString("Stamina: " + Math.round(stamina));
+		
+		// Reset score
+		scoreOutput.setNumber(0);
+		scoreOutput.setString("Score: 0");
+		
+		// Reset entity positions
+		for (int i = 0; i < waterBottles.length; i++) {
+		float newX = Gdx.graphics.getWidth() + 50;
+		float newY = (float) Math.random() * (Gdx.graphics.getHeight() - 200) + 100;
+		waterBottles[i].setPosition(newX, newY);
+		}
+		
+		for (int i = 0; i < softDrinks.length; i++) {
+		float newX = Gdx.graphics.getWidth() + 50;
+		float minY = 50;
+		float maxY = 250;
+		float newY = (float) Math.random() * (maxY - minY) + minY;
+		softDrinks[i].setPosition(newX, newY);
+		}
+		
+		// Reset platform positions
+		bottomPlatform.setPosition(0, bottomPlatformY);
+		
+        // Add hearts
+        for (int i = 0; i < hearts.length; i++) {
+            hearts[i] = new ImmovableEntity("heart.png", 10 + (i * 40), 650, 0);
+            entityManager.addEntities(hearts[i]);
+        }
+		
+		// Go to gameover state
+		setState(SceneManager.STATE.GameOver);
+}
+
+
+
     	
     @Override
     public void dispose() {
