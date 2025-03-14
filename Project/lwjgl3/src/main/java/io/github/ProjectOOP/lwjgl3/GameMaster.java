@@ -385,7 +385,7 @@ public class GameMaster extends ApplicationAdapter {
             
             // Check for game over condition
             if (currentHealth <= 0) {
-                sceneManager.setState(SceneManager.STATE.GameOver); //Change to call the reset game function
+            	resetGame();
             }
             
 //            // Gradually decrease stamina over time
@@ -396,6 +396,48 @@ public class GameMaster extends ApplicationAdapter {
 //            output.setNumber(score += 0.01);
 //            output.setString("Score: " + String.valueOf(Math.round(output.getNumber())));
         }
+    }
+    
+    public void resetGame() {
+        // Reset health
+        currentHealth = maxHealth;
+        
+        // Reset player position
+        entities[0].setX(10);
+        entities[0].setY(300);
+        
+        // Reset stamina
+        stamina = 30;
+        staminaOutput.setNumber(stamina);
+        staminaOutput.setString("Stamina: " + Math.round(stamina));
+        
+        // Reset score
+        output.setNumber(0);
+        output.setString("Score: 0");
+        
+        // Reset frame counter
+        frameInStartState = 0;
+        
+        // Reset entity positions
+        for (int i = 0; i < Water.length; i++) {
+            float newX = Gdx.graphics.getWidth() + 50;
+            float newY = (float) Math.random() * (Gdx.graphics.getHeight() - 200) + 100;
+            Water[i].setPosition(newX, newY);
+        }
+        
+        for (int i = 0; i < softDrinks.length; i++) {
+            float newX = Gdx.graphics.getWidth() + 50;
+            float minY = 50;
+            float maxY = 250;
+            float newY = (float) Math.random() * (maxY - minY) + minY;
+            softDrinks[i].setPosition(newX, newY);
+        }
+        
+        // Reset platform positions
+        bottomPlatform.setPosition(0, bottomPlatformY);
+        
+        // Go to gameover state
+        sceneManager.setState(SceneManager.STATE.GameOver);
     }
 
     public void dispose() {

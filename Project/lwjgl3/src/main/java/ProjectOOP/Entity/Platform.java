@@ -153,6 +153,12 @@ public class Platform extends MovableEntity {
             bounds.setPosition(getX(), getY());
         }
     }
+    
+    public void setPosition(float newX, float newY) {
+        setX(newX);
+        setY(newY);
+    }
+
 
     // Override draw method to handle segments
     @Override
