@@ -27,6 +27,7 @@ public class SceneManager implements Disposable {
     private STATE prevState;
 
 
+
     public enum STATE {
         Start, End, Pause, Background, Settings, MainMenu, GameOver //added new settings STATE
     }
@@ -80,19 +81,14 @@ public class SceneManager implements Disposable {
     }
 
     public void resetGame(MovableEntity player, Water[] waterBottles, SoftDrink[] softDrinks,
-            Platform bottomPlatform, float bottomPlatformY, Output staminaOutput, 
+            Platform bottomPlatform, float bottomPlatformY, 
             Output scoreOutput, ImmovableEntity[] hearts, EntityManager entityManager) {
 		// Reset player position and velocity
 		player.setX(10);
 		player.setY(300);
 		player.setVelocityY(0);
 		player.setVelocityX(0);
-		
-		// Reset stamina
-		float stamina = 30;
-		staminaOutput.setNumber(stamina);
-		staminaOutput.setString("Stamina: " + Math.round(stamina));
-		
+			
 		// Reset score
 		scoreOutput.setNumber(0);
 		scoreOutput.setString("Score: 0");

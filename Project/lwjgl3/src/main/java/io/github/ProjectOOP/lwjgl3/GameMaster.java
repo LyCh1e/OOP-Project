@@ -385,13 +385,19 @@ public class GameMaster extends ApplicationAdapter {
             
             // Check for game over condition
             if (currentHealth <= 0) {
-                sceneManager.resetGame(entities[0], Water, softDrinks, bottomPlatform, 
-                                      bottomPlatformY, staminaOutput, output, hearts, entityManager);
-                // Reset health and frame counter
-                currentHealth = maxHealth;
-                frameInStartState = 0;
+                // Reset the game
+                sceneManager.resetGame(entities[0], Water, softDrinks, bottomPlatform,
+                                      bottomPlatformY, output, hearts, entityManager);
                 
-            }           
+                // Reset health and stamina
+                currentHealth = maxHealth;
+                stamina = 30; // Reset stamina
+                staminaOutput.setNumber(stamina);
+                staminaOutput.setString("Stamina: " + Math.round(stamina));
+                
+                frameInStartState = 0;
+            }
+  
             
 //            // Gradually decrease stamina over time
 //            staminaOutput.setNumber(stamina -= 0.01f);
