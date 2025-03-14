@@ -315,9 +315,9 @@ public class GameMaster extends ApplicationAdapter {
             speedBar.setEntitySpeedsByStamina(stamina, softDrinks); //  SoftDrink reacts to stamina
             
             // Update soft drinks
-            for (int i = 0; i < Water.length; i++) {
-                Water[i].move(Gdx.graphics.getDeltaTime()); // Move water bottle correctly
-            }
+//            for (int i = 0; i < Water.length; i++) {
+//                Water[i].move(Gdx.graphics.getDeltaTime()); // Move water bottle correctly
+//            }
             
             // Check for waterbottle collisions
             for (int i = 0; i < Water.length; i++) {
@@ -326,11 +326,13 @@ public class GameMaster extends ApplicationAdapter {
                 if (collisionManager.checkCollisions(entities[0], Water[i])) {
                     Collidable.doCollision(entities[0], Water[i], false);
 
-                    // Increase stamina when collecting water
-                    if (stamina <= 60 - 5) {
-                        stamina += 5;
-                        staminaOutput.setNumber(stamina);
-                    }
+//                    // Increase stamina when collecting water
+//                    if (stamina <= 60 - 5) {
+//                        stamina += 5;
+//                        staminaOutput.setNumber(stamina);
+//                    }
+                    stamina = Math.min(stamina + 5, 60);
+                    staminaOutput.setNumber(stamina);
 
                     // Reset the position of the collected water bottle
                     float newX = Gdx.graphics.getWidth() + 50;
@@ -347,9 +349,9 @@ public class GameMaster extends ApplicationAdapter {
             }
             
             // Update soft drinks
-            for (SoftDrink softDrink : softDrinks) {
-                softDrink.move(Gdx.graphics.getDeltaTime()); // Move soft drink
-            }
+//            for (SoftDrink softDrink : softDrinks) {
+//                softDrink.move(Gdx.graphics.getDeltaTime()); // Move soft drink
+//            }
             
             // Check for soft drink collisions
             for (SoftDrink softDrink : softDrinks) {
@@ -358,6 +360,11 @@ public class GameMaster extends ApplicationAdapter {
 
                     if (currentHealth > 0) {
                         currentHealth--;
+                        
+                     // Remove the corresponding heart from the UI
+                        if (currentHealth < hearts.length) {
+                            entityManager.removeEntity(hearts[currentHealth]); // Remove heart
+                        }
                         
                         if (stamina >= 5) {
                             stamina -= 5;
@@ -368,8 +375,8 @@ public class GameMaster extends ApplicationAdapter {
 
                         //Resets the position of the soft drink after collision
                         float newX = Gdx.graphics.getWidth() + 50;
-//                        float newY = (float) Math.random() * (Gdx.graphics.getHeight() - 200)+ 100;
-                        float newY = (float) Math.random() * (softDrink.maxY - softDrink.minY) + softDrink.minY; // Ensure Y stays in range
+                        float newY = (float) Math.random() * (Gdx.graphics.getHeight() - 200)+ 100;
+//                        float newY = (float) Math.random() * (softDrink.maxY - softDrink.minY) + softDrink.minY; // Ensure Y stays in range
                         softDrink.setPosition(newX, newY);
                         speedBar.setEntitySpeedsByStamina(stamina, new SoftDrink[]{softDrink}); 
                     }

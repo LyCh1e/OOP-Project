@@ -6,8 +6,8 @@ import com.badlogic.gdx.Gdx;
 public class Water extends MovableEntity {
     private float minY, maxY;
     private boolean movingUp = true;
-    private static final float widthScale = 64;  
-    private static final float heightScale = 64; 
+    private static final float widthScale = 32;  
+    private static final float heightScale = 96; 
 
     public Water(float x, float y, float speed, float minY, float maxY) {
         super("waterbottle.png", x, y, speed);

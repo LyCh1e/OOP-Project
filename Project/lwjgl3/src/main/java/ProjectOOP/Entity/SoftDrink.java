@@ -4,10 +4,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Gdx;
 
 public class SoftDrink extends MovableEntity {
-    public float minY, maxY; // changed to public
+	private float minY, maxY; 
     private boolean movingUp = true;
-    private static final float widthScale = 64;  
-    private static final float heightScale = 64; 
+    private static final float widthScale = 32;  
+    private static final float heightScale = 96; 
 
     public SoftDrink(float x, float y, float speed, float minY, float maxY) {
         super("sodabottle.png", x, y, speed);

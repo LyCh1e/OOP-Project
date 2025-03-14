@@ -17,6 +17,10 @@ private List<Entity> entityList = new ArrayList<>();
 		entityList.add(e);
 	}
 	
+	public void removeEntity(Entity e) {
+		entityList.remove(e); // Remove from the list
+	}
+	
 	public void draw(SpriteBatch batch) {
 		// Same way as I did in Lab, can see if got any better ways
 		batch.begin();
