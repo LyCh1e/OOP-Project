@@ -70,7 +70,7 @@ public class GameMaster extends ApplicationAdapter {
     private float bottomPlatformY = 30;
     private float screenWidth;
     private float screenHeight;
-    private float stamina;
+    private float stamina = 60;
 
     private Scene scene;
     private PauseMenuScene pauseMenuScene;
@@ -117,7 +117,7 @@ public class GameMaster extends ApplicationAdapter {
         screenHeight = Gdx.graphics.getHeight();
 
         // Initialize player as a Player instance instead of MovableEntity
-        entities[0] = new Player("bucket.png", 10, 300, 200);
+        entities[0] = new Player("bucket.png", 10, 300, 600);
         // Enable gravity for player
         ((Player)entities[0]).setAffectedByGravity(true);
         entityManager.addEntities(entities[0]);
@@ -156,7 +156,7 @@ public class GameMaster extends ApplicationAdapter {
          float maxY = 250; // Maximum Y (lower on the screen)
          float y = random.nextFloat() * (maxY - minY) + minY;
 
-         softDrinks[i] = new SoftDrink(x, y, 150, minY, maxY); // Move at speed 150
+         softDrinks[i] = new SoftDrink(x, y, 5, minY, maxY); 
          entityManager.addEntities(softDrinks[i]);
          }
         
@@ -165,7 +165,7 @@ public class GameMaster extends ApplicationAdapter {
             float x = random.nextFloat() * Gdx.graphics.getWidth(); // Random X position
             float y = (float) Math.random() * (Gdx.graphics.getHeight() - 200) + 100; // Random Y position
 
-            Water[i] = new Water(x, y, 150, y, y); // Assign random Y position
+            Water[i] = new Water(x, y, 5, y, y); // Assign random Y position
             entityManager.addEntities(Water[i]);
         }
 
@@ -176,8 +176,7 @@ public class GameMaster extends ApplicationAdapter {
         ioManager.addOutput(audioOutput);
         ioManager.addOutput(output);
         ioManager.addOutput(staminaOutput);
-        stamina = 30;  // Start at half stamina
-        staminaOutput.setNumber(stamina); ; // Set at half stamina initially
+        staminaOutput.setNumber(stamina);
         
         scene = new Scene("background.png", 0, 0);
         pauseMenuScene = new PauseMenuScene(ioManager, sceneManager);
@@ -396,7 +395,6 @@ public class GameMaster extends ApplicationAdapter {
             
             // Check for game over condition
             if (currentHealth <= 0) {
-                // Reset the game
                 sceneManager.resetGame(entities[0], Water, softDrinks, bottomPlatform,
                                       bottomPlatformY, output, hearts, entityManager);
                 

@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Gdx;
 
 public class Water extends MovableEntity {
-    private float minY, maxY;
+    private float minY, maxY ;
     private boolean movingUp = true;
     private static final float widthScale = 32;  
     private static final float heightScale = 96; 
