@@ -106,6 +106,12 @@ public class Collidable {
 	
 	// New method to handle platform collision
 	public static boolean doPlatformCollision(Player player, Platform platform) {
+	    // Skip collision detection entirely if the player is jumping upward
+	    if (player.isJumping() && player.getVelocityY() > 0) {
+	        System.out.println("Skipping platform collision while jumping up");
+	        return false;
+	    }
+	    
 	    Rectangle playerRect = CollisionManager.makeRectangle(player);
 	    Rectangle platformRect = CollisionManager.makeRectangle(platform);
 	    
@@ -116,26 +122,26 @@ public class Collidable {
 	        float playerBottom = player.getY();
 	        float platformTop = platform.getY() + platform.getTexture().getHeight();
 	        
-	        // Check previous player position to see if the player was above the platform in the last frame
-	        float prevPlayerBottom = player.getPrevY();
-	        
-	        // Only snap player to platform if they were above and are now falling onto it
-	        if (prevPlayerBottom >= platformTop && 
-	            playerBottom <= platformTop && 
-	            player.getVelocityY() <= 0) {
-	            
+	        // Only snap player to platform if they're falling onto it
+	        if (playerBottom <= platformTop && player.getVelocityY() <= 0) {
 	            player.setY(platformTop);
 	            player.setVelocityY(0);
 	            player.land();
+	            System.out.println("Landed on platform");
 	            return true;
 	        }
 	    }
 	    
 	    return false;
 	}
-	
-	// New method to handle segmented platform collision (for bottom platform with holes)
+
 	public static boolean doSegmentedPlatformCollision(Player player, Platform platform, Rectangle segment) {
+	    // Skip collision detection entirely if the player is jumping upward
+	    if (player.isJumping() && player.getVelocityY() > 0) {
+	        System.out.println("Skipping segmented platform collision while jumping up");
+	        return false;
+	    }
+	    
 	    Rectangle playerRect = CollisionManager.makeRectangle(player);
 	    
 	    // Check if player is above segment and within horizontal bounds
@@ -145,17 +151,12 @@ public class Collidable {
 	        float playerBottom = player.getY();
 	        float segmentTop = segment.y + segment.height;
 	        
-	        // Check previous player position
-	        float prevPlayerBottom = player.getPrevY();
-	        
-	        // Only snap player to platform if they were above and are now falling onto it
-	        if (prevPlayerBottom >= segmentTop && 
-	            playerBottom <= segmentTop && 
-	            player.getVelocityY() <= 0) {
-	            
+	        // Only snap player to platform if they're falling onto it
+	        if (playerBottom <= segmentTop && player.getVelocityY() <= 0) {  
 	            player.setY(segmentTop);
 	            player.setVelocityY(0);
 	            player.land();
+	            System.out.println("Landed on platform segment");
 	            return true;
 	        }
 	    }

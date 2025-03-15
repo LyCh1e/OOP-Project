@@ -232,32 +232,43 @@ public class GameMaster extends ApplicationAdapter {
             movementManager.updateUserMovement(entities[0], currentState);
             
             // Check platform collisions if entity is a Player
+            if (ioManager.isJumping() && entities[0] instanceof Player) {
+                Player player = (Player) entities[0];
+                
+                // If the player is not already jumping, initiate a jump
+                if (!player.isJumping()) {
+                    player.jump();
+                    System.out.println("Jump initiated in GameMaster");
+                }
+            }
+
+            // Then in the platform collision section, simplify it:
             if (entities[0] instanceof Player) {
                 Player player = (Player) entities[0];
                 
-                // Check regular platforms
+                // Track if player is on any platform
                 boolean onAnyPlatform = false;
                 
-                for (Platform platform : platforms) {
-                    if (platform != null && Collidable.doPlatformCollision(player, platform)) {
-                        onAnyPlatform = true;
-                    }
-                }
-                
                 // Check bottom platform segments
-                if (!onAnyPlatform && bottomPlatform != null) {
-                    List<Rectangle> segments = bottomPlatform.getSegments();
-                    for (Rectangle segment : segments) {
-                        if (Collidable.doSegmentedPlatformCollision(player, bottomPlatform, segment)) {
-                            onAnyPlatform = true;
-                            break;
+                if (bottomPlatform != null) {
+                    // Skip platform collision checks completely if player is jumping upward
+                    if (!(player.isJumping() && player.getVelocityY() > 0)) {
+                        List<Rectangle> segments = bottomPlatform.getSegments();
+                        for (Rectangle segment : segments) {
+                            if (Collidable.doSegmentedPlatformCollision(player, bottomPlatform, segment)) {
+                                onAnyPlatform = true;
+                                break;
+                            }
                         }
                     }
                 }
                 
-                // If player isn't on any platform and isn't jumping, apply gravity
-                if (!onAnyPlatform && !player.isJumping()) {
-                    player.setVelocityY(player.getVelocityY() - 9.8f * Gdx.graphics.getDeltaTime());
+                // Apply gravity if not on platform and not jumping upward
+             // Apply gravity if not on platform and not jumping upward
+                if (!onAnyPlatform && !(player.isJumping() && player.getVelocityY() > 0)) {
+                    float currentVelocity = player.getVelocityY();
+                    // Apply strong fixed gravity - don't use deltaTime for more immediate effect
+                    player.setVelocityY(currentVelocity - 9.8f); 
                 }
             }
             

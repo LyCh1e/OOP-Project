@@ -23,26 +23,35 @@ public class Player extends MovableEntity {
     
     @Override
     public void updatePosition() {
-        super.updatePosition();
+        // Store previous position
+        float prevX = getX();
+        float prevY = getY();
         
-        // Apply gravity if not on platform
-        if (!onPlatform) {
-            velocityY -= 9.8f * Gdx.graphics.getDeltaTime(); // Simple gravity
-        } else if (currentPlatform != null) {
-            // Move with the platform if standing on it
-            setY(currentPlatform.getY() + currentPlatform.getBounds().height);
+        // Apply stronger gravity when falling
+        if (!onPlatform && (isJumping || getVelocityY() <= 0)) {
+            // Apply a fixed falling speed rather than acceleration for more responsive feel
+            if (getVelocityY() > -400) { // Terminal velocity cap
+                setVelocityY(getVelocityY() - gravity); // Remove deltaTime for stronger effect
+            }
         }
         
-        // Update position based on velocity
+        // Update position based on velocity - use a larger multiplier for Y
         setX(getX() + velocityX * Gdx.graphics.getDeltaTime());
-        setY(getY() + velocityY * Gdx.graphics.getDeltaTime());
+        setY(getY() + velocityY * Gdx.graphics.getDeltaTime() * 3.0f); // Amplify Y movement
+        
+        // Debug output
+        System.out.println("Y velocity: " + velocityY + ", Y position: " + getY());
         
         // Update bounds
-        bounds.setPosition(getX(), getY());
+        if (bounds != null) {
+            bounds.setPosition(getX(), getY());
+        }
         
-        // Reset platform status for next frame
-        onPlatform = false;
-        currentPlatform = null;
+        // Only reset platform status if we're not just starting to jump
+        if (!isJumping || velocityY < 0) {
+            onPlatform = false;
+            currentPlatform = null;
+        }
     }
     
     // Check for platform collisions
@@ -87,8 +96,10 @@ public class Player extends MovableEntity {
     public void jump() {
         if (!isJumping) {
             isJumping = true;
-            velocityY = 300; // Jump velocity - adjust as needed
-            System.out.println("Jumping");
+            velocityY = 200; // Significantly higher jump velocity
+            // Force position to be slightly above the platform to avoid immediate collision detection
+            setY(getY() + 10); 
+            System.out.println("Jumping with velocity: " + velocityY);
         }
     }
     

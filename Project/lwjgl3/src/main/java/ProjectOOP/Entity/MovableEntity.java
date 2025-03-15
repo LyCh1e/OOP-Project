@@ -61,17 +61,19 @@ public class MovableEntity extends Entity  implements iMovable {
         float prevY = getY();
 
         // Apply gravity if needed
-        if (affectedByGravity && isJumping) {
-            velocityY -= gravity * Gdx.graphics.getDeltaTime();
+        if (affectedByGravity) {
+            if (isJumping) {
+                velocityY -= gravity * Gdx.graphics.getDeltaTime();
+                System.out.println("Applying gravity. New Y velocity: " + velocityY);
+            }
         }
         
         // Update position based on velocity
         setX(getX() + velocityX * Gdx.graphics.getDeltaTime());
         setY(getY() + velocityY * Gdx.graphics.getDeltaTime());
 
-        System.out.println("Previous Spawn: X = " + prevX + ", Y = " + prevY);
-        System.out.println("X position of movable entity = " + getX() + "\n");
-        System.out.println("Y position of movable entity = " + getY() + "\n");
+        System.out.println("Previous position: X = " + prevX + ", Y = " + prevY);
+        System.out.println("New position: X = " + getX() + ", Y = " + getY() + ", isJumping = " + isJumping);
     }
 
     @Override
