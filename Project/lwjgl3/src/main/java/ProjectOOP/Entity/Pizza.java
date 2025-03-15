@@ -6,8 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Pizza extends MovableEntity {
 	private float minY, maxY; 
     private boolean movingUp = true;
-    private static final float widthScale = 32;  
-    private static final float heightScale = 96; 
+
     
 	public Pizza(float x, float y, float speed, float minY, float maxY) {
 		super("pizza.png", x, y, speed);
@@ -31,7 +30,7 @@ public class Pizza extends MovableEntity {
 
 @Override
 public void draw(SpriteBatch batch) {
-	batch.draw(texture, getX(), getY(),widthScale, heightScale);
+	batch.draw(texture, getX(), getY());
 }
 
 public void setPosition(float newX, float newY) {
