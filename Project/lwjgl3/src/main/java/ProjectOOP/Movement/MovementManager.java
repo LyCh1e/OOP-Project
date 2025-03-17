@@ -37,6 +37,8 @@ public class MovementManager {
                 entity.stopMoving();
             }
             
+            userMovement.move(entity, state);
+            
             // For jumping, only trigger if not already jumping
             if (iom.isJumping() && entity instanceof Player) {
                 Player player = (Player) entity;
