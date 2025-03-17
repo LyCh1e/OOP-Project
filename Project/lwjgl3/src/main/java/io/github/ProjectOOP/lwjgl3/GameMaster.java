@@ -102,9 +102,6 @@ public class GameMaster extends ApplicationAdapter {
     public void create() {
         shape = new ShapeRenderer();
         Random random = new Random();
-        float randomYBottom = random.nextFloat(AIMovement.bottomMinY, AIMovement.bottomMaxY);
-        float randomYMiddle = random.nextFloat(AIMovement.middleMinY, AIMovement.middleMaxY);
-        float randomYTop = random.nextFloat(AIMovement.topMinY, AIMovement.topMaxY);
 
         batch = new SpriteBatch();
 
