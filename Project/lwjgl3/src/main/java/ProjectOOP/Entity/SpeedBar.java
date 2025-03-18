@@ -100,7 +100,7 @@ public class SpeedBar extends ImmovableEntity{
     }
 
     public void setEntitySpeedsByStamina(float stamina, Entity[] entityList) {
-    	float[] speeds = {22, 19, 16, 13, 10, 7, 4}; // Increment of 3, starting from 4 to 22
+    	float[] speeds = {16, 14, 12, 10, 8, 6, 4};
         int index = (int) Math.floor(stamina / 10);
 
     	// Ensure the index is within bounds
