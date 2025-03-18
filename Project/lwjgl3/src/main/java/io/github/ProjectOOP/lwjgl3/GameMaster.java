@@ -58,7 +58,7 @@ public class GameMaster extends ApplicationAdapter {
     private Platform[] platforms = new Platform[5]; // Adjust number as needed
     private Platform bottomPlatform, middlePlatform, topPlatform;
     private float platformWidth = 100;
-    private float platformHeight = 40;
+    private float platformHeight = 20;
     private float holeWidth = 50;
     private float scrollSpeed = -150;
     private float bottomPlatformY = 30;
