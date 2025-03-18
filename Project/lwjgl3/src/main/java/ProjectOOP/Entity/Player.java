@@ -107,7 +107,7 @@ public class Player extends MovableEntity {
     public Rectangle getBounds() {
         return bounds;
     }
- // Add this to Player class
+    
     public void checkBottomPlatformCollision(Platform bottomPlatform) {
         if (bottomPlatform == null) return;
         

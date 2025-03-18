@@ -27,19 +27,15 @@ public class Pizza extends MovableEntity {
 	        }
 	    }
 
+	 @Override
+	 public void draw(SpriteBatch batch) {
+		 batch.draw(texture, getX(), getY());
+	 }
 
-@Override
-public void draw(SpriteBatch batch) {
-	batch.draw(texture, getX(), getY());
-}
-
-public void setPosition(float newX, float newY) {
-	setX(newX);
-	setY(newY);
-	
-}
-
-
+	 public void setPosition(float newX, float newY) {
+		 setX(newX);
+		 setY(newY);
+	 }
 }
 
 

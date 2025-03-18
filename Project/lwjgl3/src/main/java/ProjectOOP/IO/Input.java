@@ -79,7 +79,7 @@ public class Input {
         //return false;
    // }
     
-    // Click handling through ClickListener only works for scene2d aka UI elements cant work directly with spritebatch aka game elements from what i understand
+    // Click handling through ClickListener only works for scene2d aka UI elements
     public ClickListener createClickListener(final Runnable action) {
         return new ClickListener() {
             @Override
@@ -89,7 +89,7 @@ public class Input {
         };
     }
     
-    //method to interact with checkbox
+    // method to interact with checkbox
     public void checkBoxListen(CheckBox checkbox, Runnable onChecked, Runnable onUnchecked) {
         checkbox.addListener(new ChangeListener() {
             @Override
@@ -105,7 +105,7 @@ public class Input {
         });
     }
 
-    //method to interact with sliders
+    // method to interact with sliders
     public void sliderListen(Slider slider, Runnable onChange) {
         slider.addListener(new ChangeListener() {
             @Override

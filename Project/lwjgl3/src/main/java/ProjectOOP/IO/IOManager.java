@@ -40,10 +40,6 @@ public class IOManager {
         input.setForceJumpFalse(force);
     }
     
-    //public boolean isClicked(Rectangle bounds) {
-    //    return input.isClicked(bounds);
-   // }
-    
     // click listener
     public ClickListener getClickListener(Runnable action) {
         return input.createClickListener(action);
