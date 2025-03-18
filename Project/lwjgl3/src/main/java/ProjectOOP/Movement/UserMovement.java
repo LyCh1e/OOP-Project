@@ -8,12 +8,12 @@ import ProjectOOP.Scene.SceneManager;
 
 public class UserMovement{
     private static final float MOVEMENT_SPEED = 300f;
-    private static final float JUMP_VELOCITY = 500f;
+    private static final float JUMP_VELOCITY = 200f;
     private static final float GRAVITY = -980f;
     
     private static final float x_leftLimit = 0;
     private static final float x_rightLimit = 1210;
-    private static final float y_bottomLimit = 0;
+    private static final float y_bottomLimit = 40;
     
     private float verticalVelocity = 4;
     private IOManager ioManager;
@@ -44,7 +44,7 @@ public class UserMovement{
         float deltaTime = Gdx.graphics.getDeltaTime();
         verticalVelocity += GRAVITY * deltaTime;
         
-        if (currentState == SceneManager.STATE.Start && ioManager.isJumping() && e.getY() <= y_bottomLimit) {
+        if (currentState == SceneManager.STATE.Start && ioManager.isJumping()) {
             verticalVelocity = JUMP_VELOCITY;
         }
         
@@ -60,9 +60,8 @@ public class UserMovement{
         }
         
         // Vertical boundaries
-        if (e.getY() < y_bottomLimit) {
-            e.setY(y_bottomLimit);
-            verticalVelocity = 0;
-        }
+        //if (e.getY() < 0) {
+        //    e.setY(y_bottomLimit);
+        //}
     }
 }
