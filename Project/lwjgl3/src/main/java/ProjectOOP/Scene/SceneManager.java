@@ -77,46 +77,7 @@ public class SceneManager implements Disposable {
         }
     }
 
-    public void resetGame(Player player, Water[] waterBottles, SoftDrink[] softDrinks,
-        Platform bottomPlatform, float bottomPlatformY,
-        Output scoreOutput, ImmovableEntity[] hearts, EntityManager entityManager) {
-		// Reset player position and velocity
-		player.setX(10);
-		player.setY(300);
-		player.setVelocityY(0);
-		player.setVelocityX(0);
-			
-		// Reset score
-		scoreOutput.setNumber(0);
-		scoreOutput.setString("Score: 0");
-		
-		// Reset entity positions
-		for (int i = 0; i < waterBottles.length; i++) {
-			float newX = Gdx.graphics.getWidth() + 50;
-			float newY = (float) Math.random() * (Gdx.graphics.getHeight() - 200) + 100;
-			waterBottles[i].setPosition(newX, newY);
-		}
-		
-		for (int i = 0; i < softDrinks.length; i++) {
-			float newX = Gdx.graphics.getWidth() + 50;
-			float minY = 50;
-			float maxY = 250;
-			float newY = (float) Math.random() * (maxY - minY) + minY;
-			softDrinks[i].setPosition(newX, newY);
-		}
-		
-		// Reset platform positions
-		bottomPlatform.setPosition(0, bottomPlatformY);
-		
-        // Add hearts
-        for (int i = 0; i < hearts.length; i++) {
-            hearts[i] = new Health(10 + (i * 40), 650);
-            entityManager.addEntities(hearts[i]);
-        }
-		
-		// Go to gameover state
-		setState(SceneManager.STATE.GameOver);
-    }
+
 
     @Override
     public void dispose() {

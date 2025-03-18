@@ -10,6 +10,7 @@ import ProjectOOP.Collision.Collidable;
 import ProjectOOP.Collision.CollisionManager;
 import ProjectOOP.Entity.EntityManager;
 import ProjectOOP.Entity.Health;
+import ProjectOOP.Entity.ImmovableEntity;
 import ProjectOOP.Entity.Player;
 import ProjectOOP.Entity.Platform;
 import ProjectOOP.Entity.SoftDrink;
@@ -389,12 +390,12 @@ public class GameMaster extends ApplicationAdapter {
             
             // Check for game over condition
             if (currentHealth <= 0) {
-                sceneManager.resetGame(player1[0], Waterbottle, softDrinks, bottomPlatform,
+                resetGame(player1[0], Waterbottle, softDrinks, bottomPlatform,
                                       bottomPlatformY, scoreOutput, hearts, entityManager);
                 
                 // Reset health and stamina
                 currentHealth = maxHealth;
-                stamina = 30; // Reset stamina
+                stamina = 60; // Reset stamina
                 staminaOutput.setNumber(stamina);
                 staminaOutput.setString("Stamina: " + Math.round(stamina));
                 
@@ -411,6 +412,47 @@ public class GameMaster extends ApplicationAdapter {
 //            output.setString("Score: " + String.valueOf(Math.round(output.getNumber())));
         }
     }
+    
+    public void resetGame(Player player, Water[] waterBottles, SoftDrink[] softDrinks,
+            Platform bottomPlatform, float bottomPlatformY,
+            Output scoreOutput, ImmovableEntity[] hearts, EntityManager entityManager) {
+    		// Reset player position and velocity
+    		player.setX(10);
+    		player.setY(300);
+    		player.setVelocityY(0);
+    		player.setVelocityX(0);
+    			
+    		// Reset score
+    		scoreOutput.setNumber(0);
+    		scoreOutput.setString("Score: 0");
+    		
+    		// Reset entity positions
+    		for (int i = 0; i < waterBottles.length; i++) {
+    			float newX = Gdx.graphics.getWidth() + 50;
+    			float newY = (float) Math.random() * (Gdx.graphics.getHeight() - 200) + 100;
+    			waterBottles[i].setPosition(newX, newY);
+    		}
+    		
+    		for (int i = 0; i < softDrinks.length; i++) {
+    			float newX = Gdx.graphics.getWidth() + 50;
+    			float minY = 50;
+    			float maxY = 250;
+    			float newY = (float) Math.random() * (maxY - minY) + minY;
+    			softDrinks[i].setPosition(newX, newY);
+    		}
+    		
+    		// Reset platform positions
+    		bottomPlatform.setPosition(0, bottomPlatformY);
+    		
+            // Add hearts
+            for (int i = 0; i < hearts.length; i++) {
+                hearts[i] = new Health(10 + (i * 40), 650);
+                entityManager.addEntities(hearts[i]);
+            }
+    		
+    		// Go to gameover state
+    		sceneManager.setState(SceneManager.STATE.GameOver);
+        }
 
     public void dispose() {
         batch.dispose();
