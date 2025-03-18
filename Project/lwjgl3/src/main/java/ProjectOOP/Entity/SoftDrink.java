@@ -7,7 +7,6 @@ public class SoftDrink extends MovableEntity {
 	private float minY, maxY; 
     private boolean movingUp = true;
 
-
     public SoftDrink(float x, float y, float speed, float minY, float maxY) {
         super("sodabottle.png", x, y, speed);
         this.minY = minY;
@@ -41,6 +40,4 @@ public class SoftDrink extends MovableEntity {
 		setY(newY);
 		
 	}
-
-
 }
