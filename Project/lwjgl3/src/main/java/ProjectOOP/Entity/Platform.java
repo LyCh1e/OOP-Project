@@ -14,6 +14,13 @@ public class Platform extends MovableEntity {
     private Rectangle bounds;
     private boolean moveVertically = false;
     
+    private boolean isBottomPlatform = false;
+    private float scrollSpeed;
+    private float screenWidth;
+    private List<Rectangle> segments = new ArrayList<>();
+    private float segmentWidth = 100;
+    private Random random = new Random();
+    
     public Platform() {
         // Default constructor
     }
@@ -71,12 +78,6 @@ public class Platform extends MovableEntity {
     
  // Add this to Platform.java
 
-    private boolean isBottomPlatform = false;
-    private float scrollSpeed;
-    private float screenWidth;
-    private List<Rectangle> segments = new ArrayList<>();
-    private float segmentWidth = 100;
-    private Random random = new Random();
 
     public void setAsBottomPlatform(float scrollSpeed, float screenWidth) {
         this.isBottomPlatform = true;
