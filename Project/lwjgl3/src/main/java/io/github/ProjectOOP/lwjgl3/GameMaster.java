@@ -79,7 +79,7 @@ public class GameMaster extends ApplicationAdapter {
     private GameOverScene gameOverScene;
     private KeyBindings keyBindings;
     private Input input;
-    private Output output;
+    private Output scoreOutput;
     private Output audioOutput;
     private int frameInStartState = 0;
     
@@ -105,7 +105,7 @@ public class GameMaster extends ApplicationAdapter {
 
         batch = new SpriteBatch();
 
-        output = new Output("Score: ", Color.WHITE, Gdx.graphics.getWidth() - 300, 700, 2);
+        scoreOutput = new Output("Score: ", Color.WHITE, Gdx.graphics.getWidth() - 300, 700, 2);
         staminaOutput = new Output("Stamina: ", Color.GOLD, Gdx.graphics.getWidth() - 300, 650, 2);
         audioOutput = new Output("backgroundMusic.mp3", 0.2f);
 
@@ -176,7 +176,7 @@ public class GameMaster extends ApplicationAdapter {
         entityManager.addEntities(speedBar);
                 
         ioManager.addOutput(audioOutput);
-        ioManager.addOutput(output);
+        ioManager.addOutput(scoreOutput);
         ioManager.addOutput(staminaOutput);
         staminaOutput.setNumber(stamina);
         
@@ -299,17 +299,8 @@ public class GameMaster extends ApplicationAdapter {
                     player.setVelocityY(currentVelocity - 9.8f); 
                 }
             }
-            
-//            float stamina = staminaOutput.getNumber();
-//            // Update droplets movement
-//            for (int i = 0; i < droplets.length; i++) {
-//                movementManager.updateAIMovementYAxis(droplets[i], MovementManager.Y_Column.BOTTOM);
-//                movementManager.updateAIMovementYAxis(droplets[i], MovementManager.Y_Column.MIDDLE);
-//            }
-//            
-//            speedBar.setEntitySpeedsByStamina(stamina, droplets);
 
-            float score = output.getNumber();
+            float score = scoreOutput.getNumber();
             
             // Stamina controls (for testing)
             if (Gdx.input.isKeyJustPressed(Keys.L)) {
@@ -382,8 +373,8 @@ public class GameMaster extends ApplicationAdapter {
                     speedBar.setEntitySpeedsByStamina(stamina, new Water[]{Water[i]}); 
 
                     // Update score
-                    output.setNumber(score += 1);
-                    output.setString("Score: " + Math.round(output.getNumber()));
+                    scoreOutput.setNumber(score += 1);
+                    scoreOutput.setString("Score: " + Math.round(scoreOutput.getNumber()));
                 }
             }
             
@@ -425,7 +416,7 @@ public class GameMaster extends ApplicationAdapter {
             // Check for game over condition
             if (currentHealth <= 0) {
                 sceneManager.resetGame(player1[0], Water, softDrinks, bottomPlatform,
-                                      bottomPlatformY, output, hearts, entityManager);
+                                      bottomPlatformY, scoreOutput, hearts, entityManager);
                 
                 // Reset health and stamina
                 currentHealth = maxHealth;
