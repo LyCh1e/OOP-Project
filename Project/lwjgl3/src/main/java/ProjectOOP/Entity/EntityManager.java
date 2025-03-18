@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class EntityManager {
-private List<Entity> entityList = new ArrayList<>();
+	private List<Entity> entityList = new ArrayList<>();
 	
 	public EntityManager(){
 		
@@ -38,6 +38,7 @@ private List<Entity> entityList = new ArrayList<>();
 		}
 		shape.end();
 	}
+	
 	public List<Entity> getEntityList() {
 	    return entityList;
 	}
