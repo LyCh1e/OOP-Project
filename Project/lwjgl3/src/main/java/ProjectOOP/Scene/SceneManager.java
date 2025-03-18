@@ -1,4 +1,3 @@
-// SceneManager.java
 package ProjectOOP.Scene;
 
 import java.util.ArrayList;
