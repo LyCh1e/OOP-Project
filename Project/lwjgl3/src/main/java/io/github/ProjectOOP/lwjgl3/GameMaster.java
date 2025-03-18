@@ -111,10 +111,9 @@ public class GameMaster extends ApplicationAdapter {
         screenWidth = Gdx.graphics.getWidth();
         screenHeight = Gdx.graphics.getHeight();
 
-        // Initialize player as a Player instance instead of MovableEntity
-        player1[0] = new Player("bucket.png", 10, 300, 600);
+        player1[0] = new Player("player.png", 10, 300, 600);
         // Enable gravity for player
-        ((Player)player1[0]).setAffectedByGravity(true);
+        player1[0].setAffectedByGravity(true);
         entityManager.addEntities(player1[0]);
 
         // Create moving platforms
