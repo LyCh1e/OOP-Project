@@ -123,7 +123,7 @@ public class Platform extends MovableEntity {
                     float newX = rightEdge;
                     
                     // Decide whether to add a gap
-                    if (random.nextFloat() > 0.8f) { // 20% chance of gap
+                    if (random.nextFloat() > 0.7f) { // 20% chance of gap
                         newX += 150; // Gap width
                     }
                     

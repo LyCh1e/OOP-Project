@@ -60,12 +60,14 @@ public class GameMaster extends ApplicationAdapter {
 
     // New platform-related variables
     private Platform[] platforms = new Platform[5]; // Adjust number as needed
-    private Platform bottomPlatform;
+    private Platform bottomPlatform, middlePlatform, topPlatform;
     private float platformWidth = 100;
     private float platformHeight = 40;
     private float holeWidth = 50;
     private float scrollSpeed = -150;
     private float bottomPlatformY = 30;
+    private float middlePlatformY = 200;
+    private float topPlatformY = 400;
     private float screenWidth;
     private float screenHeight;
     private float stamina = 60;
@@ -128,8 +130,14 @@ public class GameMaster extends ApplicationAdapter {
 
         // Create bottom platform with looping and holes feature
         bottomPlatform = new Platform("platform.png", 0, bottomPlatformY, screenWidth, platformHeight, scrollSpeed);
+        middlePlatform = new Platform("platform.png", 0, middlePlatformY, screenWidth, platformHeight, scrollSpeed);
+        topPlatform = new Platform("platform.png", 0, topPlatformY, screenWidth, platformHeight, scrollSpeed);
         bottomPlatform.setAsBottomPlatform(scrollSpeed, screenWidth);
+        middlePlatform.setAsBottomPlatform(scrollSpeed, screenWidth);
+        topPlatform.setAsBottomPlatform(scrollSpeed, screenWidth);
         entityManager.addEntities(bottomPlatform);
+        entityManager.addEntities(middlePlatform);
+        entityManager.addEntities(topPlatform);
         
         // Add droplets (water collectibles)
 //        for (int i = 0; i < droplets.length; i++) {
@@ -220,29 +228,29 @@ public class GameMaster extends ApplicationAdapter {
             
             // Update bottom platform with looping and holes
             bottomPlatform.updatePosition();
-            
+            middlePlatform.updatePosition();
+            topPlatform.updatePosition();
             // Update player movement
             movementManager.updateUserMovement(player1[0], currentState);
             
-            // Check platform collisions if entity is a Player
-            if (ioManager.isJumping() && player1[0] instanceof Player) {
-                Player player = player1[0];
-                
-                // If the player is not already jumping, initiate a jump
-                if (!player.isJumping()) {
-                    player.jump();
-                    System.out.println("Jump initiated in GameMaster");
-                }
-            }
+//            // Check platform collisions if entity is a Player
+//            if (ioManager.isJumping() && player1[0] instanceof Player) {
+//                Player player = player1[0];
+//                
+//                // If the player is not already jumping, initiate a jump
+//                if (!player.isJumping()) {
+//                    player.jump();
+//                    System.out.println("Jump initiated in GameMaster");
+//                }
+//            }
 
             // Then in the platform collision section, simplify it:
             if (player1[0] instanceof Player) {
                 Player player = player1[0];
                 
-                // Track if player is on any platform
                 boolean onAnyPlatform = false;
-                
-                // Check bottom platform segments
+
+             // Check bottom platform segments
                 if (bottomPlatform != null) {
                     // Skip platform collision checks completely if player is jumping upward
                     if (!(player.isJumping() && player.getVelocityY() > 0)) {
@@ -255,9 +263,36 @@ public class GameMaster extends ApplicationAdapter {
                         }
                     }
                 }
-                
+
+                // Check middle platform segments - same logic as bottom platform
+                if (middlePlatform != null && !onAnyPlatform) {
+                    // Skip platform collision checks completely if player is jumping upward
+                    if (!(player.isJumping() && player.getVelocityY() > 0)) {
+                        List<Rectangle> segments = middlePlatform.getSegments();
+                        for (Rectangle segment : segments) {
+                            if (Collidable.doSegmentedPlatformCollision(player, middlePlatform, segment)) {
+                                onAnyPlatform = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                // Check top platform segments - same logic as middle and bottom platforms
+                if (topPlatform != null && !onAnyPlatform) {
+                    // Skip platform collision checks completely if player is jumping upward
+                    if (!(player.isJumping() && player.getVelocityY() > 0)) {
+                        List<Rectangle> segments = topPlatform.getSegments();
+                        for (Rectangle segment : segments) {
+                            if (Collidable.doSegmentedPlatformCollision(player, topPlatform, segment)) {
+                                onAnyPlatform = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+
                 // Apply gravity if not on platform and not jumping upward
-             // Apply gravity if not on platform and not jumping upward
                 if (!onAnyPlatform && !(player.isJumping() && player.getVelocityY() > 0)) {
                     float currentVelocity = player.getVelocityY();
                     // Apply strong fixed gravity - don't use deltaTime for more immediate effect
