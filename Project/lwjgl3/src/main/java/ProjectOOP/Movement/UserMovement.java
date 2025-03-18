@@ -13,7 +13,6 @@ public class UserMovement{
     
     private static final float x_leftLimit = 0;
     private static final float x_rightLimit = 1210;
-    private static final float y_bottomLimit = 40;
     
     private float verticalVelocity = 4;
     private IOManager ioManager;
@@ -58,10 +57,5 @@ public class UserMovement{
         } else if (e.getX() > x_rightLimit) {
             e.setX(x_rightLimit);
         }
-        
-        // Vertical boundaries
-        //if (e.getY() < 0) {
-        //    e.setY(y_bottomLimit);
-        //}
     }
 }

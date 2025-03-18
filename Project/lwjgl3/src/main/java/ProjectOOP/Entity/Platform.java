@@ -159,7 +159,6 @@ public class Platform extends MovableEntity {
         setY(newY);
     }
 
-
     // Override draw method to handle segments
     @Override
     public void draw(SpriteBatch batch) {

@@ -25,7 +25,6 @@ public class SoftDrink extends MovableEntity {
             if (getY() <= minY) movingUp = true;
         }
 
-//        if (getX() < -50) setX(Gdx.graphics.getWidth());
         if (getX() < -50) { 
             setX(Gdx.graphics.getWidth()); // Respawn at right
             // Y position remains unchanged (doesn't reset)

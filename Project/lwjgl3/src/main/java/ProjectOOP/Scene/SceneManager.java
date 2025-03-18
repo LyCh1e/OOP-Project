@@ -26,8 +26,6 @@ public class SceneManager implements Disposable {
     private STATE currentState = STATE.MainMenu; // MAINMENU state is the first state main screen
     private STATE prevState;
 
-
-
     public enum STATE {
         Start, End, Pause, Background, Settings, MainMenu, GameOver //added new settings STATE
     }
@@ -81,8 +79,9 @@ public class SceneManager implements Disposable {
     }
 
     public void resetGame(MovableEntity player, Water[] waterBottles, SoftDrink[] softDrinks,
-            Platform bottomPlatform, float bottomPlatformY, 
-            Output scoreOutput, ImmovableEntity[] hearts, EntityManager entityManager) {
+        Platform bottomPlatform, float bottomPlatformY, 
+        
+        Output scoreOutput, ImmovableEntity[] hearts, EntityManager entityManager) {
 		// Reset player position and velocity
 		player.setX(10);
 		player.setY(300);
@@ -119,11 +118,8 @@ public class SceneManager implements Disposable {
 		
 		// Go to gameover state
 		setState(SceneManager.STATE.GameOver);
-}
+    }
 
-
-
-    	
     @Override
     public void dispose() {
         for (List<Scene> sceneList : stateSceneMap.values()) {

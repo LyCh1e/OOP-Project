@@ -34,7 +34,6 @@ public class Water extends MovableEntity {
 	public void setPosition(float newX, float newY) {
 		setX(newX);
 		setY(newY);
-		
 	}
 
 
