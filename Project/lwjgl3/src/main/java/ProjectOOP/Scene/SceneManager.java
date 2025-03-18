@@ -12,8 +12,8 @@ import com.badlogic.gdx.utils.Disposable;
 import ProjectOOP.Entity.EntityManager;
 import ProjectOOP.Entity.Health;
 import ProjectOOP.Entity.ImmovableEntity;
-import ProjectOOP.Entity.MovableEntity;
 import ProjectOOP.Entity.Platform;
+import ProjectOOP.Entity.Player;
 import ProjectOOP.Entity.SoftDrink;
 import ProjectOOP.Entity.Water;
 import ProjectOOP.IO.IOManager;
@@ -77,9 +77,8 @@ public class SceneManager implements Disposable {
         }
     }
 
-    public void resetGame(MovableEntity player, Water[] waterBottles, SoftDrink[] softDrinks,
-        Platform bottomPlatform, float bottomPlatformY, 
-        
+    public void resetGame(Player player, Water[] waterBottles, SoftDrink[] softDrinks,
+        Platform bottomPlatform, float bottomPlatformY,
         Output scoreOutput, ImmovableEntity[] hearts, EntityManager entityManager) {
 		// Reset player position and velocity
 		player.setX(10);
@@ -93,17 +92,17 @@ public class SceneManager implements Disposable {
 		
 		// Reset entity positions
 		for (int i = 0; i < waterBottles.length; i++) {
-		float newX = Gdx.graphics.getWidth() + 50;
-		float newY = (float) Math.random() * (Gdx.graphics.getHeight() - 200) + 100;
-		waterBottles[i].setPosition(newX, newY);
+			float newX = Gdx.graphics.getWidth() + 50;
+			float newY = (float) Math.random() * (Gdx.graphics.getHeight() - 200) + 100;
+			waterBottles[i].setPosition(newX, newY);
 		}
 		
 		for (int i = 0; i < softDrinks.length; i++) {
-		float newX = Gdx.graphics.getWidth() + 50;
-		float minY = 50;
-		float maxY = 250;
-		float newY = (float) Math.random() * (maxY - minY) + minY;
-		softDrinks[i].setPosition(newX, newY);
+			float newX = Gdx.graphics.getWidth() + 50;
+			float minY = 50;
+			float maxY = 250;
+			float newY = (float) Math.random() * (maxY - minY) + minY;
+			softDrinks[i].setPosition(newX, newY);
 		}
 		
 		// Reset platform positions
