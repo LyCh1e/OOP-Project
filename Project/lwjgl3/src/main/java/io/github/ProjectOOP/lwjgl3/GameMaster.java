@@ -1,4 +1,3 @@
-// GameMaster.java
 package io.github.ProjectOOP.lwjgl3;
 
 import java.util.Random;
@@ -11,8 +10,8 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import ProjectOOP.Collision.Collidable;
 import ProjectOOP.Collision.CollisionManager;
 import ProjectOOP.Entity.EntityManager;
-import ProjectOOP.Entity.ImmovableEntity;
-import ProjectOOP.Entity.MovableEntity;
+import ProjectOOP.Entity.Health;
+import ProjectOOP.Entity.Player;
 import ProjectOOP.Entity.Platform;
 import ProjectOOP.Entity.Player;
 import ProjectOOP.Entity.SoftDrink;
@@ -48,9 +47,8 @@ public class GameMaster extends ApplicationAdapter {
     private MovementManager movementManager;
     private IOManager ioManager;
 
-    private MovableEntity[] entities = new MovableEntity[1];
-//    private MovableEntity[] droplets = new MovableEntity[5];
-    private ImmovableEntity[] hearts = new ImmovableEntity[3];
+    private Health[] hearts = new Health[5];
+    private Player[] player1 = new Player[1];
     private SoftDrink[] softDrinks = new SoftDrink[1]; 
     private Water[] Water = new Water[1];
     private SpeedBar speedBar = new SpeedBar();
@@ -83,7 +81,7 @@ public class GameMaster extends ApplicationAdapter {
     private Output audioOutput;
     private int frameInStartState = 0;
     
-    private int maxHealth = 3;
+    private int maxHealth = hearts.length;
     private int currentHealth = maxHealth; //Track health
 
     GameMaster() {
@@ -114,10 +112,10 @@ public class GameMaster extends ApplicationAdapter {
         screenHeight = Gdx.graphics.getHeight();
 
         // Initialize player as a Player instance instead of MovableEntity
-        entities[0] = new Player("bucket.png", 10, 300, 600);
+        player1[0] = new Player("bucket.png", 10, 300, 600);
         // Enable gravity for player
-        ((Player)entities[0]).setAffectedByGravity(true);
-        entityManager.addEntities(entities[0]);
+        ((Player)player1[0]).setAffectedByGravity(true);
+        entityManager.addEntities(player1[0]);
 
         // Create moving platforms
 //        for (int i = 0; i < platforms.length; i++) {
@@ -142,7 +140,7 @@ public class GameMaster extends ApplicationAdapter {
         
         // Add hearts
         for (int i = 0; i < hearts.length; i++) {
-            hearts[i] = new ImmovableEntity("heart.png", 10 + (i * 40), 650, 0);
+            hearts[i] = new Health(10 + (i * 40), 650);
             entityManager.addEntities(hearts[i]);
         }
 
@@ -225,11 +223,11 @@ public class GameMaster extends ApplicationAdapter {
             bottomPlatform.updatePosition();
             
             // Update player movement
-            movementManager.updateUserMovement(entities[0], currentState);
+            movementManager.updateUserMovement(player1[0], currentState);
             
             // Check platform collisions if entity is a Player
-            if (ioManager.isJumping() && entities[0] instanceof Player) {
-                Player player = (Player) entities[0];
+            if (ioManager.isJumping() && player1[0] instanceof Player) {
+                Player player = player1[0];
                 
                 // If the player is not already jumping, initiate a jump
                 if (!player.isJumping()) {
@@ -239,8 +237,8 @@ public class GameMaster extends ApplicationAdapter {
             }
 
             // Then in the platform collision section, simplify it:
-            if (entities[0] instanceof Player) {
-                Player player = (Player) entities[0];
+            if (player1[0] instanceof Player) {
+                Player player = player1[0];
                 
                 // Track if player is on any platform
                 boolean onAnyPlatform = false;
@@ -330,8 +328,8 @@ public class GameMaster extends ApplicationAdapter {
             for (int i = 0; i < Water.length; i++) {
                 Water[i].move(Gdx.graphics.getDeltaTime()); // Move water bottle
 
-                if (collisionManager.checkCollisions(entities[0], Water[i])) {
-                    Collidable.doCollision(entities[0], Water[i], false);
+                if (collisionManager.checkCollisions(player1[0], Water[i])) {
+                    Collidable.doCollision(player1[0], Water[i], false);
 
 //                    // Increase stamina when collecting water
 //                    if (stamina <= 60 - 5) {
@@ -362,8 +360,8 @@ public class GameMaster extends ApplicationAdapter {
             
             // Check for soft drink collisions
             for (SoftDrink softDrink : softDrinks) {
-                if (collisionManager.checkCollisions(entities[0], softDrink)) {
-                    Collidable.doCollision(entities[0], softDrink, false);
+                if (collisionManager.checkCollisions(player1[0], softDrink)) {
+                    Collidable.doCollision(player1[0], softDrink, false);
 
                     if (currentHealth > 0) {
                         currentHealth--;
@@ -392,7 +390,7 @@ public class GameMaster extends ApplicationAdapter {
             
             // Check for game over condition
             if (currentHealth <= 0) {
-                sceneManager.resetGame(entities[0], Water, softDrinks, bottomPlatform,
+                sceneManager.resetGame(player1[0], Water, softDrinks, bottomPlatform,
                                       bottomPlatformY, output, hearts, entityManager);
                 
                 // Reset health and stamina

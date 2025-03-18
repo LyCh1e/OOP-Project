@@ -1,4 +1,4 @@
-	package ProjectOOP.Collision;
+package ProjectOOP.Collision;
 
 import com.badlogic.gdx.math.Rectangle;
 

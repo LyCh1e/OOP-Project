@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 
-public class MovableEntity extends Entity  implements iMovable {
+public class MovableEntity extends Entity implements iMovable {
     protected boolean isJumping = false;
     protected float gravity = 9.8f;
     protected boolean affectedByGravity = false;

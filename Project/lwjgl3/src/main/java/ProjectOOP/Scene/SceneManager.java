@@ -7,10 +7,10 @@ import java.util.Map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Disposable;
 
 import ProjectOOP.Entity.EntityManager;
+import ProjectOOP.Entity.Health;
 import ProjectOOP.Entity.ImmovableEntity;
 import ProjectOOP.Entity.MovableEntity;
 import ProjectOOP.Entity.Platform;
@@ -111,7 +111,7 @@ public class SceneManager implements Disposable {
 		
         // Add hearts
         for (int i = 0; i < hearts.length; i++) {
-            hearts[i] = new ImmovableEntity("heart.png", 10 + (i * 40), 650, 0);
+            hearts[i] = new Health(10 + (i * 40), 650);
             entityManager.addEntities(hearts[i]);
         }
 		
