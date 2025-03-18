@@ -46,7 +46,7 @@ public class GameMaster extends ApplicationAdapter {
     private Health[] hearts = new Health[5];
     private Player[] player1 = new Player[1];
     private SoftDrink[] softDrinks = new SoftDrink[1]; 
-    private Water[] Water = new Water[1];
+    private Water[] Waterbottle = new Water[1];
     private SpeedBar speedBar = new SpeedBar();
     private Color[] barColors = {
         Color.valueOf("#97f0f4"), Color.valueOf("#0bd7f2"), Color.valueOf("#35d1e1"), 
@@ -108,7 +108,7 @@ public class GameMaster extends ApplicationAdapter {
         screenWidth = Gdx.graphics.getWidth();
         screenHeight = Gdx.graphics.getHeight();
 
-        player1[0] = new Player("player.png", 10, 300, 600);
+        player1[0] = new Player("player.png", 100, 300, 600);
         // Enable gravity for player
         player1[0].setAffectedByGravity(true);
         entityManager.addEntities(player1[0]);
@@ -139,6 +139,7 @@ public class GameMaster extends ApplicationAdapter {
             hearts[i] = new Health(10 + (i * 40), 650);
             entityManager.addEntities(hearts[i]);
         }
+        
 
          // Spawn moving SoftDrinks
         for (int i = 0; i < softDrinks.length; i++) {
@@ -152,12 +153,12 @@ public class GameMaster extends ApplicationAdapter {
          }
         
         // Spawn moving waterbottle
-        for (int i = 0; i < Water.length; i++) {
+        for (int i = 0; i < Waterbottle.length; i++) {
             float x = random.nextFloat() * Gdx.graphics.getWidth(); // Random X position
             float y = (float) Math.random() * (Gdx.graphics.getHeight() - 200) + 100; // Random Y position
 
-            Water[i] = new Water(x, y, 5, y, y); // Assign random Y position
-            entityManager.addEntities(Water[i]);
+            Waterbottle[i] = new Water(x, y, 5, y, y); // Assign random Y position
+            entityManager.addEntities(Waterbottle[i]);
         }
 
         
@@ -307,28 +308,27 @@ public class GameMaster extends ApplicationAdapter {
             staminaOutput.setString("Stamina: " + String.valueOf(Math.round(stamina)));
             speedBar.setBar(barColors, stamina);
            
-            for (int i = 0; i < Water.length; i++) {
-                movementManager.updateAIMovementYAxis(Water[i], MovementManager.Y_Column.BOTTOM);
-                movementManager.updateAIMovementYAxis(Water[i], MovementManager.Y_Column.MIDDLE);
+            for (int i = 0; i < Waterbottle.length; i++) {
+                movementManager.updateAIMovementYAxis(Waterbottle[i], MovementManager.Y_Column.BOTTOM);
+                movementManager.updateAIMovementYAxis(Waterbottle[i], MovementManager.Y_Column.MIDDLE);
             }
             for (int i = 0; i < softDrinks.length; i++) {
                 movementManager.updateAIMovementYAxis(softDrinks[i], MovementManager.Y_Column.BOTTOM);
                 movementManager.updateAIMovementYAxis(softDrinks[i], MovementManager.Y_Column.MIDDLE);
             }
-            speedBar.setEntitySpeedsByStamina(stamina, Water);      //  Water reacts to stamina
+            speedBar.setEntitySpeedsByStamina(stamina, Waterbottle);      //  Water reacts to stamina
             speedBar.setEntitySpeedsByStamina(stamina, softDrinks); //  SoftDrink reacts to stamina
-            
             // Update soft drinks
 //            for (int i = 0; i < Water.length; i++) {
 //                Water[i].move(Gdx.graphics.getDeltaTime()); // Move water bottle correctly
 //            }
             
             // Check for waterbottle collisions
-            for (int i = 0; i < Water.length; i++) {
-                Water[i].move(Gdx.graphics.getDeltaTime()); // Move water bottle
+            for (int i = 0; i < Waterbottle.length; i++) {
+                Waterbottle[i].move(Gdx.graphics.getDeltaTime()); // Move water bottle
 
-                if (collisionManager.checkCollisions(player1[0], Water[i])) {
-                    Collidable.doCollision(player1[0], Water[i], false);
+                if (collisionManager.checkCollisions(player1[0], Waterbottle[i])) {
+                    Collidable.doCollision(player1[0], Waterbottle[i], false);
 
 //                    // Increase stamina when collecting water
 //                    if (stamina <= 60 - 5) {
@@ -341,10 +341,10 @@ public class GameMaster extends ApplicationAdapter {
                     // Reset the position of the collected water bottle
                     float newX = Gdx.graphics.getWidth() + 50;
                     float newY = (float) Math.random() * (Gdx.graphics.getHeight() - 200) + 100;
-                    Water[i].setPosition(newX, newY);
+                    Waterbottle[i].setPosition(newX, newY);
 
                     // Apply speed update ONLY to the collected water bottle
-                    speedBar.setEntitySpeedsByStamina(stamina, new Water[]{Water[i]}); 
+                    speedBar.setEntitySpeedsByStamina(stamina, new Water[]{Waterbottle[i]}); 
 
                     // Update score
                     scoreOutput.setNumber(score += 1);
@@ -389,7 +389,7 @@ public class GameMaster extends ApplicationAdapter {
             
             // Check for game over condition
             if (currentHealth <= 0) {
-                sceneManager.resetGame(player1[0], Water, softDrinks, bottomPlatform,
+                sceneManager.resetGame(player1[0], Waterbottle, softDrinks, bottomPlatform,
                                       bottomPlatformY, scoreOutput, hearts, entityManager);
                 
                 // Reset health and stamina
