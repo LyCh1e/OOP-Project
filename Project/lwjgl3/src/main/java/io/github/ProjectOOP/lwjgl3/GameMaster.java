@@ -142,13 +142,13 @@ public class GameMaster extends ApplicationAdapter {
 
          // Spawn moving SoftDrinks
         for (int i = 0; i < softDrinks.length; i++) {
-         float x = 1280;
-         float minY = 50;  // Minimum Y (closer to the ground)
-         float maxY = 250; // Maximum Y (lower on the screen)
-         float y = random.nextFloat() * (maxY - minY) + minY;
+        	float x = 1280;
+        	float minY = 50;  // Minimum Y (closer to the ground)
+        	float maxY = 250; // Maximum Y (lower on the screen)
+        	float y = random.nextFloat() * (maxY - minY) + minY;
 
-         softDrinks[i] = new SoftDrink(x, y, 5, minY, maxY); 
-         entityManager.addEntities(softDrinks[i]);
+        	softDrinks[i] = new SoftDrink(x, y, 5, minY, maxY); 
+        	entityManager.addEntities(softDrinks[i]);
          }
         
         // Spawn moving waterbottle
