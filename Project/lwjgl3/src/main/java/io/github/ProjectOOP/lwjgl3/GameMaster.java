@@ -68,7 +68,7 @@ public class GameMaster extends ApplicationAdapter {
     private float screenHeight;
     private float stamina = 60;
 
-    private Scene scene;
+    private Scene backgroundScene;
     private PauseMenuScene pauseMenuScene;
     private SettingsScene settingsScene;
     private MainMenuScene mainMenuScene;
@@ -175,14 +175,14 @@ public class GameMaster extends ApplicationAdapter {
         ioManager.addOutput(staminaOutput);
         staminaOutput.setNumber(stamina);
         
-        scene = new Scene("background.png", 0, 0);
+        backgroundScene = new Scene("background.png", 0, 0);
         pauseMenuScene = new PauseMenuScene(ioManager, sceneManager);
         settingsScene = new SettingsScene(ioManager, sceneManager);
         mainMenuScene = new MainMenuScene(ioManager, sceneManager);
         gameOverScene = new GameOverScene(ioManager, sceneManager);
 
         // Configure SceneManager
-        sceneManager.addSceneToState(SceneManager.STATE.Start, scene);
+        sceneManager.addSceneToState(SceneManager.STATE.Start, backgroundScene);
         sceneManager.addSceneToState(SceneManager.STATE.Pause, pauseMenuScene);
         sceneManager.addSceneToState(SceneManager.STATE.Settings, settingsScene);
         sceneManager.addSceneToState(SceneManager.STATE.MainMenu, mainMenuScene);
