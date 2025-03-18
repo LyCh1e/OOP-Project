@@ -17,7 +17,6 @@ import ProjectOOP.Entity.SpeedBar;
 import ProjectOOP.Entity.Water;
 import ProjectOOP.IO.IOManager;
 import ProjectOOP.IO.Input;
-import ProjectOOP.IO.KeyBindings;
 import ProjectOOP.IO.Output;
 import ProjectOOP.Movement.MovementManager;
 import ProjectOOP.Scene.GameOverScene;
@@ -74,7 +73,6 @@ public class GameMaster extends ApplicationAdapter {
     private SettingsScene settingsScene;
     private MainMenuScene mainMenuScene;
     private GameOverScene gameOverScene;
-    private KeyBindings keyBindings;
     private Input input;
     private Output scoreOutput;
     private Output audioOutput;
