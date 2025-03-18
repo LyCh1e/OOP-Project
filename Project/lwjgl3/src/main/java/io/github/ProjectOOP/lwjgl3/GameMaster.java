@@ -1,7 +1,6 @@
 package io.github.ProjectOOP.lwjgl3;
 
 import java.util.Random;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.ApplicationAdapter;
@@ -13,7 +12,6 @@ import ProjectOOP.Entity.EntityManager;
 import ProjectOOP.Entity.Health;
 import ProjectOOP.Entity.Player;
 import ProjectOOP.Entity.Platform;
-import ProjectOOP.Entity.Player;
 import ProjectOOP.Entity.SoftDrink;
 import ProjectOOP.Entity.SpeedBar;
 import ProjectOOP.Entity.Water;
@@ -21,7 +19,6 @@ import ProjectOOP.IO.IOManager;
 import ProjectOOP.IO.Input;
 import ProjectOOP.IO.KeyBindings;
 import ProjectOOP.IO.Output;
-import ProjectOOP.Movement.AIMovement;
 import ProjectOOP.Movement.MovementManager;
 import ProjectOOP.Scene.GameOverScene;
 import ProjectOOP.Scene.MainMenuScene;
