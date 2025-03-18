@@ -123,7 +123,7 @@ public class Collidable {
 	        float platformTop = platform.getY() + platform.getTexture().getHeight();
 	        
 	        // Only snap player to platform if they're falling onto it
-	        if (playerBottom <= platformTop && player.getVelocityY() <= 0) {
+	        if (playerBottom < platformTop && player.getVelocityY() <= 0) {
 	            player.setY(platformTop);
 	            player.setVelocityY(0);
 	            player.land();
@@ -152,7 +152,7 @@ public class Collidable {
 	        float segmentTop = segment.y + segment.height;
 	        
 	        // Only snap player to platform if they're falling onto it
-	        if (playerBottom <= segmentTop && player.getVelocityY() <= 0) {  
+	        if (playerBottom < segmentTop && player.getVelocityY() <= 0) {  
 	            player.setY(segmentTop);
 	            player.setVelocityY(0);
 	            player.land();
