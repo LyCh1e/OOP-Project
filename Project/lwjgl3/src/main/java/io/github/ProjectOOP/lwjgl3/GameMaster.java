@@ -133,13 +133,7 @@ public class GameMaster extends ApplicationAdapter {
         entityManager.addEntities(bottomPlatform);
         entityManager.addEntities(middlePlatform);
         entityManager.addEntities(topPlatform);
-        
-        // Add droplets (water collectibles)
-//        for (int i = 0; i < droplets.length; i++) {
-//            droplets[i] = new MovableEntity("waterbottle.png", 1280, randomYBottom, 2);
-//            entityManager.addEntities(droplets[i]);
-//        }
-        
+
         // Add hearts
         for (int i = 0; i < hearts.length; i++) {
             hearts[i] = new Health(10 + (i * 40), 650);
@@ -312,22 +306,7 @@ public class GameMaster extends ApplicationAdapter {
             }
             staminaOutput.setString("Stamina: " + String.valueOf(Math.round(stamina)));
             speedBar.setBar(barColors, stamina);
-            
-            // Check for water collisions
-//            for (int i = 0; i < droplets.length; i++) {
-//                if (collisionManager.checkCollisions(entities[0], droplets[i])) {
-//                    Collidable.doCollision(entities[0], droplets[i], false);
-//                    
-//                    // Increase stamina when collecting water
-//                    if (staminaOutput.getNumber() <= 60 - 5) {
-//                        staminaOutput.setNumber(staminaOutput.getNumber() + 5);
-//                    }
-//                    
-//                    // Update score
-//                    output.setNumber(score += 1);
-//                    output.setString("Score: " + String.valueOf(Math.round(output.getNumber())));
-//                }
-//            }
+           
             for (int i = 0; i < Water.length; i++) {
                 movementManager.updateAIMovementYAxis(Water[i], MovementManager.Y_Column.BOTTOM);
                 movementManager.updateAIMovementYAxis(Water[i], MovementManager.Y_Column.MIDDLE);
