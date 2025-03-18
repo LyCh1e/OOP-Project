@@ -67,7 +67,7 @@ public class GameMaster extends ApplicationAdapter {
     private float topPlatformY = 400;
     private float screenWidth;
     private float screenHeight;
-    private float stamina = 60;
+    private float stamina = 30; //start 30/60 stamina
 
     private Scene backgroundScene;
     private PauseMenuScene pauseMenuScene;
@@ -336,7 +336,7 @@ public class GameMaster extends ApplicationAdapter {
 //                        stamina += 5;
 //                        staminaOutput.setNumber(stamina);
 //                    }
-                    stamina = Math.min(stamina + 5, 60);
+                    stamina = Math.min(stamina + 2, 60); // Add 2 stamina during a waterbottle collision to a max of 60
                     staminaOutput.setNumber(stamina);
 
                     // Reset the position of the collected water bottle
@@ -348,7 +348,8 @@ public class GameMaster extends ApplicationAdapter {
                     speedBar.setEntitySpeedsByStamina(stamina, new Water[]{Waterbottle[i]}); 
 
                     // Update score
-                    scoreOutput.setNumber(score += 1);
+                    scoreOutput.setNumber(score += 5); // Add 5 score for every water collected
+                    scoreOutput.setNumber(score);
                     scoreOutput.setString("Score: " + Math.round(scoreOutput.getNumber()));
                 }
             }
@@ -363,13 +364,17 @@ public class GameMaster extends ApplicationAdapter {
                 if (collisionManager.checkCollisions(player1[0], softDrink)) {
                     Collidable.doCollision(player1[0], softDrink, false);
 
-                    if (currentHealth > 0) {
-                        currentHealth--;
+                    // minus 5 stamina when colliding with soft drink to a max of 60
+                    stamina = Math.min(stamina - 5, 60);
+                    staminaOutput.setNumber(stamina);
+
+                   // if (currentHealth > 0) {
+                        //currentHealth--;
                         
                      // Remove the corresponding heart from the UI
-                        if (currentHealth < hearts.length) {
-                            entityManager.removeEntity(hearts[currentHealth]); // Remove heart
-                        }
+                       // if (currentHealth < hearts.length) {
+                           // entityManager.removeEntity(hearts[currentHealth]); // Remove heart
+                        //}
                         
                         if (stamina >= 5) {
                             stamina -= 5;
@@ -377,13 +382,19 @@ public class GameMaster extends ApplicationAdapter {
                             stamina = 0;  // Prevent negative stamina
                         }
                         staminaOutput.setNumber(stamina);
-
+                        
+                        
                         //Resets the position of the soft drink after collision
                         float newX = Gdx.graphics.getWidth() + 50;
                         float newY = (float) Math.random() * (Gdx.graphics.getHeight() - 200)+ 100;
 //                        float newY = (float) Math.random() * (softDrink.maxY - softDrink.minY) + softDrink.minY; // Ensure Y stays in range
                         softDrink.setPosition(newX, newY);
                         speedBar.setEntitySpeedsByStamina(stamina, new SoftDrink[]{softDrink}); 
+                        
+                     // Update score
+                        score = Math.max(score - 3, 0); // -3 score for every softdrink collected
+                        scoreOutput.setNumber(score);
+                        scoreOutput.setString("Score: " + Math.round(scoreOutput.getNumber()));
                     }
                 }
             }
@@ -411,7 +422,7 @@ public class GameMaster extends ApplicationAdapter {
 //            output.setNumber(score += 0.01);
 //            output.setString("Score: " + String.valueOf(Math.round(output.getNumber())));
         }
-    }
+    
     
     public void resetGame(Player player, Water[] waterBottles, SoftDrink[] softDrinks,
             Platform bottomPlatform, float bottomPlatformY,
