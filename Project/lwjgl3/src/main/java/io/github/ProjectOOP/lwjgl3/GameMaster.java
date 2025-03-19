@@ -16,6 +16,8 @@ import ProjectOOP.Entity.Platform;
 import ProjectOOP.Entity.SoftDrink;
 import ProjectOOP.Entity.SpeedBar;
 import ProjectOOP.Entity.Water;
+import ProjectOOP.Entity.Broccoli;
+import ProjectOOP.Entity.Pizza;
 import ProjectOOP.IO.IOManager;
 import ProjectOOP.IO.Input;
 import ProjectOOP.IO.Output;
@@ -48,6 +50,8 @@ public class GameMaster extends ApplicationAdapter {
     private Player[] player1 = new Player[1];
     private SoftDrink[] softDrinks = new SoftDrink[1]; 
     private Water[] Waterbottle = new Water[1];
+    private Broccoli[] Broccoli = new Broccoli[1];
+    private Pizza[] Pizza = new Pizza[1];
     private SpeedBar speedBar = new SpeedBar();
     private Color[] barColors = {
         Color.valueOf("#97f0f4"), Color.valueOf("#0bd7f2"), Color.valueOf("#35d1e1"), 
@@ -143,16 +147,15 @@ public class GameMaster extends ApplicationAdapter {
         }
         
 
-         // Spawn moving SoftDrinks
+ 
+        // Spawn moving softDrinks
         for (int i = 0; i < softDrinks.length; i++) {
-        	float x = 1280;
-        	float minY = 50;  // Minimum Y (closer to the ground)
-        	float maxY = 250; // Maximum Y (lower on the screen)
-        	float y = random.nextFloat() * (maxY - minY) + minY;
+            float x = random.nextFloat() * Gdx.graphics.getWidth(); // Random X position
+            float y = (float) Math.random() * (Gdx.graphics.getHeight() - 200) + 100; // Random Y position
 
-        	softDrinks[i] = new SoftDrink(x, y, 5, minY, maxY); 
-        	entityManager.addEntities(softDrinks[i]);
-         }
+            softDrinks[i] = new SoftDrink(x, y, 5, y, y); // Assign random Y position
+            entityManager.addEntities(softDrinks[i]);
+        }
         
         // Spawn moving waterbottle
         for (int i = 0; i < Waterbottle.length; i++) {
@@ -161,6 +164,24 @@ public class GameMaster extends ApplicationAdapter {
 
             Waterbottle[i] = new Water(x, y, 5, y, y); // Assign random Y position
             entityManager.addEntities(Waterbottle[i]);
+        }
+        
+        //Spawn moving Broccoli (Less Often)
+        for (int i = 0; i < Broccoli.length / 3; i++) { // Spawn fewer
+            float x = random.nextFloat() * Gdx.graphics.getWidth(); // Random X position
+            float y = (float) Math.random() * (Gdx.graphics.getHeight() - 200) + 100; // Random Y position
+
+            Broccoli[i] = new Broccoli(x, y, 5, y, y);
+            entityManager.addEntities(Broccoli[i]);
+        }
+
+        // Spawn moving Pizza (Less Often)
+        for (int i = 0; i < Pizza.length / 3; i++) { // Spawn fewer
+            float x = random.nextFloat() * Gdx.graphics.getWidth(); // Random X position
+            float y = (float) Math.random() * (Gdx.graphics.getHeight() - 200) + 100; // Random Y position
+
+            Pizza[i] = new Pizza(x, y, 5, y, y);
+            entityManager.addEntities(Pizza[i]);
         }
 
         
@@ -320,8 +341,18 @@ public class GameMaster extends ApplicationAdapter {
                 movementManager.updateAIMovementYAxis(softDrinks[i], MovementManager.Y_Column.BOTTOM);
                 movementManager.updateAIMovementYAxis(softDrinks[i], MovementManager.Y_Column.MIDDLE);
             }
+            for (int i = 0; i < Broccoli.length; i++) {
+                movementManager.updateAIMovementYAxis( Broccoli[i], MovementManager.Y_Column.BOTTOM);
+                movementManager.updateAIMovementYAxis( Broccoli[i], MovementManager.Y_Column.MIDDLE);
+        }
+        for (int i = 0; i <Pizza.length; i++) {
+            movementManager.updateAIMovementYAxis(Pizza[i], MovementManager.Y_Column.BOTTOM);
+            movementManager.updateAIMovementYAxis(Pizza[i], MovementManager.Y_Column.MIDDLE);
+        }
             speedBar.setEntitySpeedsByStamina(stamina, Waterbottle);      //  Water reacts to stamina
             speedBar.setEntitySpeedsByStamina(stamina, softDrinks); //  SoftDrink reacts to stamina
+            speedBar.setEntitySpeedsByStamina(stamina, Broccoli); // Broccoli reacts to stamina
+            speedBar.setEntitySpeedsByStamina(stamina, Pizza); // Pizza reacts to stamina
             
             // Check for waterbottle collisions
             for (int i = 0; i < Waterbottle.length; i++) {
@@ -356,7 +387,7 @@ public class GameMaster extends ApplicationAdapter {
                 }
             }
             
-            // Check for game over condition
+   // Check for game over condition
             if (currentHealth <= 0) {
                 resetGame(player1[0], Waterbottle, softDrinks, bottomPlatform,
                                       bottomPlatformY, scoreOutput, hearts, entityManager);

@@ -5,7 +5,6 @@ import com.badlogic.gdx.Gdx;
 
 public class Water extends MovableEntity {
     private float minY, maxY ;
-    private boolean movingUp = true; 
 
     public Water(float x, float y, float speed, float minY, float maxY) {
         super("waterbottle.png", x, y, speed);
@@ -14,7 +13,6 @@ public class Water extends MovableEntity {
     }
 
     public void move(float deltaTime) {
-        // Move left
     	setX(getX() - getSpeed() * deltaTime); // Move left based on current speed
 
         // Respawn if off-screen
@@ -34,7 +32,6 @@ public class Water extends MovableEntity {
 	public void setPosition(float newX, float newY) {
 		setX(newX);
 		setY(newY);
+	
 	}
-
-
 }

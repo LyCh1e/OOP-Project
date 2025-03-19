@@ -5,9 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Pizza extends MovableEntity {
 	private float minY, maxY; 
-    private boolean movingUp = true;
 
-    
 	public Pizza(float x, float y, float speed, float minY, float maxY) {
 		super("pizza.png", x, y, speed);
         this.minY = minY;

@@ -5,9 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Broccoli extends MovableEntity {
 	private float minY, maxY; 
-    private boolean movingUp = true;
- 
-    
+	
 	public Broccoli(float x, float y, float speed, float minY, float maxY) {
 		super("broccoli.png", x, y, speed);
         this.minY = minY;
@@ -26,7 +24,6 @@ public class Broccoli extends MovableEntity {
 	            setY(newY);
 	        }
 	    }
-
 
 	 @Override
 	 public void draw(SpriteBatch batch) {

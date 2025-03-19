@@ -3,9 +3,8 @@ package ProjectOOP.Entity;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Gdx;
 
-public class SoftDrink extends MovableEntity {
-	private float minY, maxY; 
-    private boolean movingUp = true;
+public class SoftDrink extends MovableEntity { 
+	private float minY, maxY ;
 
     public SoftDrink(float x, float y, float speed, float minY, float maxY) {
         super("sodabottle.png", x, y, speed);
@@ -16,17 +15,12 @@ public class SoftDrink extends MovableEntity {
     public void move(float deltaTime) {
     	setX(getX() - getSpeed() * deltaTime); // Move left based on current speed
 
-        if (movingUp) {
-            setY(getY() + speed * 0.5f * deltaTime);
-            if (getY() >= maxY) movingUp = false;
-        } else {
-            setY(getY() - speed * 0.5f * deltaTime);
-            if (getY() <= minY) movingUp = true;
-        }
-
+    	 // Respawn if off-screen
         if (getX() < -50) { 
-            setX(Gdx.graphics.getWidth()); // Respawn at right
-            // Y position remains unchanged (doesn't reset)
+            float newX = Gdx.graphics.getWidth() + 50; // Respawn on the right
+            float newY = (float) Math.random() * (Gdx.graphics.getHeight() - 200) + 100; // Randomize new Y position
+            setX(newX);
+            setY(newY);
         }
     }
 
