@@ -68,6 +68,7 @@ public class GameMaster extends ApplicationAdapter {
     private float screenWidth;
     private float screenHeight;
     private float stamina = 30; //start 30/60 stamina
+    private float score = 0;
 
     private Scene backgroundScene;
     private PauseMenuScene pauseMenuScene;
@@ -291,23 +292,25 @@ public class GameMaster extends ApplicationAdapter {
                 }
             }
 
-            float score = scoreOutput.getNumber();
             
             // Stamina controls (for testing)
             if (Gdx.input.isKeyJustPressed(Keys.L)) {
-                if (stamina <= 60 - 10) staminaOutput.setNumber(stamina += 10);
+                if (stamina <= 60 - 10) stamina += 10;
             }
             if (Gdx.input.isKeyJustPressed(Keys.EQUALS)) {
-                if (stamina <= 60 - 1) staminaOutput.setNumber(stamina += 1);
+                if (stamina <= 60 - 1) stamina += 1;
             }
             if (Gdx.input.isKeyJustPressed(Keys.J)) {
-                if (stamina >= 10) staminaOutput.setNumber(stamina -= 10);
+                if (stamina >= 10) stamina -= 10;
             }
             if (Gdx.input.isKeyJustPressed(Keys.MINUS)) {
-                if (stamina >= 1) staminaOutput.setNumber(stamina -= 1);
+                if (stamina >= 1) stamina -= 1;
             }
+            staminaOutput.setNumber(stamina);
             staminaOutput.setString("Stamina: " + String.valueOf(Math.round(stamina)));
             speedBar.setBar(barColors, stamina);
+            scoreOutput.setNumber(score);
+            scoreOutput.setString("Score: " + Math.round(scoreOutput.getNumber()));
            
             for (int i = 0; i < Waterbottle.length; i++) {
                 movementManager.updateAIMovementYAxis(Waterbottle[i], MovementManager.Y_Column.BOTTOM);
@@ -319,82 +322,36 @@ public class GameMaster extends ApplicationAdapter {
             }
             speedBar.setEntitySpeedsByStamina(stamina, Waterbottle);      //  Water reacts to stamina
             speedBar.setEntitySpeedsByStamina(stamina, softDrinks); //  SoftDrink reacts to stamina
-            // Update soft drinks
-//            for (int i = 0; i < Water.length; i++) {
-//                Water[i].move(Gdx.graphics.getDeltaTime()); // Move water bottle correctly
-//            }
             
             // Check for waterbottle collisions
             for (int i = 0; i < Waterbottle.length; i++) {
-                Waterbottle[i].move(Gdx.graphics.getDeltaTime()); // Move water bottle
-
                 if (collisionManager.checkCollisions(player1[0], Waterbottle[i])) {
-                    Collidable.doCollision(player1[0], Waterbottle[i], false);
 
-//                    // Increase stamina when collecting water
-//                    if (stamina <= 60 - 5) {
-//                        stamina += 5;
-//                        staminaOutput.setNumber(stamina);
-//                    }
                     stamina = Math.min(stamina + 2, 60); // Add 2 stamina during a waterbottle collision to a max of 60
-                    staminaOutput.setNumber(stamina);
 
                     // Reset the position of the collected water bottle
                     float newX = Gdx.graphics.getWidth() + 50;
                     float newY = (float) Math.random() * (Gdx.graphics.getHeight() - 200) + 100;
                     Waterbottle[i].setPosition(newX, newY);
 
-                    // Apply speed update ONLY to the collected water bottle
-                    speedBar.setEntitySpeedsByStamina(stamina, new Water[]{Waterbottle[i]}); 
-
                     // Update score
-                    scoreOutput.setNumber(score += 5); // Add 5 score for every water collected
-                    scoreOutput.setNumber(score);
-                    scoreOutput.setString("Score: " + Math.round(scoreOutput.getNumber()));
+                    score += 5;
                 }
             }
-            
-            // Update soft drinks
-//            for (SoftDrink softDrink : softDrinks) {
-//                softDrink.move(Gdx.graphics.getDeltaTime()); // Move soft drink
-//            }
             
             // Check for soft drink collisions
             for (SoftDrink softDrink : softDrinks) {
                 if (collisionManager.checkCollisions(player1[0], softDrink)) {
-                    Collidable.doCollision(player1[0], softDrink, false);
-
                     // minus 5 stamina when colliding with soft drink to a max of 60
-                    stamina = Math.min(stamina - 5, 60);
-                    staminaOutput.setNumber(stamina);
+                    stamina = Math.max(stamina - 5, 0);
 
-                   // if (currentHealth > 0) {
-                        //currentHealth--;
-                        
-                     // Remove the corresponding heart from the UI
-                       // if (currentHealth < hearts.length) {
-                           // entityManager.removeEntity(hearts[currentHealth]); // Remove heart
-                        //}
-                        
-                        if (stamina >= 5) {
-                            stamina -= 5;
-                        } else {
-                            stamina = 0;  // Prevent negative stamina
-                        }
-                        staminaOutput.setNumber(stamina);
-                        
-                        
                         //Resets the position of the soft drink after collision
                         float newX = Gdx.graphics.getWidth() + 50;
                         float newY = (float) Math.random() * (Gdx.graphics.getHeight() - 200)+ 100;
-//                        float newY = (float) Math.random() * (softDrink.maxY - softDrink.minY) + softDrink.minY; // Ensure Y stays in range
                         softDrink.setPosition(newX, newY);
-                        speedBar.setEntitySpeedsByStamina(stamina, new SoftDrink[]{softDrink}); 
                         
-                     // Update score
+                        // Update score
                         score = Math.max(score - 3, 0); // -3 score for every softdrink collected
-                        scoreOutput.setNumber(score);
-                        scoreOutput.setString("Score: " + Math.round(scoreOutput.getNumber()));
                     }
                 }
             }
