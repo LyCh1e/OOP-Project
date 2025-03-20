@@ -34,6 +34,10 @@ public class Input {
         return (Gdx.input.isKeyPressed(Keys.UP) || Gdx.input.isKeyPressed(Keys.SPACE));
     }
     
+    public boolean dropDown() {
+        return (Gdx.input.isKeyJustPressed(Keys.DOWN) || Gdx.input.isKeyJustPressed(Keys.S));
+    }
+    
     public void setForceJumpFalse(boolean force) { // Force the jump to stop
         forceJumpFalse = force;
     }

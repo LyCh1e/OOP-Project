@@ -35,7 +35,11 @@ public class IOManager {
     public boolean isJumping() {
         return input.isJumping(); // Now uses Input's isJumping which checks forceJumpFalse
     }
-
+    
+    public boolean dropDown() {
+        return input.dropDown(); 
+    }
+    
     public void setForceJumpFalse(boolean force) { //Force jump to be false for first few frames before switching to avoid overlap (implemented in gamemaster)
         input.setForceJumpFalse(force);
     }
