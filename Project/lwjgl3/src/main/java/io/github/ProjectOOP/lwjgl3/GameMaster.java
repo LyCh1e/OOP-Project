@@ -117,16 +117,6 @@ public class GameMaster extends ApplicationAdapter {
 		player1[0].setAffectedByGravity(true);
 		entityManager.addEntities(player1[0]);
 
-		// Create moving platforms
-		//        for (int i = 0; i < platforms.length; i++) {
-		//            float x = 200 + i * 250; // Spacing platforms
-		//            float y = 150 + i * 70;  // Different heights
-		//            float minY = y - 50;     // Movement boundaries
-		//            float maxY = y + 50;
-		//            platforms[i] = new Platform("platform.png", x, y, platformWidth, platformHeight, minY, maxY, 50);
-		//            entityManager.addEntities(platforms[i]);
-		//        }
-
 		// Create bottom platform with looping and holes feature
 		bottomPlatform = new Platform("platform.png", 0, bottomPlatformY, screenWidth, platformHeight, scrollSpeed);
 		middlePlatform = new Platform("platform.png", 0, middlePlatformY, screenWidth, platformHeight, scrollSpeed);
@@ -147,7 +137,7 @@ public class GameMaster extends ApplicationAdapter {
 		// Spawn moving softDrinks
 		for (int i = 0; i < softDrinks.length; i++) {
 			float x = random.nextFloat() * Gdx.graphics.getWidth(); // Random X position
-			float y = (float) Math.random() * (Gdx.graphics.getHeight() - 200) + 100; // Random Y position
+			float y = random.nextFloat(30, 650) * (Gdx.graphics.getHeight() - 200) + 100; // Random Y position
 
 			softDrinks[i] = new SoftDrink(x, y, 5, y, y); // Assign random Y position
 			entityManager.addEntities(softDrinks[i]);
@@ -156,7 +146,7 @@ public class GameMaster extends ApplicationAdapter {
 		// Spawn moving Waterbottle
 		for (int i = 0; i < Waterbottle.length; i++) {
 			float x = random.nextFloat() * Gdx.graphics.getWidth(); // Random X position
-			float y = (float) Math.random() * (Gdx.graphics.getHeight() - 200) + 100; // Random Y position
+			float y = random.nextFloat(30, 650) * (Gdx.graphics.getHeight() - 200) + 100; // Random Y position
 
 			Waterbottle[i] = new Water(x, y, 5, y, y); // Assign random Y position
 			entityManager.addEntities(Waterbottle[i]);
@@ -165,7 +155,7 @@ public class GameMaster extends ApplicationAdapter {
 		// Spawn moving broccoli 
 		for (int i = 0; i < broccoli.length; i++) { 
 			float x = random.nextFloat() * Gdx.graphics.getWidth(); // Random X position
-			float y = (float) Math.random() * (Gdx.graphics.getHeight() - 200) + 100; // Random Y position
+			float y = random.nextFloat(30, 650) * (Gdx.graphics.getHeight() - 200) + 100; // Random Y position
 
 			broccoli[i] = new Broccoli(x, y, 5, y, y); // Assign random Y position
 			entityManager.addEntities(broccoli[i]);
@@ -174,7 +164,7 @@ public class GameMaster extends ApplicationAdapter {
 		// Spawn moving pizza 
 		for (int i = 0; i < pizza.length; i++) { 
 			float x = random.nextFloat() * Gdx.graphics.getWidth(); // Random X position
-			float y = (float) Math.random() * (Gdx.graphics.getHeight() - 200) + 100; // Random Y position
+			float y = random.nextFloat(30, 650) * (Gdx.graphics.getHeight() - 200) + 100; // Random Y position
 
 			pizza[i] = new Pizza(x, y, 5, y, y); // Assign random Y position
 			entityManager.addEntities(pizza[i]);
@@ -229,28 +219,12 @@ public class GameMaster extends ApplicationAdapter {
 			entityManager.draw(shape);
 			ioManager.draw(batch);
 
-			//            // Update moving platforms
-			//            for (int i = 0; i < platforms.length; i++) {
-			//                platforms[i].updatePosition();
-			//            }
-
 			// Update bottom platform with looping and holes
 			bottomPlatform.updatePosition();
 			middlePlatform.updatePosition();
 			topPlatform.updatePosition();
 			// Update player movement
 			movementManager.updateUserMovement(player1[0], currentState);
-
-			//            // Check platform collisions if entity is a Player
-			//            if (ioManager.isJumping() && player1[0] instanceof Player) {
-			//                Player player = player1[0];
-			//                
-			//                // If the player is not already jumping, initiate a jump
-			//                if (!player.isJumping()) {
-			//                    player.jump();
-			//                    System.out.println("Jump initiated in GameMaster");
-			//                }
-			//            }
 
 			// Then in the platform collision section, simplify it:
 			if (player1[0] instanceof Player) {
@@ -445,14 +419,6 @@ public class GameMaster extends ApplicationAdapter {
 
 				frameInStartState = 0;
 			}
-
-			//            // Gradually decrease stamina over time
-			//            staminaOutput.setNumber(stamina -= 0.01f);
-			//            staminaOutput.setString("Stamina: " + String.valueOf(Math.round(staminaOutput.getNumber())));
-			//            
-			//            // Update score slowly over time
-			//            output.setNumber(score += 0.01);
-			//            output.setString("Score: " + String.valueOf(Math.round(output.getNumber())));
 		}
 
 		public void resetGame(Player player, Water[] waterBottles, SoftDrink[] softDrinks, Broccoli[] broccoli, Pizza[] pizza, Platform bottomPlatform,

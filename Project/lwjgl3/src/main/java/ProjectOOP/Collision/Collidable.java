@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 import ProjectOOP.Entity.Entity;
 import ProjectOOP.Entity.Platform;
 import ProjectOOP.Entity.Player;
+import ProjectOOP.IO.Input;
 
 public class Collidable {
 	
@@ -109,7 +110,7 @@ public class Collidable {
 	// New method to handle platform collision
 	public static boolean doPlatformCollision(Player player, Platform platform) {
 	    // Skip collision detection entirely if the player is jumping upward
-	    if (player.isJumping() && player.getVelocityY() > 0) {
+	    if ((player.isJumping() && player.getVelocityY() > 0) || Input.dropDown()) {
 	        System.out.println("Skipping platform collision while jumping up");
 	        return false;
 	    }
@@ -139,7 +140,7 @@ public class Collidable {
 
 	public static boolean doSegmentedPlatformCollision(Player player, Platform platform, Rectangle segment) {
 	    // Skip collision detection entirely if the player is jumping upward
-	    if ((player.isJumping() && player.getVelocityY() > 0) || Gdx.input.isKeyPressed(Keys.DOWN)) {
+	    if ((player.isJumping() && player.getVelocityY() > 0) || Input.dropDown()) {
 	        System.out.println("Skipping segmented platform collision while jumping up");
 	        return false;
 	    }
