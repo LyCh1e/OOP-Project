@@ -89,13 +89,8 @@ public class Platform extends MovableEntity {
     private void initializeSegments() {
         float currentX = 0;
         while (currentX < screenWidth + segmentWidth) {
-            // Decide whether to add a gap (but not at the start)
-            if (random.nextFloat() > 0.8f && currentX > segmentWidth) {
-                currentX += 150; // Gap width
-            } else {
-                segments.add(new Rectangle(currentX, getY(), segmentWidth, bounds.height));
-                currentX += segmentWidth;
-            }
+            segments.add(new Rectangle(currentX, getY(), segmentWidth, bounds.height));
+            currentX += segmentWidth;
         }
     }
 
@@ -123,10 +118,6 @@ public class Platform extends MovableEntity {
                 if (rightEdge < screenWidth) {
                     float newX = rightEdge;
                     
-                    // Decide whether to add a gap
-                    if (random.nextFloat() > 0.7f) { // 20% chance of gap
-                        newX += 150; // Gap width
-                    }
                     
                     segments.add(new Rectangle(newX, getY(), segmentWidth, bounds.height));
                 }

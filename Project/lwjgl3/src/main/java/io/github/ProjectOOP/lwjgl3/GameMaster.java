@@ -65,8 +65,8 @@ public class GameMaster extends ApplicationAdapter {
 	private float holeWidth = 50;
 	private float scrollSpeed = -150;
 	private float bottomPlatformY = 30;
-	private float middlePlatformY = 200;
-	private float topPlatformY = 400;
+	private float middlePlatformY = 250;
+	private float topPlatformY = 450;
 	private float screenWidth;
 	private float screenHeight;
 	private float stamina = 30; // start 30/60 stamina

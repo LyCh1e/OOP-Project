@@ -1,5 +1,7 @@
 package ProjectOOP.Collision;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Rectangle;
 
 import ProjectOOP.Entity.Entity;
@@ -123,7 +125,7 @@ public class Collidable {
 	        float platformTop = platform.getY() + platform.getTexture().getHeight();
 	        
 	        // Only snap player to platform if they're falling onto it
-	        if (playerBottom < platformTop && player.getVelocityY() <= 0) {
+	        if (playerBottom < platformTop) {
 	            player.setY(platformTop);
 	            player.setVelocityY(0);
 	            player.land();
@@ -137,7 +139,7 @@ public class Collidable {
 
 	public static boolean doSegmentedPlatformCollision(Player player, Platform platform, Rectangle segment) {
 	    // Skip collision detection entirely if the player is jumping upward
-	    if (player.isJumping() && player.getVelocityY() > 0) {
+	    if ((player.isJumping() && player.getVelocityY() > 0) || Gdx.input.isKeyPressed(Keys.DOWN)) {
 	        System.out.println("Skipping segmented platform collision while jumping up");
 	        return false;
 	    }
@@ -148,17 +150,20 @@ public class Collidable {
 	    if (playerRect.x + playerRect.width > segment.x && 
 	        playerRect.x < segment.x + segment.width) {
 	        
-	        float playerBottom = player.getY();
+	        float playerBottom = player.getY(); // lowest pixle of character
 	        float segmentTop = segment.y + segment.height;
 	        
 	        // Only snap player to platform if they're falling onto it
-	        if (playerBottom < segmentTop && player.getVelocityY() <= 0) {  
-	            player.setY(segmentTop);
-	            player.setVelocityY(0);
+	        if (playerBottom < segmentTop) {  
+	        	if (player.getVelocityY() > 0) {
+	        		return false;
+	        	}
+	        	player.setY(segmentTop);
 	            player.land();
 	            System.out.println("Landed on platform segment");
 	            return true;
 	        }
+	        
 	    }
 	    
 	    return false;
