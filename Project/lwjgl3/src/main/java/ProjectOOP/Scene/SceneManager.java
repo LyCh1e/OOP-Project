@@ -5,19 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
 
-import ProjectOOP.Entity.EntityManager;
-import ProjectOOP.Entity.Health;
-import ProjectOOP.Entity.ImmovableEntity;
-import ProjectOOP.Entity.Platform;
-import ProjectOOP.Entity.Player;
-import ProjectOOP.Entity.SoftDrink;
-import ProjectOOP.Entity.Water;
 import ProjectOOP.IO.IOManager;
-import ProjectOOP.IO.Output;
+
 
 public class SceneManager implements Disposable {
     // Use a Map to associate states with lists of scenes
@@ -26,7 +18,7 @@ public class SceneManager implements Disposable {
     private STATE prevState;
 
     public enum STATE {
-        Start, End, Pause, Background, Settings, MainMenu, GameOver //added new settings STATE
+        Start, End, Pause, Background, Settings, MainMenu, GameOver, Tutorial //added new settings STATE
     }
 
     private SceneManager(IOManager ioManager) {

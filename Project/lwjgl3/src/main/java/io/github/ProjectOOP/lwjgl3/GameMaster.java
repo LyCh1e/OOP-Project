@@ -28,6 +28,7 @@ import ProjectOOP.Scene.PauseMenuScene;
 import ProjectOOP.Scene.Scene;
 import ProjectOOP.Scene.SceneManager;
 import ProjectOOP.Scene.SettingsScene;
+import ProjectOOP.Scene.TutorialScene;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -77,6 +78,7 @@ public class GameMaster extends ApplicationAdapter {
 	private SettingsScene settingsScene;
 	private MainMenuScene mainMenuScene;
 	private GameOverScene gameOverScene;
+	private TutorialScene tutorialScene;
 	private Input input;
 	private Output scoreOutput;
 	private Output audioOutput;
@@ -184,6 +186,7 @@ public class GameMaster extends ApplicationAdapter {
 		settingsScene = new SettingsScene(ioManager, sceneManager);
 		mainMenuScene = new MainMenuScene(ioManager, sceneManager);
 		gameOverScene = new GameOverScene(ioManager, sceneManager);
+		tutorialScene = new TutorialScene(ioManager, sceneManager);
 
 		// Configure SceneManager
 		sceneManager.addSceneToState(SceneManager.STATE.Start, backgroundScene);
@@ -191,6 +194,7 @@ public class GameMaster extends ApplicationAdapter {
 		sceneManager.addSceneToState(SceneManager.STATE.Settings, settingsScene);
 		sceneManager.addSceneToState(SceneManager.STATE.MainMenu, mainMenuScene);
 		sceneManager.addSceneToState(SceneManager.STATE.GameOver, gameOverScene);
+		sceneManager.addSceneToState(SceneManager.STATE.Tutorial, tutorialScene);
 		sceneManager.setState(SceneManager.STATE.MainMenu);
 	}
 
@@ -401,7 +405,7 @@ public class GameMaster extends ApplicationAdapter {
 					pizza.setPosition(newX, newY);
 
 					// Update score
-					score = Math.max(score - 1, 0); // -20 score for every pizza collected
+					score = Math.max(score - 20, 0); // -20 score for every pizza collected
 				}
 			}
 		}

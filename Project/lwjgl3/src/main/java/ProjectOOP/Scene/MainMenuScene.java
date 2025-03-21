@@ -18,7 +18,7 @@ public class MainMenuScene extends Scene {
     private TextButton exitButton;
     private TextButton startButton;
     private TextButton settingsButton;
-    private TextButton gameOverButton;
+    private TextButton tutorialButton;
 
     public MainMenuScene(IOManager ioManager, SceneManager sceneManager) {
         super("aquazoom.png", 0, 0);
@@ -32,7 +32,7 @@ public class MainMenuScene extends Scene {
         startButton = new TextButton("Start Game", skin);
         settingsButton = new TextButton("Settings", skin);
         exitButton = new TextButton("Exit", skin);
-        gameOverButton = new TextButton("Game Over", skin);
+        tutorialButton = new TextButton("Tutorial", skin);
 
         // Set button size
         float buttonWidth = 200;
@@ -54,14 +54,14 @@ public class MainMenuScene extends Scene {
         exitButton.setSize(buttonWidth, buttonHeight);
         exitButton.setPosition(centerX, startY - 2 * (buttonHeight + spacing));
         
-        gameOverButton.setSize(buttonWidth, buttonHeight);
-        gameOverButton.setPosition(centerX, startY - 3 * (buttonHeight + spacing));
+        tutorialButton.setSize(buttonWidth, buttonHeight);
+        tutorialButton.setPosition(centerX, startY - 3 * (buttonHeight + spacing));
 
         // Add listeners on button click
         startButton.addListener(ioManager.getClickListener(() -> sceneManager.setState(SceneManager.STATE.Start))); 
         settingsButton.addListener(ioManager.getClickListener(() -> sceneManager.setState(SceneManager.STATE.Settings))); 
         exitButton.addListener(ioManager.getClickListener(() -> Gdx.app.exit()));
-        gameOverButton.addListener(ioManager.getClickListener(() -> sceneManager.setState(SceneManager.STATE.GameOver))); 
+        tutorialButton.addListener(ioManager.getClickListener(() -> sceneManager.setState(SceneManager.STATE.Tutorial))); 
 
         
 
@@ -69,7 +69,7 @@ public class MainMenuScene extends Scene {
         stage.addActor(startButton);
         stage.addActor(settingsButton);
         stage.addActor(exitButton);
-        stage.addActor(gameOverButton);
+        stage.addActor(tutorialButton);
     
     }
 
