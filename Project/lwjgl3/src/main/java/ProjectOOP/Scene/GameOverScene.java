@@ -16,11 +16,11 @@ public class GameOverScene extends Scene {
     private Skin skin;
     private TextButton menuButton;
     private TextButton exitButton;
-    private TextButton labelButton;
+    private Label scoreLabel;
     private int finalScore;
 	
 	public GameOverScene(IOManager ioManager, SceneManager sceneManager) {
-        super("gameOverBg.png", 0, 0); 
+        super("gameOverBg2.png", 0, 0); 
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
         
@@ -28,7 +28,8 @@ public class GameOverScene extends Scene {
         skin = new Skin(Gdx.files.internal("uiskin.json"));
         menuButton = new TextButton("Main Menu", skin);
         exitButton = new TextButton("Exit Game", skin);
-        labelButton = new TextButton("Score: 0", skin);
+        scoreLabel = new Label("Score: 0", skin);
+        scoreLabel.setFontScale(2f);
         
         // Set button size
         float buttonWidth = 200;
@@ -41,8 +42,8 @@ public class GameOverScene extends Scene {
         float centerX = (screenWidth - buttonWidth) / 2;
         float startY = (screenHeight / 2) + buttonHeight; // Score Label at the top
 
-        labelButton.setSize(buttonWidth, buttonHeight);
-        labelButton.setPosition(centerX, startY);
+        scoreLabel.setSize(buttonWidth, buttonHeight);
+        scoreLabel.setPosition(centerX + 35, startY);
 
         menuButton.setSize(buttonWidth, buttonHeight);
         menuButton.setPosition(centerX, startY - (buttonHeight + spacing));
@@ -54,15 +55,15 @@ public class GameOverScene extends Scene {
         menuButton.addListener(ioManager.getClickListener(() -> sceneManager.setState(SceneManager.STATE.MainMenu))); 
         exitButton.addListener(ioManager.getClickListener(() -> Gdx.app.exit()));
         
-        stage.addActor(labelButton);
+        stage.addActor(scoreLabel);
         stage.addActor(menuButton);
         stage.addActor(exitButton);
 	}
 	
 	public void setFinalScore(int score) {
 	    this.finalScore = score;
-	    if (labelButton != null) {
-	    	labelButton.setText("Final Score: " + score);
+	    if (scoreLabel != null) {
+	    	scoreLabel.setText("Score: " + score);
 	    }
 	}
 	
