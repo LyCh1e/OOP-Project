@@ -51,11 +51,11 @@ public class MainMenuScene extends Scene {
         settingsButton.setSize(buttonWidth, buttonHeight);
         settingsButton.setPosition(centerX, startY - (buttonHeight + spacing));
 
-        exitButton.setSize(buttonWidth, buttonHeight);
-        exitButton.setPosition(centerX, startY - 2 * (buttonHeight + spacing));
-        
         tutorialButton.setSize(buttonWidth, buttonHeight);
-        tutorialButton.setPosition(centerX, startY - 3 * (buttonHeight + spacing));
+        tutorialButton.setPosition(centerX, startY - 2 * (buttonHeight + spacing));
+        
+        exitButton.setSize(buttonWidth, buttonHeight);
+        exitButton.setPosition(centerX, startY - 3 * (buttonHeight + spacing));
 
         // Add listeners on button click
         startButton.addListener(ioManager.getClickListener(() -> sceneManager.setState(SceneManager.STATE.Start))); 
