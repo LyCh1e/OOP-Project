@@ -31,7 +31,7 @@ public class Input {
         if (forceJumpFalse) { // CHECK FORCE FLAG FIRST
             return false;
         }
-        return (Gdx.input.isKeyPressed(Keys.UP) || Gdx.input.isKeyPressed(Keys.SPACE));
+        return (Gdx.input.isKeyPressed(Keys.UP) || Gdx.input.isKeyPressed(Keys.SPACE) || Gdx.input.isKeyPressed(Keys.W));
     }
     
     public static boolean dropDown() {
