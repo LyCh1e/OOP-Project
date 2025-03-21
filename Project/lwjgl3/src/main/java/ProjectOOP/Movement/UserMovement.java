@@ -3,6 +3,7 @@ package ProjectOOP.Movement;
 import com.badlogic.gdx.Gdx;
 
 import ProjectOOP.Entity.Entity;
+import ProjectOOP.Entity.Player;
 import ProjectOOP.IO.IOManager;
 import ProjectOOP.Scene.SceneManager;
 
@@ -41,12 +42,14 @@ public class UserMovement{
     
     private void handleVerticalMovement(Entity e, SceneManager.STATE currentState) {
         float deltaTime = Gdx.graphics.getDeltaTime();
-        verticalVelocity += GRAVITY * deltaTime;
+//        Player player = (Player) e;
+//        verticalVelocity = player.getOnPlatform() ? 0 :  verticalVelocity + GRAVITY * deltaTime;
+        verticalVelocity = GRAVITY * deltaTime;
         
         if (currentState == SceneManager.STATE.Start && ioManager.isJumping()) {
             verticalVelocity = JUMP_VELOCITY;
         }
-        
+//        e.setVelocityY(verticalVelocity);
         e.setY(e.getY() + verticalVelocity * deltaTime);
     }
     
