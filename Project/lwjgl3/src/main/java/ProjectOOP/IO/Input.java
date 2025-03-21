@@ -46,24 +46,6 @@ public class Input {
         return Gdx.input.isKeyJustPressed(Keys.ESCAPE);
     }
     
-//    // Existing methods remain unchanged
-//    public boolean keyDown(int keycode) {
-//        if (keycode == keyBindings.getKey("left")) {
-//            player.moveLeft();
-//        } else if (keycode == keyBindings.getKey("right")) {
-//            player.moveRight();
-//        } else if (keycode == keyBindings.getKey("jump")) {
-//            player.jump();
-//        }
-//        return true;
-//    }
-//
-//    public boolean keyUp(int keycode) {
-//        if (keycode == keyBindings.getKey("left") || keycode == keyBindings.getKey("right")) {
-//            player.stopMoving();
-//        }
-//        return true;
-//    }
     
     public ClickListener getClick() {
         return click;
@@ -73,15 +55,6 @@ public class Input {
         click = c;
     }
     
-  //get coordinates of where the user touch/click. If it is in the bounds of the rectangle, more general approach, reuseable
-   // public boolean isClicked(Rectangle bounds) {
-     //   if (Gdx.input.justTouched()) {
-       //     int touchX = Gdx.input.getX();
-         //   int touchY = Gdx.graphics.getHeight() - Gdx.input.getY();
-          //  return bounds.contains(touchX, touchY);
-        //}
-        //return false;
-   // }
     
     // Click handling through ClickListener only works for scene2d aka UI elements
     public ClickListener createClickListener(final Runnable action) {

@@ -95,9 +95,9 @@ public class Player extends MovableEntity {
     public void jump() {
         if (!isJumping) {
             isJumping = true;
-            velocityY = 300; // Significantly higher jump velocity
+            velocityY = 250; // Significantly higher jump velocity
             // Force position to be slightly above the platform to avoid immediate collision detection
-            setY(getY() + 10); 
+            setY(getY() + 5); 
             System.out.println("Jumping with velocity: " + velocityY);
         }
     }
