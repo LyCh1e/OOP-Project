@@ -66,6 +66,10 @@ public class PauseMenuScene extends Scene {
         stage.addActor(exitButton);
 
     }
+    
+    public Stage getStage() {
+        return stage;
+    }
 
     @Override
     public void draw(SpriteBatch batch) {

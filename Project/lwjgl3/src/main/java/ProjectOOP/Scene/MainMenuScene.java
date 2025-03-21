@@ -72,6 +72,10 @@ public class MainMenuScene extends Scene {
         stage.addActor(tutorialButton);
     
     }
+    
+    public Stage getStage() {
+        return stage;
+    }
 
     @Override
     public void draw(SpriteBatch batch) {

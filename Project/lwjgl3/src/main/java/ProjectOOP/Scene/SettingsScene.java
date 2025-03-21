@@ -97,6 +97,10 @@ public class SettingsScene extends Scene {
             System.out.println("Volume increased to: " + volume); //see in console what the volume is now
         }
     }
+    
+    public Stage getStage() {
+        return stage;
+    }
 
     @Override
     public void draw(SpriteBatch batch) {

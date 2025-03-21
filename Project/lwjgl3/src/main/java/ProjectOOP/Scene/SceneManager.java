@@ -79,6 +79,15 @@ public class SceneManager implements Disposable {
         }
     }
 
+    public void resize(int width, int height) {
+        for (List<Scene> sceneList : stateSceneMap.values()) {
+            for (Scene scene : sceneList) {
+                if (scene.getStage() != null) {
+                    scene.getStage().getViewport().update(width, height, true);
+                }
+            }
+        }
+    }
 
 
     @Override

@@ -3,6 +3,7 @@ package ProjectOOP.Scene;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class Scene {
     private Texture texture;
@@ -44,6 +45,10 @@ public class Scene {
 
     void draw (SpriteBatch batch) {
         batch.draw(getTexture(), getX(), getY());
+    }
+    
+    public Stage getStage() {
+        return null;
     }
     
     public void dispose() {

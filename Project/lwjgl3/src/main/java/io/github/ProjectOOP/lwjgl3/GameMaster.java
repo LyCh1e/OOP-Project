@@ -473,6 +473,12 @@ public class GameMaster extends ApplicationAdapter {
 			// Go to GameOver state
 			sceneManager.setState(SceneManager.STATE.GameOver);
 		}
+		
+		@Override
+		public void resize(int width, int height) {
+			sceneManager.resize(width, height);
+		    
+		}
 
 		public void dispose() {
 			batch.dispose();

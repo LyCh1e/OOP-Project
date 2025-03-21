@@ -48,6 +48,10 @@ public class TutorialScene extends Scene {
 
     }
     
+    public Stage getStage() {
+        return stage;
+    }
+    
     @Override
     public void draw(SpriteBatch batch) {
         super.draw(batch);
