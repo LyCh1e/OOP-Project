@@ -9,8 +9,18 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 public class EntityManager {
 	private List<Entity> entityList = new ArrayList<>();
 	
-	public EntityManager(){
+	private EntityManager(){
 		
+	}
+	
+    private static EntityManager instance;
+
+	
+	public static synchronized EntityManager getInstance() {
+	    if (instance == null) {
+	        instance = new EntityManager();
+	    }
+	    return instance;
 	}
 
 	public void addEntities(Entity e) {

@@ -86,16 +86,17 @@ public class GameMaster extends ApplicationAdapter {
 	private int currentHealth = maxHealth; // Track health
 
 	GameMaster() {
-		entityManager = new EntityManager();
-		collisionManager = new CollisionManager();
+//		entityManager = new EntityManager();
+		entityManager = EntityManager.getInstance();
+		collisionManager = CollisionManager.getInstance();
 
 		// Create IOManager with Input
 		input = new Input();
-		ioManager = new IOManager(input);
-		sceneManager = new SceneManager(ioManager);
+		ioManager = IOManager.getInstance(input);
+		sceneManager = SceneManager.getInstance(ioManager);
 
 		// Create MovementManager with IOManager
-		movementManager = new MovementManager(ioManager, sceneManager);
+		movementManager = MovementManager.getInstance(ioManager, sceneManager);
 	}
 
 	public void create() {

@@ -11,6 +11,16 @@ public class MovementManager {
     private final AIMovement aiMovement;
     private final SceneManager sceneManager;
     private final IOManager iom;
+
+    private static MovementManager instance;
+
+	
+	public static synchronized MovementManager getInstance(IOManager ioManager, SceneManager sm) {
+	    if (instance == null) {
+	        instance = new MovementManager(ioManager, sm);
+	    }
+	    return instance;
+	}
     
     public enum Y_Column {
         BOTTOM, MIDDLE, TOP
@@ -20,7 +30,7 @@ public class MovementManager {
         LEFT, MIDDLE, RIGHT
     }
     
-    public MovementManager(IOManager ioManager, SceneManager sm) {
+    private MovementManager(IOManager ioManager, SceneManager sm) {
         userMovement = new UserMovement(ioManager);
         aiMovement = new AIMovement();
         sceneManager = sm;

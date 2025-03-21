@@ -12,7 +12,17 @@ public class IOManager {
     private Input input;
     private List<Output> outputList = new ArrayList<>();
     
-    public IOManager(Input in) {
+    private static IOManager instance;
+
+	
+	public static synchronized IOManager getInstance(Input in) {
+	    if (instance == null) {
+	        instance = new IOManager(in);
+	    }
+	    return instance;
+	}
+    
+	private IOManager(Input in) {
         input = in;
     }
     

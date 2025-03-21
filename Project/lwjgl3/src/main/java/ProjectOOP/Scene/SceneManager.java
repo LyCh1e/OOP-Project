@@ -29,12 +29,22 @@ public class SceneManager implements Disposable {
         Start, End, Pause, Background, Settings, MainMenu, GameOver //added new settings STATE
     }
 
-    public SceneManager(IOManager ioManager) {
+    private SceneManager(IOManager ioManager) {
         // Initialize lists for each state in the constructor
         for (STATE state : STATE.values()) {
             stateSceneMap.put(state, new ArrayList<>());
         }
     }
+	
+    private static SceneManager instance;
+
+	
+	public static synchronized SceneManager getInstance(IOManager ioManager) {
+	    if (instance == null) {
+	        instance = new SceneManager(ioManager);
+	    }
+	    return instance;
+	}
 
     public void setState(STATE newState) {
         this.prevState = this.currentState; // Save current state before changing

@@ -6,8 +6,18 @@ import ProjectOOP.Entity.Entity;
 
 public class CollisionManager {
 	
-	public CollisionManager(){
+	private CollisionManager(){
 		
+	}
+	
+    private static CollisionManager instance;
+
+	
+	public static synchronized CollisionManager getInstance() {
+	    if (instance == null) {
+	        instance = new CollisionManager();
+	    }
+	    return instance;
 	}
 	
 	protected static Rectangle makeRectangle(Entity e) {
