@@ -401,7 +401,7 @@ public class GameMaster extends ApplicationAdapter {
 					pizza.setPosition(newX, newY);
 
 					// Update score
-					score = Math.max(score - 20, 0); // -20 score for every pizza collected
+					score = Math.max(score - 1, 0); // -20 score for every pizza collected
 				}
 			}
 		}
@@ -410,6 +410,8 @@ public class GameMaster extends ApplicationAdapter {
 			if (currentHealth <= 0) {
 				resetGame(player1[0], Waterbottle, softDrinks, broccoli, pizza, bottomPlatform, bottomPlatformY, scoreOutput, hearts,
 						entityManager);
+			    // Set the final score in the GameOverScene
+			    gameOverScene.setFinalScore((int)score);
 
 				// Reset health, score and stamina
 				currentHealth = maxHealth;
