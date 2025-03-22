@@ -69,21 +69,6 @@ public class SpeedBar extends ImmovableEntity{
     }
     
     public void setBar(Color[] barColors, float stamina) {
-//    	Actual calculation
-//    	int index = -1;
-//    	if (stamina > 0 && stamina <= 10) {
-//    		index = 0;
-//    	} else if (stamina > 10 && stamina <= 20) {
-//    		index = 1;
-//    	} else if (stamina > 20 && stamina <= 30) {
-//    		index = 2;
-//    	} else if (stamina > 30 && stamina <= 40) {
-//    		index = 3;
-//    	} else if (stamina > 40 && stamina <= 50) {
-//    		index = 4;
-//    	} else if (stamina > 50 && stamina <= 60) {
-//    		index = 5;
-//    	}
 
     	// Floor to ensure 0 to 10 is first color, 11 to 20 is second color
     	int index = (int) Math.floor((stamina - 1) / 10);

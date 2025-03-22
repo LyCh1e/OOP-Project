@@ -15,7 +15,7 @@ public class Input {
     //private KeyBindings keyBindings;
 
     public Input() {
-    	//this.keyBindings = new KeyBindings();
+    	
     }
     
     // New methods from IOManager moved here

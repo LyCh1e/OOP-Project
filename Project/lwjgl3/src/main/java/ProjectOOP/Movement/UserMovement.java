@@ -42,14 +42,11 @@ public class UserMovement{
     
     private void handleVerticalMovement(Entity e, SceneManager.STATE currentState) {
         float deltaTime = Gdx.graphics.getDeltaTime();
-//        Player player = (Player) e;
-//        verticalVelocity = player.getOnPlatform() ? 0 :  verticalVelocity + GRAVITY * deltaTime;
         verticalVelocity = GRAVITY * deltaTime;
         
         if (currentState == SceneManager.STATE.Start && ioManager.isJumping()) {
             verticalVelocity = JUMP_VELOCITY;
         }
-//        e.setVelocityY(verticalVelocity);
         e.updateY(e.retrieveY() + verticalVelocity * deltaTime);
     }
     

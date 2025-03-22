@@ -1,7 +1,6 @@
 package ProjectOOP.Scene;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -22,8 +21,6 @@ public class TutorialScene extends Scene {
         //load the skinjson for ui elements, got from libgdx github
         skin = new Skin(Gdx.files.internal("uiskin.json"));
         backButton = new TextButton("Back", skin);
-
-
         
         // Set button size
         float buttonWidth = 200;

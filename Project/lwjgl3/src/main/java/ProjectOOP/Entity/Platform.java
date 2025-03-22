@@ -2,7 +2,6 @@ package ProjectOOP.Entity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -19,7 +18,6 @@ public class Platform extends MovableEntity {
     private float screenWidth;
     private List<Rectangle> segments = new ArrayList<>();
     private float segmentWidth = 100;
-    private Random random = new Random();
     
     public Platform() {
         // Default constructor
@@ -39,26 +37,6 @@ public class Platform extends MovableEntity {
         // Set initial vertical velocity
         setVelocityY(speed);
     }
-    
-//    @Override
-//    public void updatePosition() {
-//        // Store previous position
-//        float prevX = getX();
-//        float prevY = getY();
-//        
-//        if (moveVertically) {
-//            // Move platform vertically
-//            setY(getY() + getVelocityY() * Gdx.graphics.getDeltaTime());
-//            
-//            // Reverse direction if reached boundaries
-//            if (getY() < minY || getY() > maxY) {
-//                setVelocityY(-getVelocityY());
-//            }
-//        }
-//        
-//        // Update bounds
-//        bounds.setPosition(getX(), getY());
-//    }
     
     @Override
     public void draw(ShapeRenderer shape) {
