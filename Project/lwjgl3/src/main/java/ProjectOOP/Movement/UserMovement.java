@@ -32,11 +32,11 @@ public class UserMovement{
         float deltaTime = Gdx.graphics.getDeltaTime();
         
         if (ioManager.isMovingLeft()) {
-            e.setX(e.getX() - MOVEMENT_SPEED * deltaTime);
+            e.updateX(e.retrieveX() - MOVEMENT_SPEED * deltaTime);
         }
         
         if (ioManager.isMovingRight()) {
-            e.setX(e.getX() + MOVEMENT_SPEED * deltaTime);
+            e.updateX(e.retrieveX() + MOVEMENT_SPEED * deltaTime);
         }
     }
     
@@ -50,15 +50,15 @@ public class UserMovement{
             verticalVelocity = JUMP_VELOCITY;
         }
 //        e.setVelocityY(verticalVelocity);
-        e.setY(e.getY() + verticalVelocity * deltaTime);
+        e.updateY(e.retrieveY() + verticalVelocity * deltaTime);
     }
     
     private void enforceBoundaries(Entity e) {
         // Horizontal boundaries
-        if (e.getX() < x_leftLimit) {
-            e.setX(x_leftLimit);
-        } else if (e.getX() > x_rightLimit) {
-            e.setX(x_rightLimit);
+        if (e.retrieveX() < x_leftLimit) {
+            e.updateX(x_leftLimit);
+        } else if (e.retrieveX() > x_rightLimit) {
+            e.updateX(x_rightLimit);
         }
     }
 }

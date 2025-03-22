@@ -33,51 +33,51 @@ public abstract class Entity {
     	return texture; 
     }
     
-    public float getX() { 
+    protected float getX() { 
     	return x_axis;
     }
     
-    public float getY() { 
+    // Store previous position before updating
+    protected void setX(float x) {
+    	prevX = x_axis;
+    	x_axis = x;
+    }
+    
+    protected float getY() { 
     	return y_axis; 
     }
     
-    public float getSpeed() { 
+    protected void setY(float y) {
+        prevY = y_axis;
+        y_axis = y;
+    }
+    
+    protected float getSpeed() { 
     	return speed; 
     }
     
-    public float getVelocityX() {
+    protected void setSpeed(float s) { 
+    	speed = s;
+    }
+    
+    protected float getVelocityX() {
     	return velocityX;
     }
     
-    public float getVelocityY() { 
+    protected void setVelocityX(float f) { 
+    	velocityX = f; 
+    }
+    
+    protected float getVelocityY() { 
     	return velocityY; 
+    }
+    
+    protected void setVelocityY(float f) { 
+    	velocityY = f;
     }
 
     void setTexture(Texture t) { 
     	texture = t; 
-    }
-
-    // Store previous position before updating
-    public void setX(float x) {
-        prevX = x_axis;
-        x_axis = x;
-    }
-
-    public void setY(float y) {
-        prevY = y_axis;
-        y_axis = y;
-    }
-
-    public void setSpeed(float s) { 
-    	speed = s;
-    }
-    
-    public void setVelocityX(float f) { 
-    	velocityX = f; 
-    }
-    
-    public void setVelocityY(float f) { 
-    	velocityY = f;
     }
 
     public float getPrevX() { 
@@ -87,7 +87,47 @@ public abstract class Entity {
     public float getPrevY() { 
     	return prevY;
     }
-
+    
+    public float retrieveX() {
+    	return getX();
+    }
+    
+    public void updateX(float x) {
+    	setX(x);
+    }
+    
+    public float retrieveY() {
+    	return getY();
+    }
+    
+    public void updateY(float y) {
+    	setY(y);
+    }
+    
+    public float retrieveVelocityX() {
+    	return getVelocityX();
+    }
+    
+    public void updateVelocityX(float x) {
+    	setVelocityX(x);
+    }
+    
+    public float retrieveVelocityY() {
+    	return getVelocityY();
+    }
+    
+    public void updateVelocityY(float y) {
+    	setVelocityY(y);
+    }
+    
+    public float retrieveSpeed() {
+    	return getSpeed();
+    }
+    
+    public void updateSpeed(float s) {
+    	setSpeed(s);
+    }
+    
     //Ensures entity never respawn in the same position.
     public void respawn(float minX, float maxX, float minY, float maxY) {
         float newX, newY;

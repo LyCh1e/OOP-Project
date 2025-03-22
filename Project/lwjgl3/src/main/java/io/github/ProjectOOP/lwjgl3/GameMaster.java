@@ -240,7 +240,7 @@ public class GameMaster extends ApplicationAdapter {
 				// Check bottom platform segments
 				if (bottomPlatform != null) {
 					// Skip platform collision checks completely if player is jumping upward
-					if (!(player.isJumping() && player.getVelocityY() > 0)) {
+					if (!(player.isJumping() && player.retrieveVelocityY() > 0)) {
 						List<Rectangle> segments = bottomPlatform.getSegments();
 						for (Rectangle segment : segments) {
 							if (Collidable.doSegmentedPlatformCollision(player, bottomPlatform, segment)) {
@@ -254,7 +254,7 @@ public class GameMaster extends ApplicationAdapter {
 				// Check middle platform segments - same logic as bottom platform
 				if (middlePlatform != null && !onAnyPlatform) {
 					// Skip platform collision checks completely if player is jumping upward
-					if (!(player.isJumping() && player.getVelocityY() > 0)) {
+					if (!(player.isJumping() && player.retrieveVelocityY() > 0)) {
 						List<Rectangle> segments = middlePlatform.getSegments();
 						for (Rectangle segment : segments) {
 							if (Collidable.doSegmentedPlatformCollision(player, middlePlatform, segment)) {
@@ -268,7 +268,7 @@ public class GameMaster extends ApplicationAdapter {
 				// Check top platform segments - same logic as middle and bottom platforms
 				if (topPlatform != null && !onAnyPlatform) {
 					// Skip platform collision checks completely if player is jumping upward
-					if (!(player.isJumping() && player.getVelocityY() > 0)) {
+					if (!(player.isJumping() && player.retrieveVelocityY() > 0)) {
 						List<Rectangle> segments = topPlatform.getSegments();
 						for (Rectangle segment : segments) {
 							if (Collidable.doSegmentedPlatformCollision(player, topPlatform, segment)) {
@@ -280,10 +280,10 @@ public class GameMaster extends ApplicationAdapter {
 				}
 
 				// Apply gravity if not on platform and not jumping upward
-				if (!onAnyPlatform && !(player.isJumping() && player.getVelocityY() > 0)) {
-					float currentVelocity = player.getVelocityY();
+				if (!onAnyPlatform && !(player.isJumping() && player.retrieveVelocityY() > 0)) {
+					float currentVelocity = player.retrieveVelocityY();
 					// Apply strong fixed gravity - don't use deltaTime for more immediate effect
-					player.setVelocityY(currentVelocity - 9.8f);
+					player.updateVelocityY(currentVelocity - 9.8f);
 				}
 			}
 
@@ -431,10 +431,10 @@ public class GameMaster extends ApplicationAdapter {
 		public void resetGame(Player player, Water[] waterBottles, SoftDrink[] softDrinks, Broccoli[] broccoli, Pizza[] pizza, Platform bottomPlatform,
 				float bottomPlatformY, Output scoreOutput, ImmovableEntity[] hearts, EntityManager entityManager) {
 			// Reset player position and velocity
-			player.setX(10);
-			player.setY(300);
-			player.setVelocityY(0);
-			player.setVelocityX(0);
+			player.updateX(10);
+			player.updateY(300);
+			player.updateVelocityY(0);
+			player.updateVelocityX(0);
 
 			// Reset entity positions
 			for (int i = 0; i < waterBottles.length; i++) {

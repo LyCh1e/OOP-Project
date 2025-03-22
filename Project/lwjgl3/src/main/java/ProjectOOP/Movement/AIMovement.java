@@ -39,35 +39,35 @@ public class AIMovement {
     }
 
     private void moveInLayerYAxis(Entity e, float minY, float maxY) {
-        float x = e.getX();
-        float speed = e.getSpeed();
-        e.setX(x - speed);
+        float x = e.retrieveX();
+        float speed = e.retrieveSpeed();
+        e.updateX(x - speed);
 
-        if (e.getX() < 0) {
+        if (e.retrieveX() < 0) {
             resetPositionYAxis(e, minY, maxY);
         }
     }
 
     private void moveInLayerXAxis(Entity e, float minX, float maxX) {
-        float y = e.getY();
-        float speed = e.getSpeed();
-        e.setY(y - speed);
+        float y = e.retrieveY();
+        float speed = e.retrieveSpeed();
+        e.updateY(y - speed);
 
-        if (e.getY() < minX) {
+        if (e.retrieveY() < minX) {
             resetPositionXAxis(e, minX, maxX);
         }
     }
 
     private void resetPositionYAxis(Entity e, float minY, float maxY) {
         e.respawn(SCREEN_WIDTH, SCREEN_WIDTH, minY, maxY); // AI respawns at the right side
-        float newSpeed = Math.min(e.getSpeed() * 2, MAX_SPEED);
-        e.setSpeed(newSpeed);
+        float newSpeed = Math.min(e.retrieveSpeed() * 2, MAX_SPEED);
+        e.updateSpeed(newSpeed);
     }
 
 
     private void resetPositionXAxis(Entity e, float minX, float maxX) {
         e.respawn(minX, maxX, SCREEN_WIDTH, SCREEN_WIDTH); // AI respawns at the top
-        float newSpeed = Math.min(e.getSpeed() * 2, MAX_SPEED);
-        e.setSpeed(newSpeed);
+        float newSpeed = Math.min(e.retrieveSpeed() * 2, MAX_SPEED);
+        e.updateSpeed(newSpeed);
     }
 }

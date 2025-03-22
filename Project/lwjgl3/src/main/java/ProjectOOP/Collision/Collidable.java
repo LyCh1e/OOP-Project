@@ -23,26 +23,26 @@ public class Collidable {
         	if (push == true) {
         		// Allows e2 to be pushed
         		if (overlapX < overlapY) {
-                	if (e1.getX() < e2.getX()) {
-                		e1.setX(e1.getX() - overlapX);
-                        e2.setX(e2.getX() + overlapX / 2);
+                	if (e1.retrieveX() < e2.retrieveX()) {
+                		e1.updateX(e1.retrieveX() - overlapX);
+                        e2.updateX(e2.retrieveX() + overlapX / 2);
                     }
                 	
                 	else {
-                        e1.setX(e1.getX() + overlapX);
-                        e2.setX(e2.getX() - overlapX / 2);
+                        e1.updateX(e1.retrieveX() + overlapX);
+                        e2.updateX(e2.retrieveX() - overlapX / 2);
                     }
                 	System.out.println("Collided with entity");
                 } 
                 else {
-                    if (e1.getY() < e2.getY()) {
-                    	e1.setY(e1.getY() - overlapY);
-                        e2.setY(e2.getY() + overlapY / 2);
+                    if (e1.retrieveY() < e2.retrieveY()) {
+                    	e1.updateY(e1.retrieveY() - overlapY);
+                        e2.updateY(e2.retrieveY() + overlapY / 2);
                     } 
                     
                     else {
-                        e1.setY(e1.getY() + overlapY);
-                        e2.setY(e2.getY() - overlapY / 2);
+                        e1.updateY(e1.retrieveY() + overlapY);
+                        e2.updateY(e2.retrieveY() - overlapY / 2);
                     }
                     System.out.println("Collided with entity");
                 }
@@ -50,40 +50,40 @@ public class Collidable {
         	else if (push == false) {
         		// Push entities apart based on the smallest overlap
                 if (overlapX < overlapY) {
-                	if (e1.getX() < e2.getX()) {
-                		e1.setX(e1.getX() - overlapX);
+                	if (e1.retrieveX() < e2.retrieveX()) {
+                		e1.updateX(e1.retrieveX() - overlapX);
                     }
                 	
                 	else {
-                        e1.setX(e1.getX() + overlapX);
+                        e1.updateX(e1.retrieveX() + overlapX);
                     }
                 	System.out.println("Collided with entity");
                 } 
                 else {
-                    if (e1.getY() < e2.getY()) {
-                    	e1.setY(e1.getY() - overlapY);
+                    if (e1.retrieveY() < e2.retrieveY()) {
+                    	e1.updateY(e1.retrieveY() - overlapY);
                     } 
                     
                     else {
-                        e1.setY(e1.getY() + overlapY);
+                        e1.updateY(e1.retrieveY() + overlapY);
                     }
                     System.out.println("Collided with entity");
                 }
         	}
             // Reset velocities to prevent further movement
-            e1.setVelocityX(0);
-            e1.setVelocityY(0);
-            e2.setVelocityX(0);
-            e2.setVelocityY(0);
+            e1.updateVelocityX(0);
+            e1.updateVelocityY(0);
+            e2.updateVelocityX(0);
+            e2.updateVelocityY(0);
         }
 	}
 	
 	public static void doBounceCollision(Entity e1, Entity e2) {
 		// bouncing collision, the 2 entity will bounce off each other
-        float e1CenterX = e1.getX() + e1.getTexture().getWidth() / 2;
-        float e1CenterY = e1.getY() + e1.getTexture().getHeight() / 2;
-        float e2CenterX = e2.getX() + e2.getTexture().getWidth() / 2;
-        float e2CenterY = e2.getY() + e2.getTexture().getHeight() / 2;
+        float e1CenterX = e1.retrieveX() + e1.getTexture().getWidth() / 2;
+        float e1CenterY = e1.retrieveY() + e1.getTexture().getHeight() / 2;
+        float e2CenterX = e2.retrieveX() + e2.getTexture().getWidth() / 2;
+        float e2CenterY = e2.retrieveY() + e2.getTexture().getHeight() / 2;
 
         // Calculate collision normal
         float dx = e2CenterX - e1CenterX;
@@ -99,18 +99,18 @@ public class Collidable {
             float bounceForce = 5f; // Adjust this value as needed
                 
             // Apply opposite forces to entity e1 from e2
-            e1.setVelocityX(-dx * bounceForce);
-            e1.setVelocityY(-dy * bounceForce);
+            e1.updateVelocityX(-dx * bounceForce);
+            e1.updateVelocityY(-dy * bounceForce);
             // Apply opposite force to entity e2 from e1
-            e2.setVelocityX(dx * bounceForce);
-            e2.setVelocityY(dy * bounceForce);
+            e2.updateVelocityX(dx * bounceForce);
+            e2.updateVelocityY(dy * bounceForce);
         }
 	}
 	
 	// New method to handle platform collision
 	public static boolean doPlatformCollision(Player player, Platform platform) {
 	    // Skip collision detection entirely if the player is jumping upward
-	    if ((player.isJumping() && player.getVelocityY() > 0) || Input.dropDown()) {
+	    if ((player.isJumping() && player.retrieveVelocityY() > 0) || Input.dropDown()) {
 	        System.out.println("Skipping platform collision while jumping up");
 	        return false;
 	    }
@@ -122,13 +122,13 @@ public class Collidable {
 	    if (playerRect.x + playerRect.width > platformRect.x && 
 	        playerRect.x < platformRect.x + platformRect.width) {
 	        
-	        float playerBottom = player.getY();
-	        float platformTop = platform.getY() + platform.getTexture().getHeight();
+	        float playerBottom = player.retrieveY();
+	        float platformTop = platform.retrieveY() + platform.getTexture().getHeight();
 	        
 	        // Only snap player to platform if they're falling onto it
 	        if (playerBottom < platformTop) {
-	            player.setY(platformTop);
-	            player.setVelocityY(0);
+	            player.updateY(platformTop);
+	            player.updateVelocityY(0);
 	            player.land();
 	            System.out.println("Landed on platform");
 	            return true;
@@ -140,7 +140,7 @@ public class Collidable {
 
 	public static boolean doSegmentedPlatformCollision(Player player, Platform platform, Rectangle segment) {
 	    // Skip collision detection entirely if the player is jumping upward
-	    if ((player.isJumping() && player.getVelocityY() > 0) || Input.dropDown()) {
+	    if ((player.isJumping() && player.retrieveVelocityY() > 0) || Input.dropDown()) {
 	        System.out.println("Skipping segmented platform collision while jumping up");
 	        return false;
 	    }
@@ -151,15 +151,15 @@ public class Collidable {
 	    if (playerRect.x + playerRect.width > segment.x && 
 	        playerRect.x < segment.x + segment.width) {
 	        
-	        float playerBottom = player.getY(); // lowest pixle of character
+	        float playerBottom = player.retrieveY(); // lowest pixle of character
 	        float segmentTop = segment.y + segment.height;
 	        
 	        // Only snap player to platform if they're falling onto it
 	        if (playerBottom < segmentTop) {  
-	        	if (player.getVelocityY() > 0) {
+	        	if (player.retrieveVelocityY() > 0) {
 	        		return false;
 	        	}
-	        	player.setY(segmentTop);
+	        	player.updateY(segmentTop);
 	            player.land();
 	            System.out.println("Landed on platform segment");
 	            return true;

@@ -21,8 +21,8 @@ public class CollisionManager {
 	}
 	
 	protected static Rectangle makeRectangle(Entity e) {
-		Rectangle rect = new Rectangle(e.getX(), 
-				e.getY(), 
+		Rectangle rect = new Rectangle(e.retrieveX(), 
+				e.retrieveY(), 
 				e.getTexture().getWidth(), 
 				e.getTexture().getHeight());
 		

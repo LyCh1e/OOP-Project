@@ -21,10 +21,10 @@ public class Uncollidable {
             }
             
             // Reset velocities to prevent further movement
-            e1.setVelocityX(0);
-            e1.setVelocityY(0);
-            e2.setVelocityX(0);
-            e2.setVelocityY(0);
+            e1.updateVelocityX(0);
+            e1.updateVelocityY(0);
+            e2.updateVelocityX(0);
+            e2.updateVelocityY(0);
         }
     }
 }
